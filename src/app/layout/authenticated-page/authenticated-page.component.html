@@ -1,0 +1,17 @@
+
+<app-top-navbar></app-top-navbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav [fixedInViewport]="false" width="300px" mode="side" opened>
+        <mat-nav-list>
+
+            <app-side-menu-item *ngFor="let item of navItems" [item]="item"></app-side-menu-item>
+
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div style="height: 88vh;" class="p-3">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

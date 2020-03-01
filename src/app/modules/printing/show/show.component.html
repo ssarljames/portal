@@ -1,0 +1,49 @@
+<h1>
+  <i class="fa fa-print"></i>
+  Print Transactions <span *ngIf="printer">on {{ printer.description }}</span>
+</h1>
+
+<div class="row" *ngIf="printer">
+  <div class="col-lg-8">
+    <mat-card>
+      <mat-card-header>
+
+        <mat-card-title>Transactions</mat-card-title>
+        <mat-card-subtitle>
+            <button mat-raised-button (click)="newTransaction()" color="primary"><i class="fa fa-plus"></i> New</button>
+        </mat-card-subtitle>
+
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="printer.transactions">
+
+
+          <ng-container matColumnDef="created_at">
+              <th mat-header-cell *matHeaderCellDef> Time </th>
+              <td mat-cell *matCellDef="let transation">
+                  <i class="fa fa-user-circle"></i> {{ transation.created_at }}
+              </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="transactionTableColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: transactionTableColumns;"></tr>
+
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-4">
+    <mat-card>
+      <mat-card-header>
+        <h3 class="text-center">Current Session</h3>
+      </mat-card-header>
+      <mat-card-content>
+
+        <mat-list>
+          <mat-list-item>Sales P 100.00</mat-list-item>
+        </mat-list>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

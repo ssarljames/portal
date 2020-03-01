@@ -1,0 +1,48 @@
+<h1>
+    <i class="fa fa-user-edit"></i> Edit User Account
+</h1>
+
+<form [formGroup]="form" autocomplete="off" (submit)="submit()">
+    <div class="row">
+        <div class="col-lg-4">
+
+            <mat-card>
+                <mat-card-content *ngIf="isFetching">
+                    <span class="text-muted">Loading...</span>
+                </mat-card-content>
+                <mat-card-content *ngIf="isFetching == false">
+
+                    <div class="alert alert-danger" *ngIf="error">
+                        {{ error }}
+                    </div>
+
+                    <mat-form-field class="full-width">
+                        <input matInput [formControl]="form.controls.firstname" placeholder="Firstname">
+                        <mat-error>{{ form.controls.firstname.errors }}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput [formControl]="form.controls.lastname" placeholder="Lastname">
+                        <mat-error>{{ form.controls.lastname.errors }}</mat-error>
+                    </mat-form-field>
+
+                    <br>
+                    <br>
+                    <br>
+
+                    <mat-form-field class="full-width">
+                        <input matInput [formControl]="form.controls.username" placeholder="Username">
+                        <mat-error>{{ form.controls.username.errors }}</mat-error>
+                    </mat-form-field>
+
+                    <mat-checkbox color="primary" [checked]="resetPassword" (change)="resetPassword = !resetPassword">Reset Password to <strong>{{ randomPassword }}</strong></mat-checkbox>
+
+
+                </mat-card-content>
+                <mat-card-actions *ngIf="isFetching == false">
+                    <button mat-raised-button color="primary"><i class="fa fa-paper-plane"></i> Submit</button>
+                    <button mat-raised-button color="basic" routerLink="/users"><i class="fa fa-times"></i> Cancel</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</form>

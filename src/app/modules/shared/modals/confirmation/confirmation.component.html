@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>
+    <i class="fa fa-exclamation-triangle"></i> Confirmation</h1>
+<div mat-dialog-content>
+    <p [innerHTML]="message ? message : 'Are you sure?' "></p>
+    <span *ngIf="withPrompt"> If yes, give the answer on this equation: <strong>{{ equation }} = ?</strong></span>
+
+    <input *ngIf="withPrompt" type="text" class="form-control" [(ngModel)]="userInput" placeholder="Enter the number given">
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="dismiss()" #cancelButton><i class="fa fa-remove"></i> Cancel</button>
+    <button [disabled]="answer != (userInput * 1) && withPrompt" mat-raised-button [color]="color" (click)="close()"><i class="fa fa-check"></i> Confirm</button>
+
+</div>

@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>CS<sup>3</sup> InfoSys</h1>
+      <span class="menu-spacer"></span>
+
+
+      <div class="flex-spacer"></div>
+
+
+      <!-- <mat-form-field>
+          <input matInput autocomplete="off">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear">
+            <mat-icon>search</mat-icon>
+            <i class="fa fa-search"></i>
+          </button>
+      </mat-form-field> -->
+
+      <app-theme-picker></app-theme-picker>
+
+      <button mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <!-- <mat-icon>more_vert</mat-icon> -->
+        <mat-icon>account_circle</mat-icon>
+        {{ user.firstname }}
+      </button>
+      <mat-menu #menu="matMenu">
+          <!-- <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Account</span>
+          </button> -->
+
+          <button mat-menu-item (click)="doLogout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sign Out</span>
+        </button>
+      </mat-menu>
+  </mat-toolbar-row>
+
+  <!-- <mat-toolbar-row>
+
+  </mat-toolbar-row> -->
+
+</mat-toolbar>

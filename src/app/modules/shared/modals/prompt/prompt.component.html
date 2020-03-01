@@ -1,0 +1,14 @@
+<div *ngIf="initialized">
+
+    <h1 mat-dialog-title><i class="fa fa-question-circle"></i> {{ question }}</h1>
+    <div mat-dialog-content>
+        <mat-form-field class="example-full-width">
+            <mat-label>Answer</mat-label>
+            <input matInput (keydown.enter)="close()" [(ngModel)]="user_input" autocomplete="off">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button [color]="color" [disabled]="required && !user_input" (click)="close()"><i class="fa fa-check"></i> Ok</button>
+        <button type="button" class="btn btn-default" (click)="dismiss()"><i class="fa fa-times"></i> Close</button>
+    </div>
+</div>
