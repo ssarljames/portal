@@ -70,4 +70,15 @@ export class ModalService {
   public swal(option: any){
     Swal.fire(option);
   }
+
+  public toast(text: string, title: string = 'Message', icon: string = 'info', timer: number = 5000): void{
+    this.swal({
+      text: text,
+      title: title,
+      timer: timer,
+      icon: icon,
+      toast: true,
+      position: 'bottom-start'
+    })
+  }
 }

@@ -8,20 +8,27 @@
     <mat-card>
       <mat-card-header>
 
-        <mat-card-title>Transactions</mat-card-title>
-        <mat-card-subtitle>
+        <mat-card-title><span *ngIf="!printer.current_session">Previous</span> Transactions</mat-card-title>
+        <mat-card-subtitle *ngIf="printer.current_session && printer.current_session.user.id == currentUser.id">
             <button mat-raised-button (click)="newTransaction()" color="primary"><i class="fa fa-plus"></i> New</button>
         </mat-card-subtitle>
 
       </mat-card-header>
       <mat-card-content>
-        <table mat-table [dataSource]="printer.transactions">
+        <table mat-table [dataSource]="transactions" class="full-width">
 
 
-          <ng-container matColumnDef="created_at">
-              <th mat-header-cell *matHeaderCellDef> Time </th>
+          <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef> Time </th>
+            <td mat-cell *matCellDef="let transation">
+                {{ transation.time  | parseDate | dfnsFormat: 'MMM DD, YYYY hh:mm A'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="sales">
+              <th mat-header-cell *matHeaderCellDef> Sales </th>
               <td mat-cell *matCellDef="let transation">
-                  <i class="fa fa-user-circle"></i> {{ transation.created_at }}
+                  {{ transation.sales }}
               </td>
           </ng-container>
 
@@ -33,17 +40,34 @@
     </mat-card>
   </div>
   <div class="col-lg-4">
-    <mat-card>
+    <mat-card *ngIf="!printer.current_session">
       <mat-card-header>
-        <h3 class="text-center">Current Session</h3>
+        <mat-card-title class="text-muted">No Current User</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <button mat-raised-button color="primary" (click)="joinPrinting()">Join Printing Session</button>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="printer.current_session">
+      <mat-card-header>
+        <mat-card-title>Current Session</mat-card-title>
       </mat-card-header>
       <mat-card-content>
 
         <mat-list>
-          <mat-list-item>Sales P 100.00</mat-list-item>
-        </mat-list>
+          <mat-list-item>User: {{ printer.current_session.user.firstname }}</mat-list-item>
 
-      </mat-card-content>
+          <mat-list-item>Total Sales: P {{ printer.current_session.sales }}</mat-list-item>
+          <mat-list-item class="text-danger" *ngIf="printer.current_session && printer.current_session.user.id != currentUser.id">Only 1 user can join the printing session as of now.</mat-list-item>
+        </mat-list>
+     </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="error" *ngIf="printer.current_session && printer.current_session.user.id == currentUser.id" (click)="leavePrinting()">Leave Printing</button>
+
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

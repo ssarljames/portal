@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit {
     let lname: string = this.form.controls.lastname.value;
 
     if(fname.trim().length > 0 && lname.trim().length > 0)
-      this.form.controls.username.setValue(fname.charAt(0) + '.' + lname);
+      this.form.controls.username.setValue((fname.charAt(0) + '.' + lname).toLowerCase());
     else
       this.form.controls.username.setValue('');
 
@@ -52,7 +52,8 @@ export class CreateComponent implements OnInit {
           result += characters.charAt(Math.floor(Math.random() * charactersLength));
       }
 
-      this.form.controls.password.setValue(result);
+      // this.form.controls.password.setValue(result);
+      this.form.controls.password.setValue('password');
   }
 
 

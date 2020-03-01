@@ -10,11 +10,11 @@ import { PromptComponent } from './modals/prompt/prompt.component';
 import { MaterialModule } from './material.module';
 
 import { DateFnsModule, DateFnsConfigurationService, } from 'ngx-date-fns';
-import * as fil from 'date-fns/locale/fil'
+import * as en from 'date-fns/locale/en'
 
 
 const phConfig = new DateFnsConfigurationService();
-phConfig.setLocale(fil)
+phConfig.setLocale(en)
 
 @NgModule({
   declarations: [
