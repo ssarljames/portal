@@ -5,9 +5,14 @@ import { ShowComponent } from './show/show.component';
 
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   component: IndexComponent
+  // },
   {
     path: '',
-    component: IndexComponent
+    redirectTo: 'printer/1',
+    pathMatch: 'full'
   },
   {
     path: 'printer/:id',

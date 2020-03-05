@@ -12,6 +12,7 @@ export class PromptComponent implements OnInit {
   @Input() question: string;
   @Input() color: string;
   @Input() required: boolean;
+  @Input() password: boolean;
 
   user_input: string;
 
@@ -25,6 +26,8 @@ export class PromptComponent implements OnInit {
     this.color = this.color ? this.color : 'primary';
     this.initialized = true;
     this.user_input = this.value ? this.value : '';
+    this.password = this.password ? true : false;
+    this.required = this.required || this.password ? true : false;
   }
 
   close(): void{
@@ -46,5 +49,6 @@ export interface PromptModalOption{
   question: string,
   color?: 'basic' | 'primary' | 'accent' | 'warn'
   value?: string,
-  required?: boolean
+  required?: boolean,
+  password?: boolean
 }

@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthenticationService {
   endpoint: string;
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  // headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser: User = new User();
 
 
@@ -38,7 +38,7 @@ export class AuthenticationService {
   }
 
   getToken() {
-    return this.user ? this.user.token : null;
+    return this.user() ? this.user().token : null;
   }
 
   get isLoggedIn(): boolean {
@@ -46,13 +46,13 @@ export class AuthenticationService {
   }
 
 
-  get user(): User {
+  user(): User {
     return this.currentUser;
   }
 
 
   logout() {
-    localStorage.removeItem('user');
+    localStorage.clear();
     this.currentUser = null;
     this.router.navigate(['/auth']);
 

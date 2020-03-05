@@ -13,6 +13,7 @@ export class ConfirmationComponent implements OnInit, AfterViewInit {
   @Input() message: string;
   @Input() color: string;
   @Input() withPrompt: boolean;
+  @Input() password: boolean;
 
   equation: string;
   answer: number;
@@ -23,14 +24,18 @@ export class ConfirmationComponent implements OnInit, AfterViewInit {
   constructor(private dialogRef: MatDialogRef<ConfirmationComponent>) {}
 
   ngOnInit() {
-    if(this.withPrompt){
+
+
+    this.color = this.color ? this.color : 'warn';
+    this.password = false; //this.password ? true : false;
+
+    if(this.withPrompt && this.password == false){
       const r1 = Math.floor(Math.random() * 100);
       const r2 = Math.floor(Math.random() * 10) + 1;
       this.equation = r1 + ' + ' + r2;
       this.answer = r1 + r2;
     }
 
-    this.color = this.color ? this.color : 'warn';
 
 
   }
@@ -58,5 +63,6 @@ export class ConfirmationComponent implements OnInit, AfterViewInit {
 export interface ConfirmationModalOption{
   message?: string,
   type?: 'basic' | 'primary' | 'accent' | 'warn'
-  withPrompt?: boolean
+  withPrompt?: boolean;
+  password?: boolean;
 }

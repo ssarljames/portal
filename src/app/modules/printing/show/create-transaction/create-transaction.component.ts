@@ -11,6 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { PrintTransactionService } from '../../../../services/print-transaction/print-transaction.service';
 import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { Printer } from 'src/app/models/printer/printer';
+import { PrintRate } from 'src/app/models/print-rate/print-rate';
 
 @Component({
   selector: 'app-create-transaction',
@@ -30,34 +32,18 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  sizes: any = [
-    {
-      value: 1,
-      label: 'Short'
-    },
-    {
-      value: 2,
-      label: 'Long'
-    }
-  ];
-
-  qualities: any = [
-    {
-      value: 1,
-      label: 'Standard'
-    },
-    {
-      value: 2,
-      label: 'Colored Text'
-    }
-  ];
 
   transactionItemTableColumns: string[] = ['size', 'quality', 'quantity', 'price', 'total', 'action'];
 
   transaction: PrintTransaction;
 
-  transaction_items: MatTableDataSource<PrintTransactionItem>;
+  mds: MatTableDataSource<PrintTransactionItem>;
 
+  printer: Printer;
+
+  savingTransaction: boolean = false;
+
+  currentTransactionItem: PrintTransactionItem;
 
   constructor(private dialogRef: MatDialogRef<CreateTransactionComponent>,
               private printTransactionService: PrintTransactionService,
@@ -67,9 +53,14 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     this.transaction.member_id = '1';
     this.transaction.time = format(new Date(), "MMM DD, YYYY hh:mm A");
 
-    this.transaction_items = new MatTableDataSource([
-      new PrintTransactionItem()
-    ]);
+    this.currentTransactionItem = new PrintTransactionItem();
+    this.transaction.transaction_items = [
+      this.currentTransactionItem
+    ];
+
+    this.mds = new MatTableDataSource(this.transaction.transaction_items);
+
+    this.printer = matData.printer;
   }
 
   ngOnInit(): void {
@@ -80,45 +71,70 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
 
   }
 
-  addItem(transaction_item: PrintTransactionItem): void{
+  addItem(): void{
 
-    if(transaction_item.size && transaction_item.quality){
+    if(this.currentTransactionItem.paper_size && this.currentTransactionItem.print_quality){
 
       let foundDup = false;
 
-      this.transaction_items.data.forEach((item: PrintTransactionItem, index: number) => {
-        if(!foundDup && item.valid && item.size === transaction_item.size && item.quality === transaction_item.quality){
-          foundDup = true;
-          item.quantity += transaction_item.quantity;
+      this.transaction.transaction_items.forEach((item: PrintTransactionItem, index: number) => {
+        if(!foundDup && item.valid && item.paper_size_id === this.currentTransactionItem.paper_size_id &&
+           item.print_quality_id === this.currentTransactionItem.print_quality_id){
+            foundDup = true;
+            item.quantity += this.currentTransactionItem.quantity;
         }
       });
 
       if(!foundDup){
-        transaction_item.markAsValid();
-        this.transaction_items.data.push(new PrintTransactionItem());
+        this.currentTransactionItem.markAsValid();
+
+        this.currentTransactionItem = new PrintTransactionItem();
+        this.transaction.transaction_items.push(this.currentTransactionItem);
       }
       else
-        transaction_item.reset();
+        this.currentTransactionItem.reset();
 
-      this.transaction_items.connect().next(this.transaction_items.data);
+      this.mds.connect().next(this.transaction.transaction_items);
 
-      console.log(this.transaction_items);
+      this.transaction.computeSales();
     }
   }
 
   saveTransaction(): void{
 
-    this.transaction.transaction_items = this.transaction_items.data.filter((item) => item.valid);
-    this.transaction.printer_id = this.matData.printer.id;
+    this.transaction.transaction_items = this.mds.data.filter((item) => item.valid);
+    this.transaction.printer_id = this.printer.id;
 
+    this.savingTransaction = true;
     this.printTransactionService.create(this.transaction).subscribe((response) => {
       this.modalService.toast('Transaction saved!');
       this.dialogRef.close(response);
+      this.savingTransaction = false;
     },
     (error) => {
       this.modalService.toast('Error occured', 'Ooops!', 'danger');
     });
   }
 
+  setPrice(): void{
+
+
+    this.currentTransactionItem.price = 0;
+    this.currentTransactionItem.paper_size = null;
+    this.currentTransactionItem.print_quality = null;
+
+    this.printer.current_session.print_rates.forEach((pr: PrintRate) => {
+      if(this.currentTransactionItem.paper_size_id == pr.paper_size_id &&
+          this.currentTransactionItem.print_quality_id == pr.print_quality_id){
+
+          this.currentTransactionItem.price = pr.rate;
+          this.currentTransactionItem.paper_size = pr.paper_size;
+          this.currentTransactionItem.print_quality = pr.print_quality;
+
+          console.log(this.currentTransactionItem);
+
+      }
+    });
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 
 export interface Theme {
@@ -16,7 +16,7 @@ export interface Theme {
 @Injectable({
   providedIn: 'root'
 })
-export class ThemeService {
+export class ThemeService implements OnInit {
 
   private _themes: Theme[] =  [
     {
@@ -59,7 +59,25 @@ export class ThemeService {
 
   currentTheme: Theme;
 
-  constructor() { }
+  constructor() {
+
+    const theme_name = localStorage.getItem('theme');
+
+    const theme = this._themes.find((t) => t.name == theme_name);
+
+    if(theme)
+      this.setTheme(theme);
+    else
+      this.setTheme(this._themes[0]);
+
+    // console.log(theme);
+
+
+  }
+
+  ngOnInit(){
+
+  }
 
 
   get availableThemes(){
@@ -69,6 +87,8 @@ export class ThemeService {
   setTheme(theme: Theme): Theme{
     this.removeStyle(theme)
     getLinkElementForKey(theme.name).setAttribute('href', theme.href);
+    localStorage.setItem('theme', theme.name);
+    theme.selected = true;
     return theme;
   }
 

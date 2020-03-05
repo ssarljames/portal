@@ -16,6 +16,11 @@ export class AuthenticatedPageComponent implements OnInit {
 
   navItems: NavItem[] = [
     {
+      displayName: 'Darshboard',
+      route: '/',
+      iconName: 'dashboard'
+    },
+    {
       displayName: 'Services',
       iconName: 'headset_mic',
       children: [
@@ -34,7 +39,7 @@ export class AuthenticatedPageComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.user = this.authService.user;
+    this.user = this.authService.user();
   }
 
   doLogout(): void{

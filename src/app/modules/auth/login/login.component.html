@@ -1,43 +1,57 @@
 <div class="container-fluid">
-  <div class="row mt-5">
-    <div class="col-lg-7"></div>
-    <div class="col-lg-3">
-        <form [formGroup]="form" autocomplete="off" (submit)="submit()">
+    <div class="row mt-5">
+        <div class="col-lg-7">
+            <h1>CS<sup>3</sup> Portal</h1>
 
-            <mat-card>
-                <mat-card-header>
-                  <mat-card-title>Login</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
+            <br>
 
-                    <div class="alert alert-danger" *ngIf="error">
-                        <i class="fa fa-exclamation-circle"></i> {{ error }}
-                    </div>
+            <h2>Mission</h2>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-                    <mat-form-field class="full-width">
-                        <mat-label>Username</mat-label>
-                        <input matInput [formControl]="form.controls.username" placeholder="Username">
-                        <mat-error>Required</mat-error>
-                    </mat-form-field>
+            <br><br>
 
-                    <br><br>
+            <h2>Vision</h2>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+
+        </div>
+        <div class="col-lg-3">
+            <form [formGroup]="form" autocomplete="off" (submit)="submit()">
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Login</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+
+                        <div class="alert alert-danger" *ngIf="error">
+                            <i class="fa fa-exclamation-circle"></i> {{ error }}
+                        </div>
+
+                        <mat-form-field class="full-width">
+                            <mat-label>Username</mat-label>
+                            <input matInput [formControl]="form.controls.username" placeholder="Username">
+                            <mat-error>Required</mat-error>
+                        </mat-form-field>
+
+                        <br><br>
 
 
-                    <mat-form-field class="full-width">
-                        <mat-label>Password</mat-label>
-                        <input matInput type="password" [formControl]="form.controls.password" placeholder="Password">
-                        <mat-error>Required</mat-error>
-                    </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" [formControl]="form.controls.password" placeholder="Password">
+                            <mat-error>Required</mat-error>
+                        </mat-form-field>
 
 
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-raised-button color="primary" type="submit" class="full-width">Login</button>
-                </mat-card-actions>
-            </mat-card>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" type="submit" class="full-width">Login</button>
+                    </mat-card-actions>
+                </mat-card>
 
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 </div>

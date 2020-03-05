@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './layout/errors/page-not-found/page-not-f
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticatedPageComponent } from './layout/authenticated-page/authenticated-page.component';
+import { IndexComponent } from './layout/index/index.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
     canActivate: [ AuthenticatedGuard ],
     component: AuthenticatedPageComponent,
     children: [
+      {
+        path: '',
+        component: IndexComponent
+      },
       {
         path: 'users',
         loadChildren: () => import(`./modules/users/users.module`).then(m => m.UsersModule)

@@ -19,11 +19,13 @@ export class ModalService {
     // return modal.result;
 
     const dialogRef: MatDialogRef<ConfirmationComponent> = this.dialog.open(ConfirmationComponent, {
-      width: '250px'
+      width: '400px'
     });
 
     dialogRef.componentInstance.message = option.message;
     dialogRef.componentInstance.color = option.type;
+    dialogRef.componentInstance.withPrompt = option.withPrompt;
+    dialogRef.componentInstance.password = option.password;
     return dialogRef.afterClosed().toPromise();
   }
 
@@ -57,7 +59,8 @@ export class ModalService {
 
 
     const dialogRef: MatDialogRef<PromptComponent> = this.dialog.open(PromptComponent, {
-      width: '250px'
+      // width: '250px',
+      minWidth: '250px'
     });
 
     for (const key in option)

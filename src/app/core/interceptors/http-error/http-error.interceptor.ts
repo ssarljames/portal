@@ -1,3 +1,4 @@
+import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
 import { AuthenticationService } from './../../services/authentication/authentication.service';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,8 @@ import { Observable, throwError } from 'rxjs';
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService,
+              private modalService: ModalService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
       return next.handle(request).pipe(catchError(err => {
@@ -27,6 +29,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             // }, 2000);
             console.log(err.message);
             this.authService.logout();
+            this.modalService.toast('Not logged in!');
 
         }else if(err.status == 404){
             // this.toastr.error('API Resource not found!');

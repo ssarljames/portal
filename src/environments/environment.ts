@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   endpoint: 'http://127.0.0.1:8000/api'
   // endpoint: 'https://cs-cube-backend.herokuapp.com/api'
+  //endpoint: 'http://172.16.26.29:8000/api'
 };
 
 /*

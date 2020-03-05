@@ -1,3 +1,4 @@
+import { localePh } from '@angular/common/locales/en-PH';
 import { NavService } from './layout/side-menu-item/nav.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error/http-error.interceptor';
 import { RouterModule, GuardsCheckEnd, NavigationEnd } from '@angular/router';
@@ -14,6 +15,7 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
 
+// import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,9 @@ import { AuthenticationInterceptor } from './core/interceptors/authentication/au
 import { SideMenuItemComponent } from './layout/side-menu-item/side-menu-item.component';
 import { ThemePickerComponent } from './layout/theme-picker/theme-picker.component';
 import { TopNavbarComponent } from './layout/top-navbar/top-navbar.component';
+import { IndexComponent } from './layout/index/index.component';
+
+
 
 @NgModule({
   declarations: [
@@ -34,7 +39,8 @@ import { TopNavbarComponent } from './layout/top-navbar/top-navbar.component';
     AuthenticatedPageComponent,
     SideMenuItemComponent,
     ThemePickerComponent,
-    TopNavbarComponent
+    TopNavbarComponent,
+    IndexComponent
   ],
   imports: [
     RouterModule,

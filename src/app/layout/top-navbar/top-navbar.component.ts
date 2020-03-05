@@ -17,7 +17,7 @@ export class TopNavbarComponent implements OnInit {
   sidenav: MatSidenav;
 
   ngOnInit(): void {
-    this.user = this.authService.user;
+    this.user = this.authService.user();
   }
 
   doLogout(): void{

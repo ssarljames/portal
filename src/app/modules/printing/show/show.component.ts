@@ -20,11 +20,14 @@ export class ShowComponent implements OnInit {
 
   printer: Printer;
 
-  transactionTableColumns: string[] = ['time', 'sales'];
+  transactionTableColumns: string[] = ['time', 'member', 'sales'];
 
-  transactions: MatTableDataSource<PrintTransaction>;
+  mds: MatTableDataSource<PrintTransaction>;
+  transactions: PrintTransaction[];
 
   currentUser: User;
+
+  isJoiningOrLeaving: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private printerService: PrinterService,
@@ -33,7 +36,7 @@ export class ShowComponent implements OnInit {
               private modalService: ModalService,
               private dialog: MatDialog) {
 
-              this.transactions = new MatTableDataSource();
+              this.mds = new MatTableDataSource();
               this.currentUser = authenticationService.currentUser;
    }
 
@@ -59,13 +62,14 @@ export class ShowComponent implements OnInit {
         user_id: this.currentUser.id
       }
     }).subscribe((transactions: PrintTransaction[]) => {
-      this.transactions.connect().next(transactions);
+      this.transactions = transactions;
+      this.mds.connect().next(transactions);
     })
   }
 
   newTransaction(): void{
 
-    console.log(this.transactions.data);
+    console.log(this.mds.data);
 
 
     const dialogRef: MatDialogRef<CreateTransactionComponent> = this.dialog.open(CreateTransactionComponent, {
@@ -78,9 +82,8 @@ export class ShowComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if(result){
-
-        this.transactions.data.unshift(result);
-        this.transactions.connect().next(this.transactions.data);
+        this.transactions.unshift(result);
+        this.mds.connect().next(this.transactions);
         this.printer.current_session.sales = Number(this.printer.current_session.sales) + Number(result.sales);
       }
     });
@@ -88,25 +91,59 @@ export class ShowComponent implements OnInit {
   }
 
   joinPrinting(): void{
-    this.printer.set_session_user_id = this.currentUser.id;
-    this.printerService.update(this.printer).subscribe((printer: Printer) => {
-      this.setPrinter(printer);
-      this.modalService.toast('You successfully joined the printing session');
-    },
-    (e) => {
-
+    this.modalService.prompt({
+      question: 'Please to enter your password to join the printing session',
+      password: true
+    }).then((v) => {
+        if(v){
+          this.isJoiningOrLeaving = true;
+          this.printer.set_session_user_id = this.currentUser.id;
+          this.printer.user_password = v;
+          this.printerService.update(this.printer).subscribe((printer: Printer) => {
+            this.setPrinter(printer);
+            this.modalService.toast('You successfully joined the printing session');
+            this.isJoiningOrLeaving = false;
+          },
+          (e) => {
+            let message = (e && e.error && e.error.errors && e.error.errors.password) ? 'Incorrect password.' : 'Unknown Error';
+            //this.modalService.toast(message, 'Join session failed', 'error');
+            this.modalService.swal({
+              text: message,
+              title: 'Join session failed',
+              icon: 'error',
+            });
+            this.isJoiningOrLeaving = false;
+          });
+        }
     });
   }
 
   leavePrinting(): void{
-    this.printer.unset_session_user_id = this.currentUser.id;
-    this.printerService.update(this.printer).subscribe((printer: Printer) => {
-      this.setPrinter(printer);
-      this.modalService.toast('You successfully leaved the printing session');
-    },
-    (e) => {
-
-    });
+    this.modalService.prompt({
+      question: 'Please to enter your password to leave the printing session',
+      password: true
+    }).then((v) => {
+      if(v){
+        this.isJoiningOrLeaving = true;
+        this.printer.unset_session_user_id = this.currentUser.id;
+        this.printer.user_password = v;
+        this.printerService.update(this.printer).subscribe((printer: Printer) => {
+          this.setPrinter(printer);
+          this.modalService.toast('You successfully leaved the printing session');
+          this.isJoiningOrLeaving = false;
+        },
+        (e) => {
+          let message = (e && e.error && e.error.errors && e.error.errors.password) ? 'Incorrect password.' : 'Unknown Error';
+          // this.modalService.toast(message, 'Leave session failed', 'error');
+          this.modalService.swal({
+            text: message,
+            title: 'Leave session failed',
+            icon: 'error',
+          });
+          this.isJoiningOrLeaving = false;
+        });
+      }
+    })
   }
 
 }

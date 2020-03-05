@@ -1,14 +1,16 @@
 <div *ngIf="initialized">
 
-    <h1 mat-dialog-title><i class="fa fa-question-circle"></i> {{ question }}</h1>
+    <h1 mat-dialog-title><i class="fa fa-question-circle"></i> {{ password ? 'Password Required':'Prompt' }}</h1>
     <div mat-dialog-content>
-        <mat-form-field class="example-full-width">
-            <mat-label>Answer</mat-label>
-            <input matInput (keydown.enter)="close()" [(ngModel)]="user_input" autocomplete="off">
+        {{ question }} <br><br>
+
+        <mat-form-field class="full-width">
+            <mat-label>{{ password ? 'Your password' : 'Your answer' }}</mat-label>
+            <input matInput (keydown.enter)="close()" [type]="password ? 'password' : 'text'" [(ngModel)]="user_input" autocomplete="off">
         </mat-form-field>
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions align="end">
         <button mat-raised-button [color]="color" [disabled]="required && !user_input" (click)="close()"><i class="fa fa-check"></i> Ok</button>
-        <button type="button" class="btn btn-default" (click)="dismiss()"><i class="fa fa-times"></i> Close</button>
+        <button type="button" class="btn btn-default" (click)="dismiss()" cdkFocus><i class="fa fa-times"></i> Close</button>
     </div>
 </div>
