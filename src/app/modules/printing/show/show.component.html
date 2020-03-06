@@ -14,7 +14,7 @@
 
             </mat-card-header>
             <mat-card-content>
-                <table mat-table [dataSource]="mds" class="full-width">
+                <table mat-table [dataSource]="mds" class="full-width table-hover">
 
 
                     <ng-container matColumnDef="time">
@@ -39,7 +39,7 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="transactionTableColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: transactionTableColumns;"></tr>
+                    <tr mat-row *matRowDef="let row; columns: transactionTableColumns;" (click)="viewTransactionItems(row)"></tr>
 
                 </table>
             </mat-card-content>

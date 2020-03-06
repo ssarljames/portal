@@ -22,11 +22,14 @@ const routes: Routes = [
         loadChildren: () => import(`./modules/users/users.module`).then(m => m.UsersModule)
       },
       {
-        path: 'printing',
+        path: 'services/printing',
         loadChildren: () => import(`./modules/printing/printing.module`).then(m => m.PrintingModule)
       },
     ]
   },
+
+
+
   {
     path: 'auth',
     canActivate: [ GuestGuard ],

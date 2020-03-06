@@ -10,5 +10,5 @@ export class User extends Model {
 
   public token?: string;
 
-  public reset_password?: boolean
+  public reset_password?: boolean;
 }

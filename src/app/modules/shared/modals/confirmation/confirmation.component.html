@@ -8,7 +8,7 @@
     <input *ngIf="password" type="password" class="form-control" [(ngModel)]="userInput" placeholder="Enter your pasword to proceed">
 </div>
 <div mat-dialog-actions align=end>
-    <button [disabled]="(answer != (userInput * 1) && withPrompt) || (answer && password)" mat-raised-button [color]="color" (click)="close()"><i class="fa fa-check"></i> Confirm</button>
-    <button mat-raised-button (click)="dismiss()" #cancelButton><i class="fa fa-remove"></i> Cancel</button>
+  <button mat-raised-button (click)="dismiss()" #cancelButton cdkFocus><i class="fa fa-remove"></i> Cancel</button>
+  <button [disabled]="(answer != (userInput * 1) && withPrompt) || (answer && password)" mat-raised-button [color]="color" (click)="close()"><i class="fa fa-check"></i> Confirm</button>
 
 </div>

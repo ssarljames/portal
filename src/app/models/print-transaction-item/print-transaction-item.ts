@@ -26,6 +26,10 @@ export class PrintTransactionItem extends Model {
     return this._valid || (this.paper_size_id && this.print_quality_id && this.price > 0);
   }
 
+  get dirty(): boolean{
+    return (this.paper_size_id || this.print_quality_id) && !this.valid;
+  }
+
   reset(): void{
     this.paper_size_id = null;
     this.print_quality_id = null;

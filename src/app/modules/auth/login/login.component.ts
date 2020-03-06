@@ -1,6 +1,7 @@
 import { AuthenticationService } from './../../../core/services/authentication/authentication.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from 'src/app/core/services/theme/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   error: string = null;
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private themeService: ThemeService) {
     this.form = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)

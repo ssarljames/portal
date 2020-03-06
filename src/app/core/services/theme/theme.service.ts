@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 
 export interface Theme {
@@ -58,6 +59,9 @@ export class ThemeService implements OnInit {
   ];
 
   currentTheme: Theme;
+  themeIsLoaded: boolean = false;
+
+  private themeLoading: BehaviorSubject<string>;
 
   constructor() {
 
@@ -65,18 +69,24 @@ export class ThemeService implements OnInit {
 
     const theme = this._themes.find((t) => t.name == theme_name);
 
+    this.themeLoading = new BehaviorSubject(theme ? theme.name : this._themes[0].name);
+
     if(theme)
       this.setTheme(theme);
     else
       this.setTheme(this._themes[0]);
 
-    // console.log(theme);
+
 
 
   }
 
   ngOnInit(){
 
+  }
+
+  get theme(): Observable<string>{
+    return this.themeLoading.asObservable();
   }
 
 
@@ -86,7 +96,7 @@ export class ThemeService implements OnInit {
 
   setTheme(theme: Theme): Theme{
     this.removeStyle(theme)
-    getLinkElementForKey(theme.name).setAttribute('href', theme.href);
+    this.getLinkElementForKey(theme.name).setAttribute('href', theme.href);
     localStorage.setItem('theme', theme.name);
     theme.selected = true;
     return theme;
@@ -94,34 +104,44 @@ export class ThemeService implements OnInit {
 
   private removeStyle(theme: Theme) {
 
-    const existingLinkElement = getExistingLinkElementByKey(theme.name);
+    const existingLinkElement = this.getExistingLinkElementByKey(theme.name);
     if (existingLinkElement) {
       document.head.removeChild(existingLinkElement);
     }
   }
+
+
+
+  getLinkElementForKey(key: string) {
+    return this.getExistingLinkElementByKey(key) || this.createLinkElementWithKey(key);
+  }
+
+  getExistingLinkElementByKey(key: string) {
+    return document.head.querySelector(`link[rel="stylesheet"].${this.getClassNameForKey(key)}`);
+  }
+
+  createLinkElementWithKey(key: string) {
+    this.themeIsLoaded = false;
+    const linkEl = document.createElement('link');
+    linkEl.setAttribute('rel', 'stylesheet');
+    linkEl.id = 'active-theme';
+    linkEl.classList.add(this.getClassNameForKey(key));
+
+    linkEl.onload = () => {
+      this.themeIsLoaded = false;
+      this.themeLoading.next(key)
+    };
+
+    document.head.appendChild(linkEl);
+
+
+    return linkEl;
+  }
+
+  getClassNameForKey(key: string) {
+    return `style-manager-${key}`;
+  }
+
 }
 
 
-
-function getLinkElementForKey(key: string) {
-  return getExistingLinkElementByKey(key) || createLinkElementWithKey(key);
-}
-
-function getExistingLinkElementByKey(key: string) {
-  return document.head.querySelector(`link[rel="stylesheet"].${getClassNameForKey(key)}`);
-}
-
-function createLinkElementWithKey(key: string) {
-  const linkEl = document.createElement('link');
-  linkEl.setAttribute('rel', 'stylesheet');
-  linkEl.id = 'active-theme';
-  linkEl.classList.add(getClassNameForKey(key));
-  document.head.appendChild(linkEl);
-
-
-  return linkEl;
-}
-
-function getClassNameForKey(key: string) {
-  return `style-manager-${key}`;
-}

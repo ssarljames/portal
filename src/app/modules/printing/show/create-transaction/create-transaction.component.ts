@@ -73,26 +73,17 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
 
   addItem(): void{
 
-    if(this.currentTransactionItem.paper_size && this.currentTransactionItem.print_quality){
+    if(this.currentTransactionItem && this.currentTransactionItem.paper_size && this.currentTransactionItem.print_quality){
 
-      let foundDup = false;
+      let foundDup = this.checkDuplicates();
 
-      this.transaction.transaction_items.forEach((item: PrintTransactionItem, index: number) => {
-        if(!foundDup && item.valid && item.paper_size_id === this.currentTransactionItem.paper_size_id &&
-           item.print_quality_id === this.currentTransactionItem.print_quality_id){
-            foundDup = true;
-            item.quantity += this.currentTransactionItem.quantity;
-        }
-      });
+
 
       if(!foundDup){
         this.currentTransactionItem.markAsValid();
-
         this.currentTransactionItem = new PrintTransactionItem();
         this.transaction.transaction_items.push(this.currentTransactionItem);
       }
-      else
-        this.currentTransactionItem.reset();
 
       this.mds.connect().next(this.transaction.transaction_items);
 
@@ -100,20 +91,67 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     }
   }
 
+  checkDuplicates(): boolean{
+    let foundDup = false;
+
+    this.transaction.transaction_items.forEach((item: PrintTransactionItem, index: number) => {
+      if(!foundDup && item.valid && item.paper_size_id === this.currentTransactionItem.paper_size_id &&
+          item.print_quality_id === this.currentTransactionItem.print_quality_id){
+          foundDup = true;
+          item.quantity += this.currentTransactionItem.quantity;
+          this.currentTransactionItem.reset();
+      }
+    });
+
+    return foundDup;
+  }
+
+  removeItem(item: PrintTransactionItem): void{
+
+    if(item.valid){
+      this.transaction.transaction_items = this.transaction
+                        .transaction_items
+                        .filter((t) =>  t.paper_size_id != item.paper_size_id && t.print_quality_id != item.print_quality_id && t.valid);
+    }
+    else{
+      this.currentTransactionItem.reset();
+    }
+
+
+    this.mds.connect().next(this.transaction.transaction_items);
+  }
+
   saveTransaction(): void{
 
-    this.transaction.transaction_items = this.mds.data.filter((item) => item.valid);
-    this.transaction.printer_id = this.printer.id;
+    this.modalService.confirm({
+      message: 'Save this transaction?'
+    }).then((c) => {
+      if(c){
 
-    this.savingTransaction = true;
-    this.printTransactionService.create(this.transaction).subscribe((response) => {
-      this.modalService.toast('Transaction saved!');
-      this.dialogRef.close(response);
-      this.savingTransaction = false;
-    },
-    (error) => {
-      this.modalService.toast('Error occured', 'Ooops!', 'danger');
-    });
+        this.checkDuplicates();
+
+        if(this.currentTransactionItem.is_ready)
+          this.addItem();
+
+        this.transaction.transaction_items = this.transaction.transaction_items.filter((item) => item.valid);
+        this.transaction.printer_id = this.printer.id;
+
+        this.savingTransaction = true;
+        this.printTransactionService.create(this.transaction).subscribe((response) => {
+          this.modalService.toast('Transaction saved!');
+          this.dialogRef.close(response);
+          this.savingTransaction = false;
+        },
+        (error) => {
+          this.modalService.swal({
+            title: 'Saving Transaction Failed',
+            text: 'Unknown Error Occured',
+            icon: 'error'
+          });
+          this.savingTransaction = false;
+        });
+      }
+    })
   }
 
   setPrice(): void{
@@ -131,7 +169,7 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
           this.currentTransactionItem.paper_size = pr.paper_size;
           this.currentTransactionItem.print_quality = pr.print_quality;
 
-          console.log(this.currentTransactionItem);
+          // console.log(this.currentTransactionItem);
 
       }
     });

@@ -64,8 +64,8 @@ export class ResourceService<T> {
   }
 
 
-  public read(id: any): Observable<T> {
-    return this.httpClient.get<T>(`${this.host}/${this.resource}/${id}`);
+  public read(id: any, option: {} = {}): Observable<T> {
+    return this.httpClient.get<T>(`${this.host}/${this.resource}/${id}`, option);
   }
 
   public query(queryOptions: {} = {}): Observable<T[]> {

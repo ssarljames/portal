@@ -1,5 +1,4 @@
-import { localePh } from '@angular/common/locales/en-PH';
-import { NavService } from './layout/side-menu-item/nav.service';
+import { NavService } from './layout/side-nav/side-menu-item/nav.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error/http-error.interceptor';
 import { RouterModule, GuardsCheckEnd, NavigationEnd } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
@@ -15,7 +14,6 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
 
-// import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,10 +22,11 @@ import { AccessDeniedComponent } from './layout/errors/access-denied/access-deni
 import { AuthenticatedPageComponent } from './layout/authenticated-page/authenticated-page.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthenticationInterceptor } from './core/interceptors/authentication/authentication.interceptor';
-import { SideMenuItemComponent } from './layout/side-menu-item/side-menu-item.component';
+import { SideMenuItemComponent } from './layout/side-nav/side-menu-item/side-menu-item.component';
 import { ThemePickerComponent } from './layout/theme-picker/theme-picker.component';
 import { TopNavbarComponent } from './layout/top-navbar/top-navbar.component';
 import { IndexComponent } from './layout/index/index.component';
+import { SideNavComponent } from './layout/side-nav/side-nav.component';
 
 
 
@@ -40,7 +39,8 @@ import { IndexComponent } from './layout/index/index.component';
     SideMenuItemComponent,
     ThemePickerComponent,
     TopNavbarComponent,
-    IndexComponent
+    IndexComponent,
+    SideNavComponent
   ],
   imports: [
     RouterModule,

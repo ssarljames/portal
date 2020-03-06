@@ -6,13 +6,15 @@ import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../shared/shared.module';
 import { ShowComponent } from './show/show.component';
 import { CreateTransactionComponent } from './show/create-transaction/create-transaction.component';
+import { TransactionItemsComponent } from './show/transaction-items/transaction-items.component';
 
 
 @NgModule({
   declarations: [
     IndexComponent,
     ShowComponent,
-    CreateTransactionComponent
+    CreateTransactionComponent,
+    TransactionItemsComponent,
   ],
   imports: [
     CommonModule,

@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { User } from 'src/app/models/user/user';
 import { ModalService } from '../../shared/services/modal/modal.service';
+import { TransactionItemsComponent } from './transaction-items/transaction-items.component';
 
 @Component({
   selector: 'app-show',
@@ -144,6 +145,18 @@ export class ShowComponent implements OnInit {
         });
       }
     })
+  }
+
+  viewTransactionItems(transaction: PrintTransaction): void{
+
+
+    const dialogRef: MatDialogRef<TransactionItemsComponent> = this.dialog.open(TransactionItemsComponent, {
+      width: '900px',
+      // disableClose: true,
+      data: {
+        transaction: transaction
+      }
+    });
   }
 
 }

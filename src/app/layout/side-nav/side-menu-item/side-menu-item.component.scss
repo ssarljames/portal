@@ -14,12 +14,12 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
     outline: none;
     width: 100%;
     .mat-list-item.active {
-      background: rgba(0, 0, 0, 0.25) !important;
+      background: rgba(0, 0, 0, 0.10) !important;
     }
     &:hover,
     &:focus {
         >.mat-list-item:not(.expanded) {
-          background: rgba(0, 0, 0, 0.25) !important;
+          background: rgba(0, 0, 0, 0.05) !important;
         }
     }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeService } from './core/services/theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-v9-project';
+
+  showContent: boolean = false;
+
+  constructor(private themeService: ThemeService){
+    themeService.theme.subscribe((s) => {
+      this.showContent = true;
+    })
+  }
 }
