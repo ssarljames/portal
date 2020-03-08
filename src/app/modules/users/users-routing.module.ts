@@ -3,6 +3,7 @@ import { CreateComponent } from './create/create.component';
 import { IndexComponent } from './index/index.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdministratorGuard } from 'src/app/core/guards/administrator/administrator.guard';
 
 
 const routes: Routes = [
@@ -12,11 +13,13 @@ const routes: Routes = [
   },
   {
     path: 'create',
-    component: CreateComponent
+    component: CreateComponent,
+    canActivate: [ AdministratorGuard ]
   },
   {
     path: ':id/edit',
-    component: EditComponent
+    component: EditComponent,
+    canActivate: [ AdministratorGuard ]
   }
 ];
 

@@ -38,7 +38,7 @@ export class SideNavComponent implements OnInit {
         },
         {
           displayName: 'Printing Settings',
-          route: '/printing/settings',
+          route: '/settings/printing-service',
           iconName: 'insert_drive_file'
         },
       ]

@@ -7,7 +7,7 @@
         <mat-card>
             <mat-card-header>
 
-                <mat-card-title><span *ngIf="!printer.current_session">Previous</span> Transactions</mat-card-title>
+                <mat-card-title>Transactions <span *ngIf="!printer.current_session">of Previous Session</span></mat-card-title>
                 <mat-card-subtitle *ngIf="printer.current_session && printer.current_session.user.id == currentUser.id">
                     <button mat-raised-button (click)="newTransaction()" color="primary"><i class="fa fa-plus"></i> New</button>
                 </mat-card-subtitle>
@@ -68,6 +68,7 @@
 
                 <mat-list>
                     <mat-list-item>User: {{ printer.current_session.user.firstname }}</mat-list-item>
+                    <mat-list-item>Time Started: {{ printer.current_session.start_time | parseDate | dfnsFormat: 'h:m A'  }}</mat-list-item>
 
                     <mat-list-item>Total Sales: {{ printer.current_session.sales | currency: ' ' }}</mat-list-item>
                     <mat-list-item class="text-danger" *ngIf="printer.current_session && printer.current_session.user.id != currentUser.id">Only 1 user can join the printing session as of now.</mat-list-item>

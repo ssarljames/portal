@@ -5,10 +5,12 @@ export class User extends Model {
   public username: string;
   public password: string;
 
-  public firstname?: string;
-  public lastname?: string;
+  public firstname: string;
+  public lastname: string;
 
-  public token?: string;
+  public token: string;
 
-  public reset_password?: boolean;
+  public reset_password: boolean;
+
+  public is_administrator: boolean;
 }

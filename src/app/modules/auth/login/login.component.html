@@ -46,7 +46,7 @@
 
                     </mat-card-content>
                     <mat-card-actions>
-                        <button mat-raised-button color="primary" type="submit" class="full-width">Login</button>
+                        <button [disabled]="loading" mat-raised-button color="primary" type="submit" class="full-width">{{ loading ? 'Logging In...' : 'Login' }}</button>
                     </mat-card-actions>
                 </mat-card>
 

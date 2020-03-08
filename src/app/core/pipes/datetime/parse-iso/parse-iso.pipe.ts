@@ -7,7 +7,7 @@ import * as parse from 'date-fns/parse';
 })
 export class ParseIsoPipe implements PipeTransform {
 
-  transform(value: string): Date {
+  transform(value: string | Date): Date {
     return parse(value);
   }
 

@@ -25,6 +25,10 @@ const routes: Routes = [
         path: 'services/printing',
         loadChildren: () => import(`./modules/printing/printing.module`).then(m => m.PrintingModule)
       },
+      {
+        path: 'settings',
+        loadChildren: () => import(`./modules/settings/settings.module`).then(m => m.SettingsModule)
+      },
     ]
   },
 

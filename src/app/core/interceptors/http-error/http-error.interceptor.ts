@@ -24,9 +24,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             // auto logout if 401 response returned from api
             // this.authenticationService.logout();
             // this.toastr.error('Session expired.');
-            // setTimeout( () => {
-            //     location.reload(true);
-            // }, 2000);
+            setTimeout( () => {
+                location.reload(true);
+            }, 2000);
             console.log(err.message);
             this.authService.logout();
             this.modalService.toast('Not logged in!');

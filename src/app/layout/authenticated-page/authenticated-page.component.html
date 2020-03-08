@@ -1,5 +1,5 @@
 
-<app-top-navbar></app-top-navbar>
+<app-top-navbar (toggled)="onToggle($event)"></app-top-navbar>
 
 <mat-sidenav-container>
     <mat-sidenav #sidenav [fixedInViewport]="false" width="300px" mode="side" opened>

@@ -62,15 +62,17 @@ export class EditComponent implements OnInit {
   submit(): void{
     if(this.form.valid){
 
+      const user = new User();
 
-      this.userService.update({
-        id: this.userId,
-        username: this.form.controls.username.value,
-        firstname: this.form.controls.firstname.value,
-        lastname: this.form.controls.lastname.value,
-        password: this.randomPassword,
-        reset_password: this.resetPassword
-      }).subscribe(() => {
+
+      user.id = this.userId;
+      user.username = this.form.controls.username.value;
+      user.firstname = this.form.controls.firstname.value;
+      user.lastname = this.form.controls.lastname.value;
+      user.password = this.randomPassword;
+      user.reset_password = this.resetPassword;
+
+      this.userService.update(user).subscribe(() => {
         this.modalService.swal({
           'text': 'User succesfully created',
           'icon': 'success'

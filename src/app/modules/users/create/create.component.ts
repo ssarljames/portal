@@ -3,6 +3,7 @@ import { ModalService } from 'src/app/modules/shared/services/modal/modal.servic
 import { UserService } from 'src/app/services/user/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user/user';
 
 @Component({
   selector: 'app-create',
@@ -59,12 +60,16 @@ export class CreateComponent implements OnInit {
 
   submit(): void{
     if(this.form.valid){
-      this.userService.create({
-        username: this.form.controls.username.value,
-        firstname: this.form.controls.firstname.value,
-        lastname: this.form.controls.lastname.value,
-        password: this.form.controls.password.value,
-      }).subscribe(() => {
+
+
+      const user = new User();
+
+      user.username = this.form.controls.username.value;
+      user.firstname = this.form.controls.firstname.value;
+      user.lastname = this.form.controls.lastname.value;
+      user.password = this.form.controls.password.value;
+
+      this.userService.create(user).subscribe(() => {
         this.modalService.swal({
           'text': 'User succesfully created',
           'icon': 'success'

@@ -53,11 +53,15 @@ export class AuthenticationService {
 
   logout() {
 
-    return this.http.post<any>(`${this.endpoint}/logout`, {}).subscribe(() => {
-      localStorage.clear();
-      this.currentUser = null;
-      this.router.navigate(['/auth']);
-    });
+    localStorage.clear();
+    this.currentUser = null;
+    this.router.navigate(['/auth']);
+
+    // return this.http.post<any>(`${this.endpoint}/logout`, {}).subscribe(() => {
+    //   localStorage.clear();
+    //   this.currentUser = null;
+    //   this.router.navigate(['/auth']);
+    // });
 
   }
 

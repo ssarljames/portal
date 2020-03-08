@@ -2,6 +2,7 @@ import { AuthenticationService } from './../../../core/services/authentication/a
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/core/services/theme/theme.service';
+import { User } from 'src/app/models/user/user';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   error: string = null;
+
+  loading: boolean = false;
 
   constructor(private authService: AuthenticationService, private themeService: ThemeService) {
     this.form = new FormGroup({
@@ -27,17 +30,21 @@ export class LoginComponent implements OnInit {
 
   submit(): void{
 
-    if(this.form.valid)
-      this.authService.login({
-        username: this.form.controls.username.value,
-        password: this.form.controls.password.value
-      }).subscribe((user) => {
-        console.log('ok');
+    if(this.form.valid){
+      this.loading = true;
 
+      const user = new User();
+      user.username = this.form.controls.username.value;
+      user.password = this.form.controls.password.value;
+
+      this.authService.login(user).subscribe((user) => {
+        this.loading = false;
       },(e: any) => {
         if(e.hasOwnProperty('error'))
           this.error = e.error;
+        this.loading = false;
       })
+    }
   }
 
 }
