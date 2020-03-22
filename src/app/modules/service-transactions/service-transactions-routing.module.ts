@@ -1,17 +1,12 @@
+import { IndexComponent } from './index/index.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ShowComponent } from './show/show.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'printer/1',
-    pathMatch: 'full'
-  },
-  {
-    path: 'printer/:id',
-    component: ShowComponent
+    component: IndexComponent
   }
 ];
 
@@ -19,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PrintingRoutingModule { }
+export class ServiceTransactionsRoutingModule { }

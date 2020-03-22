@@ -3,7 +3,6 @@ import { PaperSizeService } from '../../../services/paper-size/paper-size.servic
 import { PrintQualityService } from '../../../services/print-quality/print-quality.service';
 import { PaperSize } from 'src/app/models/paper-size/paper-size';
 import { PrintQuality } from 'src/app/models/print-quality/print-quality';
-import { Printer } from 'src/app/models/printer/printer';
 import { PrintRateService } from 'src/app/services/print-rate/print-rate.service';
 import { PrintRate } from 'src/app/models/print-rate/print-rate';
 import { MatTableDataSource } from '@angular/material/table';

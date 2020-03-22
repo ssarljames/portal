@@ -17,15 +17,9 @@ export class SideNavComponent implements OnInit {
       iconName: 'dashboard'
     },
     {
-      displayName: 'Services',
-      iconName: 'headset_mic',
-      children: [
-        {
-          displayName: 'Printing',
-          iconName: 'print',
-          route: '/services/printing',
-        }
-      ]
+      displayName: 'Service Transactions',
+      iconName: 'print',
+      route: 'service-transactions'
     },
     {
       displayName: 'Administration',

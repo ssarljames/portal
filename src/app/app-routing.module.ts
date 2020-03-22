@@ -22,8 +22,8 @@ const routes: Routes = [
         loadChildren: () => import(`./modules/users/users.module`).then(m => m.UsersModule)
       },
       {
-        path: 'services/printing',
-        loadChildren: () => import(`./modules/printing/printing.module`).then(m => m.PrintingModule)
+        path: 'service-transactions',
+        loadChildren: () => import(`./modules/service-transactions/service-transactions.module`).then(m => m.ServiceTransactionsModule)
       },
       {
         path: 'settings',
