@@ -2,15 +2,17 @@ import { Model } from '../model/model';
 
 export class User extends Model {
 
-  public username: string;
-  public password: string;
+  username: string;
+  password: string;
 
-  public firstname: string;
-  public lastname: string;
+  firstname: string;
+  lastname: string;
 
-  public token: string;
+  fullname: string;
 
-  public reset_password: boolean;
+  token: string;
 
-  public is_administrator: boolean;
+  reset_password: boolean;
+
+  is_administrator: boolean;
 }

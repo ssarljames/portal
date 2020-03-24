@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: IndexComponent
+        loadChildren: () => import(`./modules/dashboard/dashboard.module`).then(m => m.DashboardModule)
       },
       {
         path: 'users',

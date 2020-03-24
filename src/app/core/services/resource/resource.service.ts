@@ -1,10 +1,8 @@
 import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-import { Model } from 'src/app/models/model/model';
 
 
 export class ResourceService<T> {
@@ -25,6 +23,10 @@ export class ResourceService<T> {
     return `${this.host}/${this.resource}`;
   }
 
+  public get uri(): string{
+    return this.getResourceURI();
+  }
+
   public get(url: string): Observable<any>{
     return this.httpClient.get<any[]>(`${this.host}/${url}`);
   }
@@ -33,15 +35,15 @@ export class ResourceService<T> {
     return this.httpClient.get<any[]>(`${this.host}/${this.resource}`, queryOptions);
   }
 
-  public create(item: T): Observable<any> {
+  public create(item: T): Observable<T> {
     return this.httpClient
-      .post<any>(`${this.host}/${this.resource}`, item);
+      .post<T>(`${this.host}/${this.resource}`, item);
   }
 
-  public update(item: T): Observable<any> {
+  public update(item: T): Observable<T> {
     const _item: any = item;
     const id = _item.id;
-    return this.httpClient.put<any>(`${this.host}/${this.resource}/${id}`, item);
+    return this.httpClient.put<T>(`${this.host}/${this.resource}/${id}`, item);
   }
 
 

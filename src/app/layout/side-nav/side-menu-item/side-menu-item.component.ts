@@ -50,12 +50,16 @@ export class SideMenuItemComponent implements OnInit {
 
     if(this.item.children && this.item.children.length > 0)
       this.item.children.forEach( (child: NavItem) => {
-        console.log(url, child.route, url.indexOf(child.route));
+        // console.log(url, child.route, url.indexOf(child.route));
+
+
+        child.isActive = false;
 
         if(this.router.isActive(child.route, true) || url.indexOf(child.route) === 0){
           hasOpened = true;
           child.isActive = true;
         }
+
       });
 
 
@@ -65,6 +69,8 @@ export class SideMenuItemComponent implements OnInit {
   }
 
   onItemSelected(item: NavItem) {
+
+
     if (!item.children || !item.children.length) {
       this.router.navigate([item.route]);
       // this.navService.closeNav();

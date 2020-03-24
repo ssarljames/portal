@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PrintRateService } from './print-rate.service';
+import { StateService } from './state.service';
 
-describe('PrintRateService', () => {
-  let service: PrintRateService;
+describe('StateService', () => {
+  let service: StateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PrintRateService);
+    service = TestBed.inject(StateService);
   });
 
   it('should be created', () => {

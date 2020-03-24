@@ -1,12 +1,14 @@
+import { StateService } from 'src/app/core/services/state/state.service';
 import { Component, OnInit } from '@angular/core';
 import { PaperSizeService } from '../../../services/paper-size/paper-size.service';
 import { PrintQualityService } from '../../../services/print-quality/print-quality.service';
 import { PaperSize } from 'src/app/models/paper-size/paper-size';
 import { PrintQuality } from 'src/app/models/print-quality/print-quality';
-import { PrintRateService } from 'src/app/services/print-rate/print-rate.service';
-import { PrintRate } from 'src/app/models/print-rate/print-rate';
+import { ServiceRateService } from 'src/app/services/service-rate/service-rate.service';
+import { ServiceRate } from 'src/app/models/service-rate/service-rate';
 import { MatTableDataSource } from '@angular/material/table';
 import { ModalService } from '../../shared/services/modal/modal.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-printing-service',
@@ -17,28 +19,29 @@ export class PrintingServiceComponent implements OnInit {
 
   paper_sizes_mds: MatTableDataSource<PaperSize>;
   print_qualities_mds: MatTableDataSource<PrintQuality>;
-  print_rates_mds: MatTableDataSource<PrintRate>;
+  service_rates_mds: MatTableDataSource<ServiceRate>;
 
   paperSizeColumns: string[] = [ 'description', 'dimension' ];
   printQualityColumns: string[] = [ 'description' ];
-  printRateColumns: string[] = [ 'paper_size', 'print_quality', 'rate', 'created_at', 'action' ];
+  serviceRateColumns: string[] = [ 'type', 'paper_size', 'print_quality', 'rate', 'created_at', 'action' ];
 
 
   constructor(private paperSizeService: PaperSizeService,
               private printQualityService: PrintQualityService,
-              private printRateService: PrintRateService,
-              private modalService: ModalService) {
+              private serviceRateService: ServiceRateService,
+              private modalService: ModalService,
+              private stateService: StateService) {
 
                 this.paper_sizes_mds = new MatTableDataSource();
                 this.print_qualities_mds = new MatTableDataSource();
-                this.print_rates_mds = new MatTableDataSource();
+                this.service_rates_mds = new MatTableDataSource();
 
               }
 
   ngOnInit(): void {
     this.fetchPaperSizes();
     this.fetchPrintQualities();
-    this.fetchPrintRates();
+    this.fetchServiceRates();
   }
 
   fetchPaperSizes(): void{
@@ -53,9 +56,12 @@ export class PrintingServiceComponent implements OnInit {
     });
   }
 
-  fetchPrintRates(): void{
-    this.printRateService.query().subscribe((print_rates: PrintRate[]) => {
-      this.print_rates_mds.connect().next(print_rates);
+  fetchServiceRates(): void{
+    this.serviceRateService.query().subscribe((service_rates: ServiceRate[]) => {
+
+      const sr = service_rates.map((sr) => (new ServiceRate()).fill(sr));
+
+      this.service_rates_mds.connect().next(sr);
     })
   }
 
@@ -74,7 +80,11 @@ export class PrintingServiceComponent implements OnInit {
             }).subscribe(() => {
               this.modalService.toast('Paper added!');
               this.fetchPaperSizes();
-              this.fetchPrintRates();
+              this.fetchServiceRates();
+
+
+              this.stateService.unset('paper_sizes');
+              this.stateService.unset('service_rates');
             })
         });
     })
@@ -90,22 +100,30 @@ export class PrintingServiceComponent implements OnInit {
         }).subscribe(() => {
           this.modalService.toast('Print quality added!');
           this.fetchPrintQualities();
-          this.fetchPrintRates();
+          this.fetchServiceRates();
+          this.stateService.unset('print_qualities');
+          this.stateService.unset('service_rates');
         })
     })
   }
 
-  editRate(print_rate: PrintRate): void{
+  editRate(service_rate: ServiceRate): void{
+
+    let $q = service_rate.is_scanning ? 'Enter rate for scanning' : `Enter new rate for ${service_rate.paper_size.description}-${service_rate.print_quality.description}`;
+
     this.modalService.prompt({
-      question: `Enter new rate for ${print_rate.paper_size.description}-${print_rate.print_quality.description}`,
-      value: print_rate.rate.toString()
+      question: $q,
+      value: service_rate.rate.toString()
     }).then((rate) => {
       if(rate){
-        const pr: PrintRate = JSON.parse(JSON.stringify(print_rate));
+        const pr: ServiceRate = JSON.parse(JSON.stringify(service_rate));
         pr.rate = rate;
-        this.printRateService.create(pr).subscribe(() => {
+
+
+        this.serviceRateService.create(pr).subscribe(() => {
           this.modalService.toast('Print rate quality was updated!');
-          this.fetchPrintRates();
+          this.fetchServiceRates();
+          this.stateService.unset('service_rates');
         },
         (e) => {
           console.log(e);

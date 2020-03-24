@@ -1,0 +1,76 @@
+<div *ngIf="station && station.current_session != null">
+    <div class="row">
+        <div class="col-lg-8">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Transactions on {{ station.description }} </mat-card-title>
+                    <mat-card-subtitle>
+                        <br>
+                        <button *ngIf="isOnDuty" [disabled]="!paper_sizes
+                              || !print_qualities
+                              || !service_rates" mat-raised-button color="primary" (click)="newTransaction()">New Transaction
+                        </button>
+
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <h3 *ngIf="isLoadingTransactions" class="text-muted">Loading...</h3>
+
+                    <table mat-table [dataSource]="mds" class="full-width">
+
+
+                        <ng-container matColumnDef="time">
+                            <th mat-header-cell *matHeaderCellDef>Time</th>
+                            <td mat-cell *matCellDef="let transaction">
+                                {{ transaction.time | parseDate | dfnsFormat: 'hh:mm A MMM DD, YYYY' }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="member">
+                            <th mat-header-cell *matHeaderCellDef>Member</th>
+                            <td mat-cell *matCellDef="let transaction">
+                                {{ transaction.member.fullname }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="sales">
+                            <th mat-header-cell *matHeaderCellDef>Sales</th>
+                            <td mat-cell *matCellDef="let transaction" class="text-right pr-2">
+                                {{ transaction.sales | currency: ' ' }}
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="transactionTableColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: transactionTableColumns;"></tr>
+
+                    </table>
+
+
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-lg-4">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Session Summary</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <span *ngIf="isOnDuty == false">Current user is {{ station.current_session.user.fullname }} <br></span> Started {{ station.current_session.time_in | parseDate | dfnsDistanceInWordsToNow }} ago
+
+                    <br><br>
+                    <h1 *ngIf="!isLoadingTransactions">{{ sales | currency: ' ' }} <small>Total Sales</small></h1>
+                    <br>
+                    <br>
+
+                    <button *ngIf="isOnDuty" mat-raised-button color="warn" (click)="leaveSession()" [disabled]="isLeaving"><mat-icon>exit_to_app</mat-icon> {{ isLeaving ? 'Leaving Session...' : 'Leave Session' }}</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+<div class="text-muted" *ngIf="station == null">
+    Loading transactions...
+</div>

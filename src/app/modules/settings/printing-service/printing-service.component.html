@@ -1,113 +1,121 @@
 <h1>Printing Service Settings</h1>
 <div class="row">
-  <div class="col-lg-4">
-    <mat-card>
-      <mat-card-header>
-        <h2>Paper Sizes</h2>
-      </mat-card-header>
-      <mat-card-content>
-        <table mat-table [dataSource]="paper_sizes_mds" class="full-width">
+    <div class="col-lg-4">
+        <mat-card>
+            <mat-card-header>
+                <h2>Paper Sizes</h2>
+            </mat-card-header>
+            <mat-card-content>
+                <table mat-table [dataSource]="paper_sizes_mds" class="full-width">
 
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
-            <td mat-cell *matCellDef="let paper_size">
-                {{ paper_size.description }}
-            </td>
-          </ng-container>
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef> Description </th>
+                        <td mat-cell *matCellDef="let paper_size">
+                            {{ paper_size.description }}
+                        </td>
+                    </ng-container>
 
-          <ng-container matColumnDef="dimension">
-            <th mat-header-cell *matHeaderCellDef> Dimension </th>
-            <td mat-cell *matCellDef="let paper_size">
-                {{ paper_size.dimension }}
-            </td>
-          </ng-container>
+                    <ng-container matColumnDef="dimension">
+                        <th mat-header-cell *matHeaderCellDef> Dimension </th>
+                        <td mat-cell *matCellDef="let paper_size">
+                            {{ paper_size.dimension }}
+                        </td>
+                    </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="paperSizeColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: paperSizeColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="paperSizeColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: paperSizeColumns;"></tr>
 
-        </table>
+                </table>
+                <br>
+                <button mat-raised-button color="primary" (click)="addPaperSize()"><mat-icon>add</mat-icon> New Paper Size</button>
+            </mat-card-content>
+        </mat-card>
         <br>
-        <button mat-raised-button color="primary" (click)="addPaperSize()"><mat-icon>add</mat-icon> New Paper Size</button>
-      </mat-card-content>
-    </mat-card>
-    <br>
-    <mat-card>
-      <mat-card-header>
-        <h2>Print Qualities</h2>
-      </mat-card-header>
-      <mat-card-content>
-        <table mat-table [dataSource]="print_qualities_mds" class="full-width">
+        <mat-card>
+            <mat-card-header>
+                <h2>Print Qualities</h2>
+            </mat-card-header>
+            <mat-card-content>
+                <table mat-table [dataSource]="print_qualities_mds" class="full-width">
 
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
-            <td mat-cell *matCellDef="let print_quality">
-                {{ print_quality.description }}
-            </td>
-          </ng-container>
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef> Description </th>
+                        <td mat-cell *matCellDef="let print_quality">
+                            {{ print_quality.description }}
+                        </td>
+                    </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="printQualityColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: printQualityColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="printQualityColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: printQualityColumns;"></tr>
 
-        </table>
-        <br>
-        <button mat-raised-button color="primary" (click)="addPrintQuality()"><mat-icon>add</mat-icon> New Print Quality</button>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="col-lg-8">
-    <mat-card>
-      <mat-card-header>
-        <h2>Print Rates</h2>
-      </mat-card-header>
-      <mat-card-content>
+                </table>
+                <br>
+                <button mat-raised-button color="primary" (click)="addPrintQuality()"><mat-icon>add</mat-icon> New Print Quality</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-lg-8">
+        <mat-card>
+            <mat-card-header>
+                <h2>Service Rates</h2>
+            </mat-card-header>
+            <mat-card-content>
 
 
-        <table mat-table [dataSource]="print_rates_mds" class="full-width">
-
-          <ng-container matColumnDef="paper_size">
-            <th mat-header-cell *matHeaderCellDef> Paper Size </th>
-            <td mat-cell *matCellDef="let print_rate">
-                {{ print_rate.paper_size.description }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="print_quality">
-            <th mat-header-cell *matHeaderCellDef> Print Quality </th>
-            <td mat-cell *matCellDef="let print_rate">
-                {{ print_rate.print_quality.description }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="rate">
-            <th mat-header-cell *matHeaderCellDef> Rate </th>
-            <td mat-cell *matCellDef="let print_rate">
-                {{ print_rate.rate | currency: ' '}}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="created_at">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Last Updated At </th>
-            <td mat-cell *matCellDef="let print_rate" class="text-center">
-                {{ print_rate.created_at  | parseDate | dfnsDistanceInWordsToNow | titlecase }}
-            </td>
-          </ng-container>
+                <table mat-table [dataSource]="service_rates_mds" class="full-width">
 
 
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef style="width: 5%"></th>
-            <td mat-cell *matCellDef="let print_rate">
-                <button mat-button color="primary" (click)="editRate(print_rate)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-            </td>
-          </ng-container>
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef> Type </th>
+                        <td mat-cell *matCellDef="let service_rate">
+                            {{ service_rate.type_label }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="paper_size">
+                        <th mat-header-cell *matHeaderCellDef> Paper Size </th>
+                        <td mat-cell *matCellDef="let service_rate">
+                            {{ service_rate.is_printing ? service_rate.paper_size.description : '-' }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="print_quality">
+                        <th mat-header-cell *matHeaderCellDef> Print Quality </th>
+                        <td mat-cell *matCellDef="let service_rate">
+                            {{ service_rate.is_printing ? service_rate.print_quality.description : '-' }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="rate">
+                        <th mat-header-cell *matHeaderCellDef> Rate </th>
+                        <td mat-cell *matCellDef="let service_rate" class="text-right pr-1">
+                            {{ service_rate.rate | currency: ' '}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="created_at">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Last Updated At </th>
+                        <td mat-cell *matCellDef="let service_rate" class="text-center">
+                            {{ service_rate.created_at | parseDate | dfnsDistanceInWordsToNow | titlecase }}
+                        </td>
+                    </ng-container>
 
 
-          <tr mat-header-row *matHeaderRowDef="printRateColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: printRateColumns;" [ngClass]="{'danger': row.rate == 0}"></tr>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef style="width: 5%"></th>
+                        <td mat-cell *matCellDef="let service_rate">
+                            <button mat-button color="primary" (click)="editRate(service_rate)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
 
-        </table>
-      </mat-card-content>
-    </mat-card>
-  </div>
+
+                    <tr mat-header-row *matHeaderRowDef="serviceRateColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: serviceRateColumns;" [ngClass]="{'danger': row.rate == 0}"></tr>
+
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

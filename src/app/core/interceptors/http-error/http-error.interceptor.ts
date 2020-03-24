@@ -32,10 +32,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.modalService.toast('Not logged in!');
 
         }else if(err.status == 404){
-            // this.toastr.error('API Resource not found!');
+          this.modalService.toast('Resource not found.', 'Oops!', 'error');
         }
-        else {
-            console.log(err.error.message || err.statusText);
+        else if(err.status != 401) {
+          console.log(err.error.message || err.statusText);
+          this.modalService.toast('Something went wrong :(', 'Oops!', 'error');
         }
 
         return throwError(err);
