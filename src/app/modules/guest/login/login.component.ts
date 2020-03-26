@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/core/services/theme/theme.service';
 import { User } from 'src/app/models/user/user';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,9 @@ export class LoginComponent implements OnInit {
 
   loading: boolean = false;
 
-  constructor(private authService: AuthenticationService, private themeService: ThemeService) {
+  constructor(private authService: AuthenticationService,
+              private themeService: ThemeService,
+              private matDialog: MatDialog) {
     this.form = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -39,6 +42,7 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(user).subscribe((user) => {
         this.loading = false;
+        this.matDialog.closeAll();
       },(e: any) => {
         if(e.hasOwnProperty('error'))
           this.error = e.error;

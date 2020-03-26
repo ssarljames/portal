@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <!-- <button mat-icon-button>
+          <mat-icon (click)="toggle()">menu</mat-icon>
+        </button> -->
+        <h1>CS<sup>3</sup> &nbsp;&nbsp;&nbsp;&nbsp;</h1>
+        <span class="menu-spacer"></span>
+        <a mat-button routerLink="/g/home" routerLinkActive="_active">
+          Home
+        </a>
+        <a mat-button routerLink="/g/about" routerLinkActive="_active">
+          About
+        </a>
+        <a mat-button routerLink="/g/driectory" routerLinkActive="_active">
+          Directory
+        </a>
+        <a mat-button (click)="signIn()">
+            Sign In
+        </a>
+
+
+        <div class="flex-spacer"></div>
+
+        <app-theme-picker></app-theme-picker>
+
+    </mat-toolbar-row>
+
+    <!-- <mat-toolbar-row>
+
+  </mat-toolbar-row> -->
+
+</mat-toolbar>
+
+<br>
+
+<router-outlet></router-outlet>

@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticatedPageComponent } from './layout/authenticated-page/authenticated-page.component';
 import { IndexComponent } from './layout/index/index.component';
+import { GuestPageComponent } from './layout/guest-page/guest-page.component';
 
 
 const routes: Routes = [
@@ -32,13 +33,24 @@ const routes: Routes = [
     ]
   },
 
-
-
   {
-    path: 'auth',
+    path: 'g',
+    component: GuestPageComponent,
     canActivate: [ GuestGuard ],
-    loadChildren: () => import(`./modules/auth/auth.module`).then(m => m.AuthModule)
+    children: [
+      {
+        path: '',
+        loadChildren: () => import(`./modules/guest/guest.module`).then(m => m.GuestModule)
+      },
+
+      {
+        path: '**',
+        component: PageNotFoundComponent
+      }
+    ]
   },
+
+
   {
     path: '**',
     component: PageNotFoundComponent

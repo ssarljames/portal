@@ -1,0 +1,13 @@
+.flex-spacer {
+    -webkit-box-flex: 1;
+    flex-grow: 1 !important;
+}
+
+a:hover {
+    color: unset;
+    text-decoration: unset;
+}
+
+._active {
+    background: rgba(0, 0, 0, 0.2);
+}

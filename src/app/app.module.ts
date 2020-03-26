@@ -27,7 +27,8 @@ import { ThemePickerComponent } from './layout/theme-picker/theme-picker.compone
 import { TopNavbarComponent } from './layout/top-navbar/top-navbar.component';
 import { IndexComponent } from './layout/index/index.component';
 import { SideNavComponent } from './layout/side-nav/side-nav.component';
-
+import { GuestPageComponent } from './layout/guest-page/guest-page.component';
+import { UnderConstructionComponent } from './layout/under-construction/under-construction.component';
 
 
 @NgModule({
@@ -40,7 +41,9 @@ import { SideNavComponent } from './layout/side-nav/side-nav.component';
     ThemePickerComponent,
     TopNavbarComponent,
     IndexComponent,
-    SideNavComponent
+    SideNavComponent,
+    GuestPageComponent,
+    UnderConstructionComponent
   ],
   imports: [
     RouterModule,

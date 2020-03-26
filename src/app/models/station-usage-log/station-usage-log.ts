@@ -12,5 +12,7 @@ export class StationUsageLog extends Model{
 
   total_time_formatted: string;
 
+  percentage: number;
+
   user: User;
 }

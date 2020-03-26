@@ -24,9 +24,6 @@ export class AuthenticatedPageComponent implements OnInit, AfterViewInit {
 
   }
 
-  doLogout(): void{
-    this.authService.logout();
-  }
 
   onToggle(e: any): void{
     this.sidenav.toggle();

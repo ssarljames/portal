@@ -11,26 +11,13 @@ import { StationUsageLog } from 'src/app/models/station-usage-log/station-usage-
 export class IndexComponent implements OnInit {
 
 
-  station_usage_logs_mds: MatTableDataSource<StationUsageLog>;
 
-  stationUsageLogsTableColumns: string[] = [ 'created_at', 'station', 'user', 'time_in', 'time_out', 'total_time' ];
+  constructor() {
 
-  constructor(private stationUsageLogService: StationUsageLogService) {
-    this.station_usage_logs_mds = new MatTableDataSource();
   }
 
   ngOnInit(): void {
-    this.fetchTransactions();
+
   }
 
-  fetchTransactions(): void{
-    this.stationUsageLogService.query({
-      params: {
-        sortBy: 'created_at',
-        sortOrder: 'desc'
-      }
-    }).subscribe((station_usage_logs) => {
-      this.station_usage_logs_mds.connect().next(station_usage_logs);
-    });
-  }
 }

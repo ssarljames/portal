@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
 
 
 
@@ -19,7 +20,8 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) {
 
     this.endpoint = environment.endpoint;
@@ -55,7 +57,8 @@ export class AuthenticationService {
 
     localStorage.clear();
     this.currentUser = null;
-    this.router.navigate(['/auth']);
+    this.router.navigate(['g']);
+    this.modalService.toast('You were logged out.');
 
     // return this.http.post<any>(`${this.endpoint}/logout`, {}).subscribe(() => {
     //   localStorage.clear();
