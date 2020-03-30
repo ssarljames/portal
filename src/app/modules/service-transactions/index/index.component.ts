@@ -17,7 +17,6 @@ export class IndexComponent implements OnInit {
   stations: Station[];
 
   fetchingStations: boolean = false;
-  isJoining: boolean = false;
 
   constructor(private stationService: StationService,
               private authService: AuthenticationService,
@@ -40,7 +39,7 @@ export class IndexComponent implements OnInit {
       let activeStation: Station = null;
 
       stations.forEach((station: Station) => {
-        if(station.current_session && station.current_session.user_id == this.authService.currentUser.id)
+        if(station.current_session && station.current_session.user_id == this.authService.user.id)
           activeStation = station;
       });
 
@@ -61,13 +60,13 @@ export class IndexComponent implements OnInit {
     }).then(password => {
 
       if(password){
-        this.isJoining = true;
+        station.isJoining = true;
         this.stationService.use(station, password).subscribe((station: Station) => {
-          this.isJoining = false;
+          station.isJoining = false;
           this.setActiveStation(station);
         },
         e => {
-          this.isJoining = false;
+          station.isJoining = false;
           this.modalService.alert({
             message: 'Password is not correct',
             type: 'warn'

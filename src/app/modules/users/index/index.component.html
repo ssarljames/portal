@@ -4,7 +4,7 @@
 </h1>
 <mat-card>
     <mat-card-header>
-        <mat-form-field>
+        <mat-form-field *ngIf="isLoading == false">
             <input matInput autocomplete="off" [(ngModel)]="queryParams.q" (keydown.enter)="fetchUsers()">
             <button mat-button matSuffix mat-icon-button aria-label="Clear">
               <!-- <mat-icon>search</mat-icon> -->
@@ -16,7 +16,10 @@
 
     </mat-card-header>
     <mat-card-content>
-        <table mat-table class="mat-elevation-28" [dataSource]="users">
+
+
+        <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
+        <table *ngIf="isLoading == false" mat-table class="mat-elevation-28" [dataSource]="users">
 
             <ng-container matColumnDef="username">
                 <th mat-header-cell *matHeaderCellDef> Username </th>

@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 export class Model {
 
   public id?: string;
@@ -16,6 +17,23 @@ export class Model {
       }
     }
 
+    return this;
+  }
+
+
+  public formFill?(form: FormGroup): any{
+
+    for (const key in form.controls) {
+      if (form.controls.hasOwnProperty(key)) {
+        this[key] = form.controls[key].value;
+      }
+    }
+
+    return this;
+  }
+
+  public set?(name: string, value: any): any{
+    this[name] = value;
     return this;
   }
 }

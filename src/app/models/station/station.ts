@@ -14,4 +14,8 @@ export class Station extends Model {
 
   service_types: ServiceTypes[];
 
+  isJoining: boolean = false;
+
+  allowed_to_use: boolean;
+
 }

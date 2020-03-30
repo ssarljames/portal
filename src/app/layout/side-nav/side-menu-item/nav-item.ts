@@ -5,5 +5,7 @@ export interface NavItem {
   route?: string;
   children?: NavItem[];
 
+  allowed_roles: string[];
+
   isActive?: boolean;
 }

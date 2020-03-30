@@ -1,6 +1,7 @@
 import { UserService } from 'src/app/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user/user';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-index',
@@ -22,18 +23,31 @@ export class IndexComponent implements OnInit {
 
   d = new Date();
 
-  constructor(private userService: UserService) { }
+  isLoading: boolean = false;
+
+  user: User;
+
+  constructor(private userService: UserService,
+              private authService: AuthenticationService) {
+
+    authService.$user.subscribe( user => {
+      this.user = user;
+    });
+
+  }
 
   ngOnInit(): void {
     this.fetchUsers();
   }
 
   fetchUsers(): void{
+    this.isLoading = true;
     this.userService.query({
       params: this.queryParams
     }).subscribe((users: User[]) => {
       this.meta = this.userService.getMeta();
       this.users = users;
+      this.isLoading = false;
     })
   }
 

@@ -11,7 +11,7 @@ import { MaterialModule } from './material.module';
 
 import { DateFnsModule, DateFnsConfigurationService, } from 'ngx-date-fns';
 import * as en from 'date-fns/locale/en'
-
+import { EllipisLoadingComponent } from './utils/ellipis-loading/ellipis-loading.component';
 
 const phConfig = new DateFnsConfigurationService();
 phConfig.setLocale(en)
@@ -21,6 +21,7 @@ phConfig.setLocale(en)
     PromptComponent,
     AlertComponent,
     ConfirmationComponent,
+    EllipisLoadingComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +39,8 @@ phConfig.setLocale(en)
     MaterialModule,
     FormsModule,
     DateFnsModule,
-    PipesModule
+    PipesModule,
+    EllipisLoadingComponent
   ],
   providers: [
     ModalService,
@@ -46,7 +48,8 @@ phConfig.setLocale(en)
     { provide: DateFnsConfigurationService, useValue: phConfig }
   ],
   entryComponents: [
-    PromptComponent
+    PromptComponent,
+    EllipisLoadingComponent
   ],
 })
 export class SharedModule { }

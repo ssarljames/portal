@@ -12,7 +12,11 @@ export class User extends Model {
 
   token: string;
 
+  role: string;
+
   reset_password: boolean;
 
   is_administrator: boolean;
+
+  deactivated_at: Date;
 }

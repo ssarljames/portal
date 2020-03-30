@@ -21,6 +21,10 @@ export class PrintingServiceComponent implements OnInit {
   print_qualities_mds: MatTableDataSource<PrintQuality>;
   service_rates_mds: MatTableDataSource<ServiceRate>;
 
+  isLoadingPaperSizes: boolean = false;
+  isLoadingPrintQualities: boolean = false;
+  isLoadingServiceRates: boolean = false;
+
   paperSizeColumns: string[] = [ 'description', 'dimension' ];
   printQualityColumns: string[] = [ 'description' ];
   serviceRateColumns: string[] = [ 'type', 'paper_size', 'print_quality', 'rate', 'created_at', 'action' ];
@@ -45,23 +49,29 @@ export class PrintingServiceComponent implements OnInit {
   }
 
   fetchPaperSizes(): void{
+    this.isLoadingPaperSizes = true;
     this.paperSizeService.query().subscribe((paper_sizes: PaperSize[]) => {
       this.paper_sizes_mds.connect().next(paper_sizes);
+      this.isLoadingPaperSizes = false;
     });
   }
 
   fetchPrintQualities(): void{
+    this.isLoadingPrintQualities = true;
     this.printQualityService.query().subscribe((print_qualities: PrintQuality[]) => {
       this.print_qualities_mds.connect().next(print_qualities);
+      this.isLoadingPrintQualities = false;
     });
   }
 
   fetchServiceRates(): void{
+    this.isLoadingServiceRates = true;
     this.serviceRateService.query().subscribe((service_rates: ServiceRate[]) => {
 
       const sr = service_rates.map((sr) => (new ServiceRate()).fill(sr));
 
       this.service_rates_mds.connect().next(sr);
+      this.isLoadingServiceRates = false;
     })
   }
 

@@ -15,9 +15,9 @@
                 </mat-card-header>
                 <mat-card-content>
 
-                    <h3 *ngIf="isLoadingTransactions" class="text-muted">Loading...</h3>
+                    <app-ellipis-loading *ngIf="isLoadingTransactions"></app-ellipis-loading>
 
-                    <table mat-table [dataSource]="mds" class="full-width">
+                    <table mat-table *ngIf="isLoadingTransactions == false" [dataSource]="mds" class="full-width">
 
 
                         <ng-container matColumnDef="time">
@@ -71,6 +71,4 @@
 </div>
 
 
-<div class="text-muted" *ngIf="station == null">
-    Loading transactions...
-</div>
+<app-ellipis-loading *ngIf="station == null"></app-ellipis-loading>

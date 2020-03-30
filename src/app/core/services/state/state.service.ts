@@ -24,5 +24,13 @@ export class StateService {
     delete this.data[name];
   }
 
+  public clear(): void{
+    for (const key in this.data) {
+      if (this.data.hasOwnProperty(key)) {
+        this.unset(key);
+      }
+    }
+  }
+
 
 }

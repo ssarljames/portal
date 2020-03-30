@@ -10,6 +10,8 @@ export class ServiceTransaction extends Model{
   sales: number;
   time: Date;
 
+  remarks: string;
+
   timeFormatted: string;
 
   user: User;

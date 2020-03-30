@@ -1,11 +1,13 @@
-import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { User } from './../../../models/user/user';
-import { Router } from '@angular/router';
+import { Router, UrlSegment } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { StateService } from '../state/state.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 
@@ -14,33 +16,69 @@ import { ModalService } from 'src/app/modules/shared/services/modal/modal.servic
 })
 export class AuthenticationService {
   endpoint: string;
-  // headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser: User = new User();
 
+  private $currentUser: BehaviorSubject<User>;
+  private authInfo: AuthInfo;
+
+  private userFetched: boolean = false;
+
+  private _requested_url: string;
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private stateService: StateService
   ) {
-
     this.endpoint = environment.endpoint;
-    this.currentUser = JSON.parse(localStorage.getItem('user'));
+    this.authInfo = JSON.parse(localStorage.getItem('_session'));
+    this.$currentUser = new BehaviorSubject(null);
+
+    this._requested_url = null;
+
+    // if(this.authInfo && this.authInfo.token && this.authInfo.token.user_id)
+    //   this.fetchUser(this.authInfo.token.user_id);
+
+    console.log('Auth Service init');
+
+
+  }
+
+  get is_init(): boolean{
+    return this.userFetched;
+  }
+
+  fetchUser(): void{
+    if(this.authInfo && this.authInfo.token && this.authInfo.token.user_id)
+      this.http.get<User>(`${this.endpoint}/users/${this.authInfo.token.user_id}`).subscribe(user => {
+        this.$currentUser.next(user);
+        this.userFetched = true;
+        if(this._requested_url){
+          this.router.navigateByUrl(this._requested_url);
+          this._requested_url = null;
+        }
+      })
+  }
+
+  setRequestedUrl(url: string): void{
+    this._requested_url = url;
   }
 
   login(user: User): Observable<any> {
     return this.http.post<any>(`${this.endpoint}/login`, user)
-              .pipe(map(user => {
-                  localStorage.setItem('user', JSON.stringify(user));
+              .pipe(map(response => {
+                localStorage.setItem('_session', JSON.stringify(response));
 
-                  this.currentUser = user;
-                  this.router.navigate(['']);
+                this.authInfo = response;
+
+                this.fetchUser();
+
                 return user;
             }));
   }
 
   getToken() {
-    return this.user() ? this.user().token : null;
+    return this.authInfo ? this.authInfo.accessToken : null;
   }
 
   get isLoggedIn(): boolean {
@@ -48,17 +86,34 @@ export class AuthenticationService {
   }
 
 
-  user(): User {
-    return this.currentUser;
+  get $user(): Observable<User>{
+    return this.$currentUser
+          .pipe(map(user => {
+
+              if(this.userFetched == false)
+                this.fetchUser();
+
+              return user;
+          }));
+  }
+
+  get user(): User{
+    return this.$currentUser.value;
+  }
+
+  setUser(user: User): void{
+    this.$currentUser.next(user);
   }
 
 
   logout() {
 
     localStorage.clear();
-    this.currentUser = null;
-    this.router.navigate(['g']);
+    this.stateService.clear();
     this.modalService.toast('You were logged out.');
+    this.authInfo = null;
+    this.$currentUser.next(null);
+    this.router.navigate(['g']);
 
     // return this.http.post<any>(`${this.endpoint}/logout`, {}).subscribe(() => {
     //   localStorage.clear();
@@ -81,4 +136,22 @@ export class AuthenticationService {
     }
     return throwError(msg);
   }
+}
+
+
+interface Token {
+  id: string;
+  user_id: string;
+  client_id: string;
+  name: string;
+  scopes: any[];
+  revoked: boolean;
+  created_at: Date;
+  updated_at: Date;
+  expires_at: Date;
+}
+
+interface AuthInfo{
+  accessToken: string;
+  token: Token;
 }

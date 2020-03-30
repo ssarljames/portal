@@ -71,7 +71,7 @@ export class ShowComponent implements OnInit {
         if(station.current_session){
 
           this.station = station;
-          this.isOnDuty = this.authService.currentUser.id == this.station.current_session.user_id;
+          this.isOnDuty = this.authService.user.id == this.station.current_session.user_id;
           if(this.isOnDuty)
             this.stateService.set('active_station', station);
 
@@ -87,7 +87,7 @@ export class ShowComponent implements OnInit {
       })
     }
     else{
-      this.isOnDuty = this.authService.currentUser.id == this.station.current_session.user_id;
+      this.isOnDuty = this.authService.user.id == this.station.current_session.user_id;
 
       this.fetchTransactions();
     }

@@ -29,6 +29,7 @@ import { IndexComponent } from './layout/index/index.component';
 import { SideNavComponent } from './layout/side-nav/side-nav.component';
 import { GuestPageComponent } from './layout/guest-page/guest-page.component';
 import { UnderConstructionComponent } from './layout/under-construction/under-construction.component';
+import { UpdatePasswordComponent } from './layout/authenticated-page/update-password/update-password.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { UnderConstructionComponent } from './layout/under-construction/under-co
     IndexComponent,
     SideNavComponent,
     GuestPageComponent,
-    UnderConstructionComponent
+    UnderConstructionComponent,
+    UpdatePasswordComponent
   ],
   imports: [
     RouterModule,

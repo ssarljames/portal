@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PrintingServiceComponent } from './printing-service/printing-service.component';
+import { AdministratorGuard } from 'src/app/core/guards/administrator/administrator.guard';
 
 
 const routes: Routes = [
   {
     path: 'printing-service',
-    component: PrintingServiceComponent
+    component: PrintingServiceComponent,
+    canActivate: [ AdministratorGuard ]
   }
 ];
 

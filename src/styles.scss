@@ -1,17 +1,17 @@
     /* You can add global styles to this file, and also import other style files */
     /* modal animation */
-    
+
     body {
         // background: #ccc;
         height: unset !important;
         width: unset !important;
     }
-    
+
     .modal-content {
         animation-name: example;
         animation-duration: 0.3s;
     }
-    
+
     @keyframes example {
         0% {
             transform: scale(0.5)
@@ -23,48 +23,52 @@
             transform: scale(1)
         }
     }
-    
+
     html,
     body {
         height: 100%;
     }
-    
+
     body {
         margin: 0;
         font-family: Roboto, "Helvetica Neue", sans-serif;
     }
-    
+
     .full-width {
         width: 100%;
     }
-    
+
     table td {
         vertical-align: middle;
     }
-    
+
     i {
         vertical-align: middle !important;
     }
-    
+
     .mat-menu-panel {
         padding: 0 10px 0 10px;
     }
-    
+
     h1 .fa {
         margin-top: -4px;
     }
-    
+
     .mat-list-item-content .fa {
         margin-top: -5px;
         margin-right: 5px;
         width: 100%;
     }
-    
+
     .mat-list-base .mat-list-item .mat-list-item-content,
     .mat-list-base .mat-list-option .mat-list-item-content {
         width: 100% !important;
     }
-    
+
     .mat-card-header-text {
         margin: 0 !important;
+    }
+
+    .mat-card {
+        margin-bottom: 10px;
     }

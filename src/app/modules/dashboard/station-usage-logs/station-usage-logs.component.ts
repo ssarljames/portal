@@ -15,6 +15,8 @@ export class StationUsageLogsComponent implements OnInit {
 
   stationUsageLogsTableColumns: string[] = [ 'created_at', 'station', 'user', 'time_in', 'time_out', 'total_time' ];
 
+  isDataLoaded: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private stationUsageLogService: StationUsageLogService) {
     this.station_usage_logs_mds = new MatTableDataSource();
@@ -26,6 +28,7 @@ export class StationUsageLogsComponent implements OnInit {
 
 
   fetchStationUsageLogs(): void{
+    this.isLoading = true;
     this.stationUsageLogService.query({
       params: {
         sortBy: 'created_at',
@@ -33,6 +36,8 @@ export class StationUsageLogsComponent implements OnInit {
       }
     }).subscribe((station_usage_logs) => {
       this.station_usage_logs_mds.connect().next(station_usage_logs);
+      this.isDataLoaded = true;
+      this.isLoading = false;
     });
   }
 

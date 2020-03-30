@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/core/services/theme/theme.service';
 import { User } from 'src/app/models/user/user';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenticationService,
               private themeService: ThemeService,
-              private matDialog: MatDialog) {
+              private matDialog: MatDialog,
+              private router: Router) {
     this.form = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -43,8 +45,13 @@ export class LoginComponent implements OnInit {
       this.authService.login(user).subscribe((user) => {
         this.loading = false;
         this.matDialog.closeAll();
+        this.router.navigate(['']);
       },(e: any) => {
-        if(e.hasOwnProperty('error'))
+        console.log(e);
+
+        if(e.hasOwnProperty('statusText'))
+          this.error = e.statusText;
+        else if(e.hasOwnProperty('error'))
           this.error = e.error;
         this.loading = false;
       })

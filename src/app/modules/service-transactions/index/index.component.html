@@ -24,7 +24,7 @@
                         </span>
                         <br>
                         <br>
-                        <button (click)="useStation(station)" mat-raised-button color="primary" [disabled]="isJoining">{{ isJoining ? 'Processing...' : 'Use' }}</button>
+                        <button (click)="useStation(station)" mat-raised-button color="primary" [disabled]="station.isJoining || station.allowed_to_use == false">{{ station.isJoining ? 'Loading...' : 'Use' }}</button>
                     </div>
                 </mat-card-content>
             </mat-card>

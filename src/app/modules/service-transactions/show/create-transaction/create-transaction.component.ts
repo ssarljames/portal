@@ -122,10 +122,7 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     if(item.valid){
       this.transaction.transaction_items = this.transaction
                         .transaction_items
-                        .filter((t) =>  t.paper_size_id != item.paper_size_id && t.print_quality_id != item.print_quality_id && t.valid);
-    }
-    else{
-      this.currentTransactionItem.reset();
+                        .filter((t) => !(t.type == item.type && t.paper_size_id == item.paper_size_id && t.print_quality_id == item.print_quality_id && t.valid));
     }
 
 

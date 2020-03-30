@@ -34,6 +34,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         }else if(err.status == 404){
           this.modalService.toast('Resource not found.', 'Oops!', 'error');
         }
+        // else if(err.status == 0){
+        //   this.modalService.toast('Server not available.', 'Oops!', 'error');
+        // }
         else if(!(err.status == 401 || err.status == 422)) {
           console.log(err.error.message || err.statusText);
           this.modalService.toast('Something went wrong :(', 'Oops!', 'error');

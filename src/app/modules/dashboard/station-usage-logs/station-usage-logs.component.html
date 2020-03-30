@@ -6,7 +6,7 @@
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <table mat-table [dataSource]="station_usage_logs_mds" class="full-width table-hover">
+        <table *ngIf="isDataLoaded && !isLoading" mat-table [dataSource]="station_usage_logs_mds" class="full-width table-hover mb-3">
 
             <ng-container matColumnDef="created_at">
                 <th mat-header-cell *matHeaderCellDef>Date</th>
@@ -35,8 +35,12 @@
             <ng-container matColumnDef="time_out">
                 <th mat-header-cell *matHeaderCellDef>Time Out</th>
                 <td mat-cell *matCellDef="let log">
-                    <span *ngIf="log.time_out">{{ log.time_out | parseDate | dfnsFormat: 'hh:mm A' }}</span>
+                    <span *ngIf="log.time_out">
+                      {{ log.time_out | parseDate | dfnsFormat: 'hh:mm A' }}
+                      <i title="Logged out by system" *ngIf="log.logged_out_by_system" class="fa fa-exclamation-circle text-danger"></i>
+                    </span>
                     <span *ngIf="log.time_out == null" class="badge badge-primary">On-Going</span>
+
                 </td>
             </ng-container>
             <ng-container matColumnDef="total_time">
@@ -56,5 +60,11 @@
             <tr mat-row *matRowDef="let row; columns: stationUsageLogsTableColumns;"></tr>
 
         </table>
+
+        <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
+
+
+        <button *ngIf="isDataLoaded == false && isLoading == false" mat-button color="primary" (click)="fetchStationUsageLogs()">Load Content</button>
+        <button *ngIf="isDataLoaded && isLoading == false" mat-button color="primary" (click)="fetchStationUsageLogs()">Refresh</button>
     </mat-card-content>
 </mat-card>

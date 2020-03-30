@@ -15,6 +15,9 @@ export class DutyTimePercentageComponent implements OnInit {
 
   timePercantageTableColumns: string[] = [ 'user', 'total_time', 'percentage' ];
 
+  isDataLoaded: boolean = false;
+  isLoading: boolean = false;
+
   constructor(private stationUsageLogService: StationUsageLogService) {
     this.duty_time_percentages_mds = new MatTableDataSource();
   }
@@ -24,11 +27,14 @@ export class DutyTimePercentageComponent implements OnInit {
   }
 
   fetchDutyTimePercentage(): void{
+    this.isLoading = true;
     this.stationUsageLogService.query({
       params: {
         duty_time_percentage: 1
       }
     }).subscribe(dutyTimePercentages => {
+      this.isLoading = false;
+      this.isDataLoaded = true;
       this.duty_time_percentages_mds.connect().next(dutyTimePercentages);
     });
   }

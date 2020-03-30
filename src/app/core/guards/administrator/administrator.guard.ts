@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/user/user';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,13 +22,17 @@ export class AdministratorGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const is_admin = this.authService.currentUser.is_administrator;
+    const user: User = this.authService.user;
 
-    if(is_admin == false)
+    if(this.authService.is_init == false){
+      this.authService.setRequestedUrl(state.url);
+      this.authService.fetchUser();
+    }
+    else if(user.is_administrator == false)
       this.modalService.toast('Content not allowed for non-admin user', 'Access Denied', 'error');
 
 
-    return is_admin;
+    return user && user.is_administrator;
   }
 
 }

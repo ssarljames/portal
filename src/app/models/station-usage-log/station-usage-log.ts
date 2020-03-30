@@ -6,7 +6,7 @@ export class StationUsageLog extends Model{
   user_id: string;
   time_in: Date;
   time_out: Date;
-  force_logged_out: boolean;
+  logged_out_by_system: boolean;
   total_time: number;
   total_sales: number;
 

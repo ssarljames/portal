@@ -17,7 +17,9 @@ export class AuthenticatedPageComponent implements OnInit, AfterViewInit {
   user: User;
 
   ngOnInit(): void {
-    this.user = this.authService.user();
+    this.authService.$user.subscribe(user => {
+      this.user = user;
+    })
   }
 
   ngAfterViewInit(){
