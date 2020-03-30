@@ -21,13 +21,31 @@ export class ThemeService implements OnInit {
 
   private _themes: Theme[] =  [
     {
+      href: 'assets/css/themes/cs3-default.css',
+      primary: '#9C27B0',
+      accent: '#4CAF50',
+      displayName: 'CS3 Light',
+      name: 'yellow-amber-light',
+      isDark: false,
+      selected: true
+    },
+    {
+      href: 'assets/css/themes/cs3-dark.css',
+      primary: '#9C27B0',
+      accent: '#4CAF50',
+      displayName: 'CS3 Dark',
+      name: 'yellow-amber-dark',
+      isDark: true,
+      selected: false
+    },
+    {
       href: 'assets/css/themes/deeppurple-amber.css',
       primary: '#673AB7',
       accent: '#FFC107',
       displayName: 'Deep Purple & Amber',
       name: 'deeppurple-amber',
       isDark: false,
-      selected: true
+      selected: false
     },
     {
       href: 'assets/css/themes/indigo-pink.css',

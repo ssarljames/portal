@@ -46,7 +46,9 @@
 
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
-                <td mat-cell *matCellDef="let user"> <button mat-raised-button color="basic" [routerLink]="'/users/' + user.id + '/edit'"><i class="fa fa-edit"></i></button> </td>
+                <td mat-cell *matCellDef="let user">
+                    <button mat-raised-button color="basic" [routerLink]="'/users/' + user.id + '/edit'"><i class="fa fa-edit"></i></button>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

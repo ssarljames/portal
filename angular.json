@@ -29,7 +29,19 @@
                         ],
                         "styles": [
                             "./node_modules/sweetalert2/src/sweetalert2.scss",
-                            "src/styles.scss"
+                            "src/styles.scss",
+
+                            {
+                                "input": "src/themes/cs3-default.scss",
+                                "bundleName": "cs3-default",
+                                "lazy": true
+                            },
+
+                            {
+                                "input": "src/themes/cs3-dark.scss",
+                                "bundleName": "cs3-dark",
+                                "lazy": true
+                            }
                         ],
                         "scripts": []
                     },
