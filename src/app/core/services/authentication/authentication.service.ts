@@ -21,6 +21,7 @@ export class AuthenticationService {
   private authInfo: AuthInfo;
 
   private userFetched: boolean = false;
+  private userFetching: boolean = false;
 
   private _requested_url: string;
 
@@ -49,15 +50,21 @@ export class AuthenticationService {
   }
 
   fetchUser(): void{
-    if(this.authInfo && this.authInfo.token && this.authInfo.token.user_id)
+    if(this.authInfo && this.authInfo.token && this.authInfo.token.user_id && this.userFetching == false){
+      this.userFetching = true;
       this.http.get<User>(`${this.endpoint}/users/${this.authInfo.token.user_id}`).subscribe(user => {
         this.$currentUser.next(user);
         this.userFetched = true;
+        this.userFetching = false;
         if(this._requested_url){
           this.router.navigateByUrl(this._requested_url);
           this._requested_url = null;
         }
-      })
+      },
+      e => {
+        this.userFetching = false;
+      });
+    }
   }
 
   setRequestedUrl(url: string): void{
