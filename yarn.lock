@@ -226,6 +226,11 @@
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-9.0.1.tgz#bc6acddf094361a7ef14aab0c94d7248d10f2949"
   integrity sha512-pHLDooNvXEUtjYANWtJ7fMxG9l2mDJgPphOi/S6c27U5yNf0NVk+Qh3kuuNi2hQQ5RaR4jdRyCQePD2H4g2+/g==
 
+"@angular/service-worker@~9.0.1":
+  version "9.0.7"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-9.0.7.tgz#0dabff710f7128d955c09a255af94d88ca7ef3f9"
+  integrity sha512-t2wQ0xl0BSq85BP898Dnhk3IJHRjbavTmeYItOtsE6KsqcGRGA0uJLzsGMwh3ZO/+u1iwcfnktL0qtH6WOj9yw==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5", "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
@@ -5660,6 +5665,13 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+ng-connection-service@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/ng-connection-service/-/ng-connection-service-1.0.4.tgz#02854a6eabd9a8fe44f0ad63024289652039a179"
+  integrity sha512-WrZfK+hUzrJS77ItxXI08rUN6Av77W3+LsaJEPufyo2wRe7Tn8xG18FHHEbbgqKkJeDT/yGJBH2xOaT+1jb22g==
+  dependencies:
+    tslib "^1.9.0"
 
 ngx-date-fns@4.0.3:
   version "4.0.3"

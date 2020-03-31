@@ -6,7 +6,7 @@
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <table mat-table *ngIf="isDataLoaded && !isLoading" [dataSource]="station_usage_logs_mds" class="full-width table-hover mb-3">
+        <mat-table *ngIf="isDataLoaded && !isLoading" [dataSource]="station_usage_logs_mds" class="full-width table-hover mb-3">
 
             <ng-container matColumnDef="created_at">
                 <th mat-header-cell *matHeaderCellDef>Date</th>
@@ -56,10 +56,10 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="stationUsageLogsTableColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: stationUsageLogsTableColumns;"></tr>
+            <mat-row mat-header-row *matHeaderRowDef="stationUsageLogsTableColumns"></mat-row>
+            <mat-row mat-row *matRowDef="let row; columns: stationUsageLogsTableColumns;"></mat-row>
 
-        </table>
+        </mat-table>
 
         <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
 

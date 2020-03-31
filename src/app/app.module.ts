@@ -36,6 +36,8 @@ import { UnknownErrorComponent } from './layout/errors/unknown-error/unknown-err
 import * as hammer from 'hammerjs';
 import { HammerManager, HammerInstance } from '@angular/material/core';
 import { FooterComponent } from './layout/footer/footer.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = {
@@ -89,7 +91,9 @@ export class HammerConfig extends HammerGestureConfig {
       id: 'router-progressbar'
     }),
 
-    HammerModule
+    HammerModule,
+
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
   ],
   providers: [
