@@ -13,5 +13,5 @@
 
 
 <div *ngIf="expanded">
-    <app-side-menu-item *ngFor="let child of item.children" [item]="child" [depth]="depth+1"></app-side-menu-item>
+    <app-side-menu-item [sidenav]="sidenav"  *ngFor="let child of item.children" [item]="child" [depth]="depth+1"></app-side-menu-item>
 </div>

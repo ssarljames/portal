@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NavItem } from './nav-item';
 import { Component, OnInit, HostBinding, Input } from '@angular/core';
 import { trigger, state, transition, animate, style } from '@angular/animations';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-side-menu-item',
@@ -24,10 +26,20 @@ export class SideMenuItemComponent implements OnInit {
   @Input() item: NavItem;
   @Input() depth: number;
 
+
+  @Input() sidenav: MatSidenav;
+
   hasActive: boolean;
+  isHandset: boolean;
 
   constructor(public navService: NavService,
-              public router: Router) {
+              public router: Router,
+              private breakpointObserver: BreakpointObserver) {
+
+
+    breakpointObserver.observe(Breakpoints.Handset).subscribe(state => {
+      this.isHandset = state.matches
+    });
     if (this.depth === undefined) {
       this.depth = 0;
     }
@@ -73,7 +85,8 @@ export class SideMenuItemComponent implements OnInit {
 
     if (!item.children || !item.children.length) {
       this.router.navigate([item.route]);
-      // this.navService.closeNav();
+      if(this.isHandset)
+        this.sidenav.close();
     }
     if (item.children && item.children.length) {
       this.expanded = !this.expanded;

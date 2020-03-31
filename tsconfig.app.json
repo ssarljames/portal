@@ -2,7 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [
+      "node",
+      "gapi", // google
+      "gapi.auth2", // google
+      "facebook-js-sdk" // facebook
+    ]
   },
   "files": [
     "src/main.ts",

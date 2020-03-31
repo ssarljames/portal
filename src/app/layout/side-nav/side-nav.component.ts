@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavItem } from './side-menu-item/nav-item';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 
 @Component({
@@ -9,6 +10,8 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
+
+  @Input() sidenav: MatSidenav;
 
 
   navItems: NavItem[] = [

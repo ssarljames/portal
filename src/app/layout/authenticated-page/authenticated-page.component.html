@@ -4,10 +4,14 @@
         <app-top-navbar (toggled)="onToggle($event)"></app-top-navbar>
 
         <mat-sidenav-container>
-            <mat-sidenav #sidenav [fixedInViewport]="false" width="300px" mode="side" opened>
+            <mat-sidenav #sidenav
+            [fixedInViewport]="false"
+            [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+            [mode]="(isHandset$ | async) ? 'over' : 'side'"
+            [opened]="!(isHandset$ | async)">
                 <mat-nav-list>
 
-                    <app-side-nav></app-side-nav>
+                    <app-side-nav [sidenav]="sidenav"></app-side-nav>
 
                 </mat-nav-list>
             </mat-sidenav>

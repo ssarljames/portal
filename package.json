@@ -25,6 +25,7 @@
         "@angular/platform-browser-dynamic": "~9.0.1",
         "@angular/router": "~9.0.1",
         "@ng-bootstrap/ng-bootstrap": "^6.0.0",
+        "@types/facebook-js-sdk": "^3.3.0",
         "date-fns": "1.29.0",
         "ngx-date-fns": "4.0.3",
         "ngx-progressbar": "^6.0.2",

@@ -2,6 +2,9 @@ import { AuthenticationService } from './../../core/services/authentication/auth
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { User } from 'src/app/models/user/user';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-authenticated-page',
@@ -12,7 +15,15 @@ export class AuthenticatedPageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  constructor(private authService: AuthenticationService) { }
+  isHandset$: Observable<boolean>;
+
+  constructor(private authService: AuthenticationService,
+              private breakpointObserver: BreakpointObserver) {
+
+                this.isHandset$ = breakpointObserver.observe(Breakpoints.Handset).pipe(
+                  map(result => result.matches)
+                )
+  }
 
   user: User;
 
