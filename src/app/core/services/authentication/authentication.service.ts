@@ -93,7 +93,7 @@ export class AuthenticationService {
   }
 
 
-  get $user(): Observable<User>{
+  get user$(): Observable<User>{
     return this.$currentUser
           .pipe(map(user => {
 

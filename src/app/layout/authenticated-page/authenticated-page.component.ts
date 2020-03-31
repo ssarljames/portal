@@ -15,22 +15,28 @@ export class AuthenticatedPageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  isHandset$: Observable<boolean>;
+  isHandset: boolean;
+
+  error_occured: boolean = false;
 
   constructor(private authService: AuthenticationService,
               private breakpointObserver: BreakpointObserver) {
 
-                this.isHandset$ = breakpointObserver.observe(Breakpoints.Handset).pipe(
-                  map(result => result.matches)
-                )
+                breakpointObserver.observe(Breakpoints.Handset).subscribe(result => {
+                  this.isHandset = result.matches;
+                })
   }
 
   user: User;
 
   ngOnInit(): void {
-    this.authService.$user.subscribe(user => {
+    this.authService.user$.subscribe(user => {
       this.user = user;
-    })
+    },
+    e => {
+      this.error_occured = true;
+    }
+    )
   }
 
   ngAfterViewInit(){
@@ -40,5 +46,15 @@ export class AuthenticatedPageComponent implements OnInit, AfterViewInit {
 
   onToggle(e: any): void{
     this.sidenav.toggle();
+  }
+
+  openNav(): void{
+    if(this.isHandset)
+      this.sidenav.open();
+  }
+
+  closeNav(): void{
+    if(this.isHandset)
+      this.sidenav.close();
   }
 }

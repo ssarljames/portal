@@ -3,10 +3,10 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [
-      "node",
-      "gapi", // google
-      "gapi.auth2", // google
-      "facebook-js-sdk" // facebook
+      // "node",
+      // "gapi", // google
+      // "gapi.auth2", // google
+      // "facebook-js-sdk" // facebook
     ]
   },
   "files": [

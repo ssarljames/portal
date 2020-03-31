@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { NavService } from './layout/side-nav/side-menu-item/nav.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error/http-error.interceptor';
 import { RouterModule, GuardsCheckEnd, NavigationEnd } from '@angular/router';
@@ -7,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { NgProgressModule } from 'ngx-progressbar';
@@ -30,7 +31,21 @@ import { SideNavComponent } from './layout/side-nav/side-nav.component';
 import { GuestPageComponent } from './layout/guest-page/guest-page.component';
 import { UnderConstructionComponent } from './layout/under-construction/under-construction.component';
 import { UpdatePasswordComponent } from './layout/authenticated-page/update-password/update-password.component';
+import { UnknownErrorComponent } from './layout/errors/unknown-error/unknown-error.component';
 
+import * as hammer from 'hammerjs';
+import { HammerManager, HammerInstance } from '@angular/material/core';
+import { FooterComponent } from './layout/footer/footer.component';
+
+export class HammerConfig extends HammerGestureConfig {
+  overrides = {
+    swipe: {
+      direction: hammer.DIRECTION_HORIZONTAL,
+    },
+    pinch: { enable: false },
+    rotate: { enable: false }
+  }
+}
 
 @NgModule({
   declarations: [
@@ -45,7 +60,9 @@ import { UpdatePasswordComponent } from './layout/authenticated-page/update-pass
     SideNavComponent,
     GuestPageComponent,
     UnderConstructionComponent,
-    UpdatePasswordComponent
+    UpdatePasswordComponent,
+    UnknownErrorComponent,
+    FooterComponent
   ],
   imports: [
     RouterModule,
@@ -72,7 +89,7 @@ import { UpdatePasswordComponent } from './layout/authenticated-page/update-pass
       id: 'router-progressbar'
     }),
 
-
+    HammerModule
 
   ],
   providers: [
@@ -86,7 +103,10 @@ import { UpdatePasswordComponent } from './layout/authenticated-page/update-pass
       useClass: HttpErrorInterceptor,
       multi: true
     },
-
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    },
     NavService
 
   ],

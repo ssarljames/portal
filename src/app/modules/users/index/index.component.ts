@@ -30,7 +30,7 @@ export class IndexComponent implements OnInit {
   constructor(private userService: UserService,
               private authService: AuthenticationService) {
 
-    authService.$user.subscribe( user => {
+    authService.user$.subscribe( user => {
       this.user = user;
     });
 

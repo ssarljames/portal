@@ -7,7 +7,7 @@
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="isLoadingPaperSizes == false">
-                    <mat-table [dataSource]="paper_sizes_mds" class="full-width">
+                    <table mat-table [dataSource]="paper_sizes_mds" class="full-width">
 
                         <ng-container matColumnDef="description">
                             <th mat-header-cell *matHeaderCellDef> Description </th>
@@ -26,7 +26,7 @@
                         <tr mat-header-row *matHeaderRowDef="paperSizeColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: paperSizeColumns;"></tr>
 
-                    </mat-table>
+                    </table>
                     <app-ellipis-loading *ngIf="isLoadingPaperSizes"></app-ellipis-loading>
                     <br>
                     <button mat-raised-button color="primary" (click)="addPaperSize()"><mat-icon>add</mat-icon> New Paper Size</button>
@@ -41,7 +41,7 @@
             </mat-card-header>
             <mat-card-content>
                 <div *ngIf="isLoadingPrintQualities == false">
-                    <mat-table [dataSource]="print_qualities_mds" class="full-width">
+                    <table mat-table [dataSource]="print_qualities_mds" class="full-width">
 
                         <ng-container matColumnDef="description">
                             <th mat-header-cell *matHeaderCellDef> Description </th>
@@ -53,7 +53,7 @@
                         <tr mat-header-row *matHeaderRowDef="printQualityColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: printQualityColumns;"></tr>
 
-                    </mat-table>
+                    </table>
                 </div>
                 <app-ellipis-loading *ngIf="isLoadingPrintQualities"></app-ellipis-loading>
                 <br>
@@ -70,7 +70,7 @@
 
                 <app-ellipis-loading *ngIf="isLoadingServiceRates"></app-ellipis-loading>
 
-                <mat-table [dataSource]="service_rates_mds" class="full-width">
+                <table mat-table [dataSource]="service_rates_mds" class="full-width">
 
 
                     <ng-container matColumnDef="type">
@@ -122,7 +122,7 @@
                     <tr mat-header-row *matHeaderRowDef="serviceRateColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: serviceRateColumns;" [ngClass]="{'danger': row.rate == 0}"></tr>
 
-                </mat-table>
+                </table>
             </mat-card-content>
         </mat-card>
     </div>

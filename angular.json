@@ -33,13 +33,13 @@
 
                             {
                                 "input": "src/themes/cs3-default.scss",
-                                "bundleName": "cs3-default",
+                                "bundleName": "assets/css/themes/cs3-default",
                                 "lazy": true
                             },
 
                             {
                                 "input": "src/themes/cs3-dark.scss",
-                                "bundleName": "cs3-dark",
+                                "bundleName": "assets/css/themes/cs3-dark",
                                 "lazy": true
                             }
                         ],

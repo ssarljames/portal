@@ -73,6 +73,23 @@
         margin-bottom: 10px;
     }
 
-    .mat-table{
-      width: 100% !important;
+    table.mat-table {
+        width: 100% !important;
+        display: table;
+    }
+
+    .mat-elevation-z6,
+    mat-toolbar,
+    app-top-nav {
+        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+    }
+
+    mat-toolbar {
+        position: sticky;
+        position: -webkit-sticky;
+        /* For macOS/iOS Safari */
+        top: 0;
+        /* Sets the sticky toolbar to be on top */
+        z-index: 1000;
+        /* Ensure that your app's content doesn't overlap the toolbar */
     }

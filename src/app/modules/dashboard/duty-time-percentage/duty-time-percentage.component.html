@@ -6,7 +6,7 @@
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <table *ngIf="isDataLoaded && !isLoading" mat-table [dataSource]="duty_time_percentages_mds" class="full-width mb-2">
+        <table mat-table *ngIf="isDataLoaded && !isLoading" [dataSource]="duty_time_percentages_mds" class="full-width mb-2">
 
             <ng-container matColumnDef="user">
                 <th mat-header-cell *matHeaderCellDef>User</th>
