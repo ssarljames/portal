@@ -63,6 +63,8 @@ export class AuthenticationService {
       },
       e => {
         this.userFetching = false;
+        this.modalService.toast('Error retrieving user');
+        this.logout();
       });
     }
   }

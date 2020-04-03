@@ -16,6 +16,8 @@ import { PaperSizeService } from 'src/app/services/paper-size/paper-size.service
 import { ServiceRateService } from 'src/app/services/service-rate/service-rate.service';
 import { ServiceRate } from 'src/app/models/service-rate/service-rate';
 import { ServiceTransactionService } from 'src/app/services/service-transaction/service-transaction.service';
+import { Store } from '@ngrx/store';
+import { ServiceTransactionLoadAction, ServiceTransactionAddAction } from 'src/app/store/service-transaction/actions';
 
 @Component({
   selector: 'app-show',
@@ -54,10 +56,24 @@ export class ShowComponent implements OnInit {
               private printQualityService: PrintQualityService,
               private serviceRateService: ServiceRateService,
               private serviceTransacrionService: ServiceTransactionService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private store: Store<{service_transactions: ServiceTransaction[]}>) {
 
       this.transactions = [];
       this.mds = new MatTableDataSource();
+
+      this.store.select('service_transactions').subscribe(service_transactions => {
+        this.transactions = service_transactions;
+        this.mds.connect().next(this.transactions);
+
+
+
+        this.sales = 0;
+        if(this.transactions)
+          this.transactions.forEach(st => {
+            this.sales += Number(st.sales);
+          });
+      });
   }
 
   ngOnInit(): void {
@@ -168,10 +184,10 @@ export class ShowComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: ServiceTransaction) => {
       if(result){
-
-        this.transactions.unshift(result);
-        this.mds.connect().next(this.transactions);
-        this.sales += Number(result.sales);
+        this.store.dispatch(new ServiceTransactionAddAction(result));
+        // this.transactions.unshift(result);
+        // this.mds.connect().next(this.transactions);
+        // this.sales += Number(result.sales);
       }
     });
 
@@ -185,14 +201,8 @@ export class ShowComponent implements OnInit {
         station_id: this.station.id
       }
     }).subscribe(transactions => {
-      this.transactions = transactions;
-      this.mds.connect().next(this.transactions);
       this.isLoadingTransactions = false;
-
-      this.sales = 0;
-      this.transactions.forEach(st => {
-        this.sales += Number(st.sales);
-      });
+      this.store.dispatch(new ServiceTransactionLoadAction(transactions));
     })
   }
 

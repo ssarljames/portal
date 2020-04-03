@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { User } from 'src/app/models/user/user';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { MatToolbar } from '@angular/material/toolbar';
 @Component({
   selector: 'app-top-navbar',
   templateUrl: './top-navbar.component.html',

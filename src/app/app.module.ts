@@ -15,6 +15,8 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
 
+import { StoreModule } from '@ngrx/store';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,10 +36,12 @@ import { UpdatePasswordComponent } from './layout/authenticated-page/update-pass
 import { UnknownErrorComponent } from './layout/errors/unknown-error/unknown-error.component';
 
 import * as hammer from 'hammerjs';
-import { HammerManager, HammerInstance } from '@angular/material/core';
+// import { HammerManager, HammerInstance } from '@angular/material/core';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+
+import { AppReducers } from './store/app.reducers';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = {
@@ -93,7 +97,9 @@ export class HammerConfig extends HammerGestureConfig {
 
     HammerModule,
 
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+
+    StoreModule.forRoot(AppReducers)
 
   ],
   providers: [

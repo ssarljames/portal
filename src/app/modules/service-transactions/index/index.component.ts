@@ -5,6 +5,8 @@ import { StationService } from 'src/app/services/station/station.service';
 import { Station } from 'src/app/models/station/station';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { StateService } from 'src/app/core/services/state/state.service';
+import { Store } from '@ngrx/store';
+import { StationLoadAction } from 'src/app/store/station/actions';
 
 @Component({
   selector: 'app-index',
@@ -22,7 +24,14 @@ export class IndexComponent implements OnInit {
               private authService: AuthenticationService,
               private router: Router,
               private stateService: StateService,
-              private modalService: ModalService) { }
+              private modalService: ModalService,
+              private store: Store<{ stations: Station[]}>) {
+
+              this.store.select('stations').subscribe( stations => {
+                this.stations = stations;
+              });
+
+  }
 
   ngOnInit(): void {
     const station: Station = this.stateService.get('active_station');
@@ -44,7 +53,8 @@ export class IndexComponent implements OnInit {
       });
 
       if(activeStation == null)
-        this.stations = stations;
+        this.store.dispatch(new StationLoadAction(stations))
+        // this.stations = stations;
       else
         this.setActiveStation(activeStation);
 
@@ -53,6 +63,7 @@ export class IndexComponent implements OnInit {
   }
 
   useStation(station: Station): void{
+    station = {...station};
     this.modalService.prompt({
       question: "Please enter your password to continue",
       required: true,

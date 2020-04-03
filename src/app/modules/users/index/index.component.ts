@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
+import { Store, select } from '@ngrx/store';
+import { UserLoadAction } from 'src/app/store/user/actions';
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -28,11 +31,16 @@ export class IndexComponent implements OnInit {
   user: User;
 
   constructor(private userService: UserService,
-              private authService: AuthenticationService) {
+              private authService: AuthenticationService,
+              private store: Store<{users: User[]}>) {
 
     authService.user$.subscribe( user => {
       this.user = user;
     });
+
+    this.store.select('users').subscribe(users => {
+      this.users = users;
+    })
 
   }
 
@@ -46,8 +54,9 @@ export class IndexComponent implements OnInit {
       params: this.queryParams
     }).subscribe((users: User[]) => {
       this.meta = this.userService.getMeta();
-      this.users = users;
       this.isLoading = false;
+
+      this.store.dispatch(new UserLoadAction(users));
     })
   }
 

@@ -4,7 +4,8 @@ import { UserService } from 'src/app/services/user/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user/user';
-
+import { Store } from '@ngrx/store';
+import { UserAddAction } from 'src/app/store/user/actions';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -17,7 +18,8 @@ export class CreateComponent implements OnInit {
 
   constructor(private userService: UserService,
               private modalService: ModalService,
-              private router: Router) {
+              private router: Router,
+              private store: Store<{users: User[]}>) {
     this.form = new FormGroup({
       'username': new FormControl(''),
       'firstname': new FormControl(''),
@@ -69,11 +71,15 @@ export class CreateComponent implements OnInit {
       user.lastname = this.form.controls.lastname.value;
       user.password = this.form.controls.password.value;
 
-      this.userService.create(user).subscribe(() => {
+      this.userService.create(user).subscribe((user) => {
+
+        this.store.dispatch(new UserAddAction(user));
+
         this.modalService.swal({
           'text': 'User succesfully created',
           'icon': 'success'
         });
+
 
         this.router.navigate(['/users']);
       },

@@ -19,7 +19,7 @@
 
 
         <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
-        <table *ngIf="isLoading == false" mat-table class="mat-elevation-28" [dataSource]="users">
+        <table *ngIf="isLoading == false || users" mat-table class="mat-elevation-28" [dataSource]="users">
 
             <ng-container matColumnDef="username">
                 <th mat-header-cell *matHeaderCellDef> Username </th>
