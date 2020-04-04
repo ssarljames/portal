@@ -3,15 +3,28 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { Model } from 'src/app/models/model/model';
+import { Store } from '@ngrx/store';
 
+export interface ResourceAction<T extends Model>{
 
-export class ResourceService<T> {
+  store: Store;
+
+  create(item: T): void;
+  update(item: T): void;
+  list(item: T[]): void;
+  read(item: T): void;
+  delete(item: T): void;
+}
+
+export class ResourceService<T extends Model> {
 
   private meta:any = {};
   constructor(
               private httpClient: HttpClient,
               private resource: string,
-              public host: string = null) {
+              public host: string = null,
+              private action: ResourceAction<T> = null) {
 
       if (!this.host) {
         this.host = environment.endpoint;
@@ -37,13 +50,28 @@ export class ResourceService<T> {
 
   public create(item: T): Observable<T> {
     return this.httpClient
-      .post<T>(`${this.host}/${this.resource}`, item);
+      .post<T>(`${this.host}/${this.resource}`, item)
+      .pipe(map((item:T, index) => {
+
+        if(this.action)
+          this.action.create(item);
+
+        return item;
+      }));
   }
 
   public update(item: T): Observable<T> {
     const _item: any = item;
     const id = _item.id;
-    return this.httpClient.put<T>(`${this.host}/${this.resource}/${id}`, item);
+    return this.httpClient.put<T>(`${this.host}/${this.resource}/${id}`, item)
+              .pipe(map((item:T, index) => {
+
+                if(this.action)
+                  this.action.update(item);
+
+                return item;
+              })
+    );
   }
 
 
@@ -73,12 +101,24 @@ export class ResourceService<T> {
   public query(queryOptions: {} = {}): Observable<T[]> {
     return this.httpClient
       .get<T[]>(`${this.host}/${this.resource}`, queryOptions)
-      .pipe(map((response: any) => this.convertData(response)));
+      .pipe(map((response: any) => this.convertData(response)))
+      .pipe(map((item:T[]) => {
+
+        if(this.action)
+          this.action.list(item);
+
+        return item;
+      }));
   }
 
-  public delete(id: any) {
+  public delete(item: T) {
     return this.httpClient
-      .delete(`${this.host}/${this.resource}/${id}`);
+      .delete(`${this.host}/${this.resource}/${item.id}`)
+      .pipe(map( () => {
+        if(this.action)
+          this.action.delete(item)
+
+      }));
   }
 
   private convertData(response: any): T[] {

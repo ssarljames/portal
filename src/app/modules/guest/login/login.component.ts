@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(user).subscribe((user) => {
         this.loading = false;
         this.matDialog.closeAll();
-        this.router.navigate(['']);
+        this.router.navigate(['management']);
       },(e: any) => {
         console.log(e);
 

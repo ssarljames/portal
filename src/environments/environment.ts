@@ -2,11 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+
 export const environment = {
   production: false,
   endpoint: 'http://127.0.0.1:8000/api'
-  // endpoint: 'https://cs-cube-backend.herokuapp.com/api'
-  //endpoint: 'http://172.16.26.29:8000/api'
 };
 
 /*

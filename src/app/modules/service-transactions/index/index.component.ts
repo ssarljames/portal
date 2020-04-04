@@ -90,7 +90,7 @@ export class IndexComponent implements OnInit {
 
   setActiveStation(station: Station): void{
     this.stateService.set('active_station', station);
-    this.router.navigate([`/service-transactions/${station.id}`]);
+    this.router.navigate([`management/service-transactions/${station.id}`]);
   }
 
 }

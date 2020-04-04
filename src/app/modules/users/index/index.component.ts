@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
-import { Store, select } from '@ngrx/store';
-import { UserLoadAction } from 'src/app/store/user/actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-index',
@@ -55,8 +54,6 @@ export class IndexComponent implements OnInit {
     }).subscribe((users: User[]) => {
       this.meta = this.userService.getMeta();
       this.isLoading = false;
-
-      this.store.dispatch(new UserLoadAction(users));
     })
   }
 

@@ -7,6 +7,7 @@ import { LoginComponent } from 'src/app/modules/guest/login/login.component';
 interface Link{
   displayName: string;
   url: string;
+  exact?: boolean;
 }
 
 @Component({
@@ -23,19 +24,20 @@ export class GuestPageComponent implements OnInit {
   links: Link[] = [
     {
       displayName: 'Home',
-      url: '/g/home'
+      url: '',
+      exact: true
     },
     {
       displayName: 'Services',
-      url: '/g/services'
+      url: '/services'
     },
     {
       displayName: 'About',
-      url: '/g/about'
+      url: '/about'
     },
     {
       displayName: 'Directory',
-      url: '/g/directory'
+      url: '/directory'
     }
   ]
 

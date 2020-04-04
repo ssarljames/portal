@@ -18,7 +18,7 @@ export class GuestGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (this.authService.isLoggedIn !== false) {
-      this.router.navigate(['']);
+      this.router.navigate(['/management']);
       return false;
     }
     return true

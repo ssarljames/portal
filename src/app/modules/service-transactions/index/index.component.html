@@ -2,7 +2,7 @@
     <h1>Choose Station</h1>
     <div class="row">
         <div class="col-lg-3" *ngFor="let station of stations">
-            <mat-card>
+            <mat-card class="h-100">
                 <mat-card-header>
                     <mat-card-title-group>
                         <mat-card-title>
@@ -22,6 +22,9 @@
                         <span *ngIf="station.previous_session">
                           Last used by {{ station.previous_session.user.firstname }} {{ station.previous_session.time_out | parseDate | dfnsDistanceInWordsToNow }} ago
                         </span>
+                        <span *ngIf="station.previous_session == null">
+                          No previous user
+                        </span>
                         <br>
                         <br>
                         <button (click)="useStation(station)" mat-raised-button color="primary" [disabled]="station.isJoining || station.allowed_to_use == false">{{ station.isJoining ? 'Loading...' : 'Use' }}</button>
@@ -29,7 +32,13 @@
                 </mat-card-content>
             </mat-card>
         </div>
+        <div class="col-lg-3" *ngIf="fetchingStations">
+          <mat-card>
+            <mat-card-content>
+              <app-ellipis-loading></app-ellipis-loading>
+            </mat-card-content>
+          </mat-card>
+        </div>
     </div>
 </div>
 
-<h1 *ngIf="fetchingStations">Loading Stations...</h1>

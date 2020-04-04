@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="h-100">
     <mat-card-header>
         <mat-card-title>Duty Time Percentage</mat-card-title>
         <mat-card-subtitle>
@@ -6,7 +6,8 @@
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <table mat-table *ngIf="isDataLoaded && !isLoading" [dataSource]="duty_time_percentages_mds" class="full-width mb-2">
+        <div class="table-responsive">
+          <table mat-table *ngIf="isDataLoaded && !isLoading || duty_time_percentages_mds.data" [dataSource]="duty_time_percentages_mds" class="full-width mb-2">
 
             <ng-container matColumnDef="user">
                 <th mat-header-cell *matHeaderCellDef>User</th>
@@ -31,6 +32,7 @@
             <tr mat-row *matRowDef="let row; columns: timePercantageTableColumns;"></tr>
 
         </table>
+        </div>
         <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
         <button *ngIf="isDataLoaded == false && isLoading == false" mat-button color="primary" [disabled]="isLoading" (click)="fetchDutyTimePercentage()">Load Content</button>
         <button *ngIf="isDataLoaded && isLoading == false" mat-button color="primary" (click)="fetchDutyTimePercentage()">Refresh</button>

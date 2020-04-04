@@ -1,6 +1,6 @@
 <h1>
     <i class="fa fa-users"></i> Users
-    <a mat-raised-button color="primary" routerLink="/users/create" rou>New</a>
+    <a mat-raised-button color="primary" routerLink="/management/users/create" rou>New</a>
 </h1>
 <mat-card>
     <mat-card-header>
@@ -18,7 +18,6 @@
     <mat-card-content>
 
 
-        <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
         <table *ngIf="isLoading == false || users" mat-table class="mat-elevation-28" [dataSource]="users">
 
             <ng-container matColumnDef="username">
@@ -47,7 +46,7 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
                 <td mat-cell *matCellDef="let user">
-                    <button mat-raised-button color="basic" [routerLink]="'/users/' + user.id + '/edit'"><i class="fa fa-edit"></i></button>
+                    <button mat-raised-button color="basic" [routerLink]="'/management/users/' + user.id + '/edit'"><i class="fa fa-edit"></i></button>
                 </td>
             </ng-container>
 
@@ -56,7 +55,9 @@
         </table>
 
 
-        <br><br>
+        <br>
+        <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
+        <br>
 
     </mat-card-content>
 </mat-card>

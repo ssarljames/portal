@@ -43,6 +43,18 @@ export class PrintingServiceComponent implements OnInit {
               }
 
   ngOnInit(): void {
+
+    const paper_sizes = this.stateService.get('paper_sizes');
+    const print_qualities = this.stateService.get('print_qualities');
+    const service_rates = this.stateService.get('service_rates');
+
+    if(paper_sizes)
+      this.paper_sizes_mds.connect().next(paper_sizes);
+    if(print_qualities)
+      this.print_qualities_mds.connect().next(print_qualities);
+    if(service_rates)
+      this.service_rates_mds.connect().next(service_rates);
+
     this.fetchPaperSizes();
     this.fetchPrintQualities();
     this.fetchServiceRates();
@@ -53,6 +65,7 @@ export class PrintingServiceComponent implements OnInit {
     this.paperSizeService.query().subscribe((paper_sizes: PaperSize[]) => {
       this.paper_sizes_mds.connect().next(paper_sizes);
       this.isLoadingPaperSizes = false;
+      this.stateService.set('paper_sizes', paper_sizes);
     });
   }
 
@@ -61,6 +74,7 @@ export class PrintingServiceComponent implements OnInit {
     this.printQualityService.query().subscribe((print_qualities: PrintQuality[]) => {
       this.print_qualities_mds.connect().next(print_qualities);
       this.isLoadingPrintQualities = false;
+      this.stateService.set('print_qualities', print_qualities);
     });
   }
 
@@ -72,6 +86,7 @@ export class PrintingServiceComponent implements OnInit {
 
       this.service_rates_mds.connect().next(sr);
       this.isLoadingServiceRates = false;
+      this.stateService.set('service_rates', service_rates);
     })
   }
 

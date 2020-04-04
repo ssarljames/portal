@@ -4,8 +4,6 @@ import { ModalService } from 'src/app/modules/shared/services/modal/modal.servic
 import { UserService } from 'src/app/services/user/user.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { UserUpdateAction } from 'src/app/store/user/actions';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -26,8 +24,7 @@ export class EditComponent implements OnInit {
   constructor(private userService: UserService,
               private modalService: ModalService,
               private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private store: Store<{users: User[]}>) {
+              private activatedRoute: ActivatedRoute) {
     this.form = new FormGroup({
       'username': new FormControl(''),
       'firstname': new FormControl(''),
@@ -76,14 +73,12 @@ export class EditComponent implements OnInit {
 
       this.userService.update(user).subscribe((user) => {
 
-        this.store.dispatch(new UserUpdateAction(user))
-
         this.modalService.swal({
           'text': 'User succesfully created',
           'icon': 'success'
         });
 
-        this.router.navigate(['/users']);
+        this.router.navigate(['management/users']);
       },
 
       response => {

@@ -3,8 +3,9 @@
   <head>
     <script>
       const root = 'https://ssarljames.github.io/cs3-portal';
+
+
       const path = window.location.href.replace(root, '');
-      alert(path);
       localStorage.setItem('path', path);
       window.location.href = root;
     </script>

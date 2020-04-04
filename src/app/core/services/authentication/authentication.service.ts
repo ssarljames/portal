@@ -122,7 +122,7 @@ export class AuthenticationService {
     this.modalService.toast('You were logged out.');
     this.authInfo = null;
     this.$currentUser.next(null);
-    this.router.navigate(['g']);
+    this.router.navigate(['/']);
 
     // return this.http.post<any>(`${this.endpoint}/logout`, {}).subscribe(() => {
     //   localStorage.clear();

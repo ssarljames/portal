@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NavItem } from './side-menu-item/nav-item';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { MatSidenav } from '@angular/material/sidenav';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -13,18 +14,17 @@ export class SideNavComponent implements OnInit {
 
   @Input() sidenav: MatSidenav;
 
-
   navItems: NavItem[] = [
     {
       displayName: 'Darshboard',
-      route: '/',
+      route: 'management/',
       iconName: 'dashboard',
       allowed_roles: []
     },
     {
       displayName: 'Service Transactions',
       iconName: 'print',
-      route: 'service-transactions',
+      route: 'management/service-transactions',
       allowed_roles: []
     },
     {
@@ -34,13 +34,13 @@ export class SideNavComponent implements OnInit {
       children: [
         {
           displayName: 'Users',
-          route: '/users',
+          route: 'management/users',
           iconName: 'group',
           allowed_roles: [ 'administrator' ]
         },
         {
           displayName: 'Service Settings',
-          route: '/settings/printing-service',
+          route: 'management/settings/printing-service',
           iconName: 'insert_drive_file',
           allowed_roles: [ 'administrator' ]
         },

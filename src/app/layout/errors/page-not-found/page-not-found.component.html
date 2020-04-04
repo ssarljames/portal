@@ -1,8 +1,33 @@
-<mat-card class="m-3">
+
+
+  <mat-card class="m-3">
     <mat-card-header>
         <mat-card-title>Error 404</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         Page not found.
     </mat-card-content>
-</mat-card>
+  </mat-card>
+
+<!--
+<app-authenticated-page *ngIf="isLoggedIn">
+  <mat-card class="m-3">
+    <mat-card-header>
+        <mat-card-title>Error 404</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        Page not found.
+    </mat-card-content>
+  </mat-card>
+</app-authenticated-page>
+
+<app-guest-page *ngIf="!isLoggedIn">
+  <mat-card class="m-3">
+    <mat-card-header>
+        <mat-card-title>Error 404</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        Page not found.
+    </mat-card-content>
+  </mat-card>
+</app-guest-page> -->

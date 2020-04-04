@@ -11,7 +11,7 @@
 
                 </mat-nav-list>
             </mat-sidenav>
-            <mat-sidenav-content>
+            <mat-sidenav-content (swiperight)="openNav()" (swipeleft)="closeNav()">
                 <div style="min-height: 80vh;" class="p-3">
                     <router-outlet></router-outlet>
                 </div>

@@ -29,7 +29,7 @@ export class UserUpdateAction extends UserAction{
 }
 
 
-export class UserRemove extends UserAction{
+export class UserRemoveAction extends UserAction{
   type = UserActionTypes.Remove;
   constructor(public payload: User){
     super();

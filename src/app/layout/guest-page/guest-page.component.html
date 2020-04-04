@@ -14,7 +14,7 @@
             <h1>CS<sup>3</sup> &nbsp;&nbsp;&nbsp;&nbsp;</h1>
             <span class="menu-spacer"></span>
 
-            <a *ngFor="let link of links" [class]="{'d-none': isHandset}" mat-button [routerLink]="link.url" routerLinkActive="_active">
+            <a *ngFor="let link of links" [class]="{'d-none': isHandset}" mat-button [routerLink]="link.url" routerLinkActive="_active" [routerLinkActiveOptions]="{ exact: link.exact }">
           {{ link.displayName }}
         </a>
 
@@ -33,7 +33,11 @@
         <mat-sidenav [class]="{'d-none': !isHandset}" #sidenav [fixedInViewport]="false" role="dialog" mode="over" [opened]="false">
             <mat-nav-list>
 
-                <a (click)="sidenav.close()" *ngFor="let link of links" [routerLink]="link.url" mat-list-item class="menu-list-item" routerLinkActive="_active">
+                <a (click)="sidenav.close()"
+                  *ngFor="let link of links"
+                  [routerLink]="link.url"
+                  [routerLinkActiveOptions]="{ exact: link.exact }"
+                  mat-list-item class="menu-list-item" routerLinkActive="_active">
                     <span>{{ link.displayName }}</span>
                 </a>
 

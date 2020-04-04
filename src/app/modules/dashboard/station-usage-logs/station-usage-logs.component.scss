@@ -1,0 +1,43 @@
+.table-responsive-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  margin:10px;
+}
+
+// .mat-table {
+//   overflow: auto;
+//   max-height: 250px;
+// }
+
+// mat-header-cell, mat-header-row, .mat-header-cell-def{
+//     background:#f2f4f7;
+//     min-height:15px;
+//     font-family:Verdana,sans-serif;
+//     font-weight:bold;
+//     font-size:13px;
+//     color: #1a084c;
+//     margin-bottom:5px;
+//      top: 0;
+//     position: sticky;
+//     z-index: 1;
+// }
+
+// mat-row{
+//     min-height:20px;
+//     font-family:Verdana,sans-serif;
+//     font-size:11px;
+//     color: #1a084c;
+//     }
+// mat-cell{
+//     height:20px;
+//     font-family:Verdana,sans-serif;
+//     font-size:11px;
+//     color: #1a084c;
+// }
+
+@media only screen and (max-width: 736px) and (orientation:portrait) {
+  mat-header-row, mat-row {
+   width: 200%;  //you can also set it in px,em, etc...
+  }
+}

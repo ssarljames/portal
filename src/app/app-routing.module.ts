@@ -6,11 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthenticatedPageComponent } from './layout/authenticated-page/authenticated-page.component';
 import { IndexComponent } from './layout/index/index.component';
 import { GuestPageComponent } from './layout/guest-page/guest-page.component';
+import { environment } from 'src/environments/environment';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'management',
     canActivate: [ AuthenticatedGuard ],
     component: AuthenticatedPageComponent,
     children: [
@@ -34,11 +35,16 @@ const routes: Routes = [
         path: 'account',
         loadChildren: () => import(`./modules/account/account.module`).then(m => m.AccountModule)
       },
+
+      {
+        path: '**',
+        component: PageNotFoundComponent
+      }
     ]
   },
 
   {
-    path: 'g',
+    path: '',
     component: GuestPageComponent,
     canActivate: [ GuestGuard ],
     children: [
@@ -52,14 +58,7 @@ const routes: Routes = [
         component: PageNotFoundComponent
       }
     ]
-  },
-
-
-  {
-    path: '**',
-    redirectTo: 'g/**'
-
-  },
+  }
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { element } from 'protractor';
-import { NavService } from './layout/side-nav/side-menu-item/nav.service';
+import { NavService } from './layout/authenticated-page/side-nav/side-menu-item/nav.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error/http-error.interceptor';
 import { RouterModule, GuardsCheckEnd, NavigationEnd } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
@@ -25,11 +25,11 @@ import { AccessDeniedComponent } from './layout/errors/access-denied/access-deni
 import { AuthenticatedPageComponent } from './layout/authenticated-page/authenticated-page.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthenticationInterceptor } from './core/interceptors/authentication/authentication.interceptor';
-import { SideMenuItemComponent } from './layout/side-nav/side-menu-item/side-menu-item.component';
+import { SideMenuItemComponent } from './layout/authenticated-page/side-nav/side-menu-item/side-menu-item.component';
 import { ThemePickerComponent } from './layout/theme-picker/theme-picker.component';
-import { TopNavbarComponent } from './layout/top-navbar/top-navbar.component';
+import { TopNavbarComponent } from './layout/authenticated-page/top-navbar/top-navbar.component';
 import { IndexComponent } from './layout/index/index.component';
-import { SideNavComponent } from './layout/side-nav/side-nav.component';
+import { SideNavComponent } from './layout/authenticated-page/side-nav/side-nav.component';
 import { GuestPageComponent } from './layout/guest-page/guest-page.component';
 import { UnderConstructionComponent } from './layout/under-construction/under-construction.component';
 import { UpdatePasswordComponent } from './layout/authenticated-page/update-password/update-password.component';
@@ -43,15 +43,15 @@ import { environment } from '../environments/environment';
 
 import { AppReducers } from './store/app.reducers';
 
-export class HammerConfig extends HammerGestureConfig {
-  overrides = {
-    swipe: {
-      direction: hammer.DIRECTION_HORIZONTAL,
-    },
-    pinch: { enable: false },
-    rotate: { enable: false }
-  }
-}
+// export class HammerConfig extends HammerGestureConfig {
+//   overrides = {
+//     swipe: {
+//       direction: hammer.DIRECTION_HORIZONTAL,
+//     },
+//     pinch: { enable: false },
+//     rotate: { enable: false }
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -113,10 +113,10 @@ export class HammerConfig extends HammerGestureConfig {
       useClass: HttpErrorInterceptor,
       multi: true
     },
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: HammerConfig
-    },
+    // {
+    //   provide: HAMMER_GESTURE_CONFIG,
+    //   useClass: HammerConfig
+    // },
     NavService
 
   ],
