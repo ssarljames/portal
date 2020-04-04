@@ -57,18 +57,7 @@ const routes: Routes = [
 
   {
     path: '**',
-    component: GuestPageComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import(`./modules/guest/guest.module`).then(m => m.GuestModule)
-      },
-
-      {
-        path: '**',
-        component: PageNotFoundComponent
-      }
-    ]
+    redirectTo: 'g/**'
 
   },
 ];
