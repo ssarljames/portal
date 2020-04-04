@@ -57,7 +57,19 @@ const routes: Routes = [
 
   {
     path: '**',
-    component: PageNotFoundComponent
+    component: GuestPageComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import(`./modules/guest/guest.module`).then(m => m.GuestModule)
+      },
+
+      {
+        path: '**',
+        component: PageNotFoundComponent
+      }
+    ]
+
   },
 ];
 
