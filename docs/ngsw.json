@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1586010962726,
+  "timestamp": 1586011786519,
   "index": "https://ssarljames.github.io/cs3-portal/index.html",
   "assetGroups": [
     {
@@ -17,7 +17,7 @@
         "https://ssarljames.github.io/cs3-portal/common.80d758458e98fae93ddc.js",
         "https://ssarljames.github.io/cs3-portal/favicon.ico",
         "https://ssarljames.github.io/cs3-portal/index.html",
-        "https://ssarljames.github.io/cs3-portal/main.a77fe5e1a85cbce4e3bb.js",
+        "https://ssarljames.github.io/cs3-portal/main.8b84ca5ca3c22c6acefa.js",
         "https://ssarljames.github.io/cs3-portal/manifest.webmanifest",
         "https://ssarljames.github.io/cs3-portal/polyfills-es5.ac394c3bdf7c4d88802d.js",
         "https://ssarljames.github.io/cs3-portal/polyfills.54666cc5391ee3c9ecec.js",
@@ -121,8 +121,8 @@
     "https://ssarljames.github.io/cs3-portal/assets/icons/icon-96x96.png": "bd33dc68b87711e7ad9452f2f650b5b9bbb409c3",
     "https://ssarljames.github.io/cs3-portal/common.80d758458e98fae93ddc.js": "90e2f95496963138adb9aed8f0a608faff8c1fe5",
     "https://ssarljames.github.io/cs3-portal/favicon.ico": "bc666b8b37cc9cf19b6f0c616596540e22e88ea7",
-    "https://ssarljames.github.io/cs3-portal/index.html": "6051561c5e736893111b6029256face7bbc09f85",
-    "https://ssarljames.github.io/cs3-portal/main.a77fe5e1a85cbce4e3bb.js": "51e1ae89d6cab867bc6eaa105b467039ebcb14ca",
+    "https://ssarljames.github.io/cs3-portal/index.html": "9bb3b339301d49279c03f090e967ac4a3efe3957",
+    "https://ssarljames.github.io/cs3-portal/main.8b84ca5ca3c22c6acefa.js": "d47a0e1568cdfe96b3aca88f730129ba1dcdab75",
     "https://ssarljames.github.io/cs3-portal/manifest.webmanifest": "23e3501f4d15b5e418048318056dc3f26f3e03e9",
     "https://ssarljames.github.io/cs3-portal/polyfills-es5.ac394c3bdf7c4d88802d.js": "5119e406194a4af2ddc33ecce95d09321e46e090",
     "https://ssarljames.github.io/cs3-portal/polyfills.54666cc5391ee3c9ecec.js": "85c3e4648c8aa4c2b865e839899cdfdc30f50a1b",

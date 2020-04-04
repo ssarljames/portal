@@ -43,15 +43,15 @@ import { environment } from '../environments/environment';
 
 import { AppReducers } from './store/app.reducers';
 
-// export class HammerConfig extends HammerGestureConfig {
-//   overrides = {
-//     swipe: {
-//       direction: hammer.DIRECTION_HORIZONTAL,
-//     },
-//     pinch: { enable: false },
-//     rotate: { enable: false }
-//   }
-// }
+export class HammerConfig extends HammerGestureConfig {
+  overrides = {
+    swipe: {
+      direction: hammer.DIRECTION_HORIZONTAL,
+    },
+    pinch: { enable: false },
+    rotate: { enable: false }
+  }
+}
 
 @NgModule({
   declarations: [
@@ -113,10 +113,10 @@ import { AppReducers } from './store/app.reducers';
       useClass: HttpErrorInterceptor,
       multi: true
     },
-    // {
-    //   provide: HAMMER_GESTURE_CONFIG,
-    //   useClass: HammerConfig
-    // },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    },
     NavService
 
   ],
