@@ -1,40 +1,43 @@
-const {app, BrowserWindow} = require('electron')
-    const url = require("url");
-    const path = require("path");
+const { app, BrowserWindow } = require('electron')
 
-    let mainWindow
+let win;
 
-    function createWindow () {
-      mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-          nodeIntegration: true
-        },
-        fullscreenWindowTitle: true
-      })
+function createWindow () {
+  // Create the browser window.
+  win = new BrowserWindow({
+    width: 600,
+    height: 600,
+    backgroundColor: '#ffffff',
+    icon: `file://${__dirname}/dist/assets/icon/icon-96x96.png`
+  })
 
-      mainWindow.loadURL(
-        url.format({
-          pathname: path.join(__dirname, `/dist/index.html`),
-          protocol: "file:",
-          slashes: true
-        })
-      );
-      // Open the DevTools.
-      mainWindow.webContents.openDevTools()
 
-      mainWindow.on('closed', function () {
-        mainWindow = null
-      })
-    }
+  win.loadURL(`file://${__dirname}/dist/index.html`)
 
-    app.on('ready', createWindow)
+  //// uncomment below to open the DevTools.
+  // win.webContents.openDevTools()
 
-    app.on('window-all-closed', function () {
-      if (process.platform !== 'darwin') app.quit()
-    })
+  // Event when the window is closed.
+  win.on('closed', function () {
+    win = null
+  })
+}
 
-    app.on('activate', function () {
-      if (mainWindow === null) createWindow()
-    })
+// Create window on electron intialization
+app.on('ready', createWindow)
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function () {
+
+  // On macOS specific close process
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', function () {
+  // macOS specific close process
+  if (win === null) {
+    createWindow()
+  }
+})
