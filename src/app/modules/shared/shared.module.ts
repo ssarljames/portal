@@ -11,7 +11,12 @@ import { MaterialModule } from './material.module';
 
 import { DateFnsModule, DateFnsConfigurationService, } from 'ngx-date-fns';
 import * as en from 'date-fns/locale/en'
+
 import { EllipisLoadingComponent } from './utils/ellipis-loading/ellipis-loading.component';
+import { MaterialInputComponent } from './utils/material-input/material-input.component';
+import { MaterialTextareaComponent } from './utils/material-textarea/material-textarea.component';
+import { MaterialAutocompleteComponent } from './utils/material-autocomplete/material-autocomplete.component';
+import { MaterialSelectComponent } from './utils/material-select/material-select.component';
 
 const phConfig = new DateFnsConfigurationService();
 phConfig.setLocale(en)
@@ -21,7 +26,11 @@ phConfig.setLocale(en)
     PromptComponent,
     AlertComponent,
     ConfirmationComponent,
-    EllipisLoadingComponent
+    EllipisLoadingComponent,
+    MaterialInputComponent,
+    MaterialTextareaComponent,
+    MaterialAutocompleteComponent,
+    MaterialSelectComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +49,11 @@ phConfig.setLocale(en)
     FormsModule,
     DateFnsModule,
     PipesModule,
-    EllipisLoadingComponent
+    EllipisLoadingComponent,
+    MaterialInputComponent,
+    MaterialTextareaComponent,
+    MaterialAutocompleteComponent,
+    MaterialSelectComponent
   ],
   providers: [
     ModalService,
@@ -49,7 +62,11 @@ phConfig.setLocale(en)
   ],
   entryComponents: [
     PromptComponent,
-    EllipisLoadingComponent
+    EllipisLoadingComponent,
+    MaterialInputComponent,
+    MaterialTextareaComponent,
+    MaterialAutocompleteComponent,
+    MaterialSelectComponent
   ],
 })
 export class SharedModule { }

@@ -1,0 +1,5 @@
+<mat-form-field [class]="class" [appearance]="appearance">
+    <mat-label>{{ label }}</mat-label>
+    <textarea matInput [rows]="rows" [cols]="cols" [formControl]="control" autocomplete="off" [placeholder]="placeholder"></textarea>
+    <mat-error *ngIf="control.errors">{{ control.errors.required ? 'Required' : control.errors[0] }}</mat-error>
+</mat-form-field>

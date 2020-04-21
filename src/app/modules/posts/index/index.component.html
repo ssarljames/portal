@@ -1,0 +1,27 @@
+<h1><mat-icon>developer_board</mat-icon> Posts</h1>
+<a mat-raised-button routerLink="create">Create</a>
+
+<table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell *matHeaderCellDef>Date Posted</mat-header-cell>
+        <mat-cell *matCellDef="let post">
+            {{ post.created_at | parseDate | dfnsFormat: 'MMM d, YYYY' }}
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+        <mat-cell *matCellDef="let post">
+            {{ post.title }}
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="user">
+        <mat-header-cell *matHeaderCellDef>Posted By</mat-header-cell>
+        <mat-cell *matCellDef="let post">
+            {{ post.user.fullname }}
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns" matRipple (click)="show(row.id)"></mat-row>
+</table>

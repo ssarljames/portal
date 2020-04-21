@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 import { MatSidenav } from '@angular/material/sidenav';
 import { environment } from 'src/environments/environment';
 
+import { MENU } from './menu';
 
 @Component({
   selector: 'app-side-nav',
@@ -14,39 +15,7 @@ export class SideNavComponent implements OnInit {
 
   @Input() sidenav: MatSidenav;
 
-  navItems: NavItem[] = [
-    {
-      displayName: 'Darshboard',
-      route: 'management/',
-      iconName: 'dashboard',
-      allowed_roles: []
-    },
-    {
-      displayName: 'Service Transactions',
-      iconName: 'print',
-      route: 'management/service-transactions',
-      allowed_roles: []
-    },
-    {
-      displayName: 'Administration',
-      iconName: 'account_balance',
-      allowed_roles: ['administrator'],
-      children: [
-        {
-          displayName: 'Users',
-          route: 'management/users',
-          iconName: 'group',
-          allowed_roles: [ 'administrator' ]
-        },
-        {
-          displayName: 'Service Settings',
-          route: 'management/settings/printing-service',
-          iconName: 'insert_drive_file',
-          allowed_roles: [ 'administrator' ]
-        },
-      ]
-    }
-  ];
+  navItems: NavItem[] = MENU;
 
 
   constructor(private authService: AuthenticationService) {

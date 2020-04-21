@@ -6,13 +6,15 @@ import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { ViewPostComponent } from './view-post/view-post.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    ViewPostComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,9 @@
+<mat-form-field [class]="class" [appearance]="appearance">
+    <mat-label>{{ label }}</mat-label>
+    <mat-select [formControl]="control" [placeholder]="placeholder" [(value)]="selected">
+        <mat-option *ngIf="control.value && !required || !control.value && !required">None</mat-option>
+        <mat-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mat-option>
+    </mat-select>
+    <mat-icon matSuffix *ngIf="icon">{{ icon }}</mat-icon>
+    <mat-error *ngIf="control.errors">{{ control.errors.required ? 'Required' : control.errors[0] }}</mat-error>
+</mat-form-field>

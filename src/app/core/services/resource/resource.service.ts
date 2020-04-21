@@ -51,6 +51,7 @@ export class ResourceService<T extends Model> {
   public create(item: T): Observable<T> {
     return this.httpClient
       .post<T>(`${this.host}/${this.resource}`, item)
+      .pipe(map((response: any): any => this.convertData(response)))
       .pipe(map((item:T, index) => {
 
         if(this.action)
@@ -64,6 +65,7 @@ export class ResourceService<T extends Model> {
     const _item: any = item;
     const id = _item.id;
     return this.httpClient.put<T>(`${this.host}/${this.resource}/${id}`, item)
+              .pipe(map((response: any): any => this.convertData(response)))
               .pipe(map((item:T, index) => {
 
                 if(this.action)
@@ -95,7 +97,15 @@ export class ResourceService<T extends Model> {
 
 
   public read(id: any, option: {} = {}): Observable<T> {
-    return this.httpClient.get<T>(`${this.host}/${this.resource}/${id}`, option);
+    return this.httpClient.get<T>(`${this.host}/${this.resource}/${id}`, option)
+              .pipe(map((response: any): any => this.convertData(response)))
+              .pipe(map((item:T, index) => {
+
+                if(this.action)
+                  this.action.update(item);
+
+                return item;
+              }));
   }
 
   public query(queryOptions: {} = {}): Observable<T[]> {
@@ -103,6 +113,7 @@ export class ResourceService<T extends Model> {
       .get<T[]>(`${this.host}/${this.resource}`, queryOptions)
       .pipe(map((response: any) => this.convertData(response)))
       .pipe(map((item:T[]) => {
+        
 
         if(this.action)
           this.action.list(item);
@@ -121,7 +132,7 @@ export class ResourceService<T extends Model> {
       }));
   }
 
-  private convertData(response: any): T[] {
+  private convertData(response: any): any {
     for (const key in response) {
       if (response.hasOwnProperty(key) && key != "data") {
         const element = response[key];
@@ -129,7 +140,7 @@ export class ResourceService<T extends Model> {
       }
     }
 
-    return response.data;
+    return response.data ? response.data : response;
   }
 
   public getMeta():any{

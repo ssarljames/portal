@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import(`./modules/users/users.module`).then(m => m.UsersModule)
       },
       {
+        path: 'posts',
+        loadChildren: () => import(`./modules/posts/posts.module`).then(m => m.PostsModule)
+      },
+      {
         path: 'service-transactions',
         loadChildren: () => import(`./modules/service-transactions/service-transactions.module`).then(m => m.ServiceTransactionsModule)
       },

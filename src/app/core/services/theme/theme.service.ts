@@ -24,7 +24,7 @@ export class ThemeService implements OnInit {
       href: 'assets/css/themes/cs3-default.css',
       primary: '#9C27B0',
       accent: '#4CAF50',
-      displayName: 'CS3 Light',
+      displayName: 'Light Mode',
       name: 'yellow-amber-light',
       isDark: false,
       selected: true
@@ -33,47 +33,47 @@ export class ThemeService implements OnInit {
       href: 'assets/css/themes/cs3-dark.css',
       primary: '#9C27B0',
       accent: '#4CAF50',
-      displayName: 'CS3 Dark',
+      displayName: 'Dark Mode',
       name: 'yellow-amber-dark',
       isDark: true,
       selected: false
     },
-    {
-      href: 'assets/css/themes/deeppurple-amber.css',
-      primary: '#673AB7',
-      accent: '#FFC107',
-      displayName: 'Deep Purple & Amber',
-      name: 'deeppurple-amber',
-      isDark: false,
-      selected: false
-    },
-    {
-      href: 'assets/css/themes/indigo-pink.css',
-      primary: '#3F51B5',
-      accent: '#E91E63',
-      displayName: 'Indigo & Pink',
-      name: 'indigo-pink',
-      isDark: false,
-      selected: false,
-    },
-    {
-      href: 'assets/css/themes/pink-bluegrey.css',
-      primary: '#E91E63',
-      accent: '#607D8B',
-      displayName: 'Pink & Blue-grey',
-      name: 'pink-bluegrey',
-      isDark: true,
-      selected: false
-    },
-    {
-      href: 'assets/css/themes/purple-green.css',
-      primary: '#9C27B0',
-      accent: '#4CAF50',
-      displayName: 'Purple & Green',
-      name: 'purple-green',
-      isDark: true,
-      selected: false
-    },
+    // {
+    //   href: 'assets/css/themes/deeppurple-amber.css',
+    //   primary: '#673AB7',
+    //   accent: '#FFC107',
+    //   displayName: 'Deep Purple & Amber',
+    //   name: 'deeppurple-amber',
+    //   isDark: false,
+    //   selected: false
+    // },
+    // {
+    //   href: 'assets/css/themes/indigo-pink.css',
+    //   primary: '#3F51B5',
+    //   accent: '#E91E63',
+    //   displayName: 'Indigo & Pink',
+    //   name: 'indigo-pink',
+    //   isDark: false,
+    //   selected: false,
+    // },
+    // {
+    //   href: 'assets/css/themes/pink-bluegrey.css',
+    //   primary: '#E91E63',
+    //   accent: '#607D8B',
+    //   displayName: 'Pink & Blue-grey',
+    //   name: 'pink-bluegrey',
+    //   isDark: true,
+    //   selected: false
+    // },
+    // {
+    //   href: 'assets/css/themes/purple-green.css',
+    //   primary: '#9C27B0',
+    //   accent: '#4CAF50',
+    //   displayName: 'Purple & Green',
+    //   name: 'purple-green',
+    //   isDark: true,
+    //   selected: false
+    // },
   ];
 
   currentTheme: Theme;

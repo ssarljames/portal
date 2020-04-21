@@ -38,10 +38,13 @@ export class LoginComponent implements OnInit {
     if(this.form.valid){
       this.loading = true;
 
+
       const user = new User();
       user.username = this.form.controls.username.value;
       user.password = this.form.controls.password.value;
 
+      this.form.disable();
+      
       this.authService.login(user).subscribe((user) => {
         this.loading = false;
         this.matDialog.closeAll();
@@ -54,6 +57,12 @@ export class LoginComponent implements OnInit {
         else if(e.hasOwnProperty('error'))
           this.error = e.error;
         this.loading = false;
+
+        this.form.enable();
+      },
+      () => {
+
+        this.form.enable();
       })
     }
   }
