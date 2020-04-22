@@ -40,8 +40,8 @@
 
                     <div *ngFor="let event of events">
 
-                        <h2>{{ event.name }}</h2>
-
+                        <h2 class="mb-0">{{ event.name }}</h2>
+                        <span class="text-muted">{{ event.start_date | parseDate | dfnsFormat: 'MMM DD, YYYY' }}</span>
                         <br>
 
                         <div class="ck-content" [innerHTML]="event.description"></div>
