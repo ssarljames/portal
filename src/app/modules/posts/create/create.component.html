@@ -1,16 +1,1 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Create Post</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <app-material-input [control]="form.controls.title" label="Title" class="full-width"></app-material-input>
-
-
-        <ckeditor class="text-dark" [editor]="editor" [config]="editorConfig"  [formControl]="form.controls.content"></ckeditor>
-    
-    </mat-card-content>
-    <mat-card-actions align="end">
-        <button mat-raised-button color="primary" (click)="save()" [disabled]="saving"><mat-icon>save</mat-icon> {{ saving ? 'Saving...' : 'Save' }}</button>
-        <button mat-raised-button color="basic">Cancel</button>
-    </mat-card-actions>
-</mat-card>
+<app-post-form (onSave)="saved($event)"></app-post-form>

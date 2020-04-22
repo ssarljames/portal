@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import(`./modules/posts/posts.module`).then(m => m.PostsModule)
       },
       {
+        path: 'events',
+        loadChildren: () => import(`./modules/events/events.module`).then(m => m.EventsModule)
+      },
+      {
         path: 'service-transactions',
         loadChildren: () => import(`./modules/service-transactions/service-transactions.module`).then(m => m.ServiceTransactionsModule)
       },

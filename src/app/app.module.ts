@@ -95,7 +95,7 @@ export class HammerConfig extends HammerGestureConfig {
       id: 'router-progressbar'
     }),
 
-    HammerModule,
+    // HammerModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 

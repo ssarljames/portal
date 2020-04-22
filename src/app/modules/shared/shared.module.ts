@@ -17,6 +17,7 @@ import { MaterialInputComponent } from './utils/material-input/material-input.co
 import { MaterialTextareaComponent } from './utils/material-textarea/material-textarea.component';
 import { MaterialAutocompleteComponent } from './utils/material-autocomplete/material-autocomplete.component';
 import { MaterialSelectComponent } from './utils/material-select/material-select.component';
+import { MaterialDatepickerComponent } from './utils/material-datepicker/material-datepicker.component';
 
 const phConfig = new DateFnsConfigurationService();
 phConfig.setLocale(en)
@@ -30,7 +31,8 @@ phConfig.setLocale(en)
     MaterialInputComponent,
     MaterialTextareaComponent,
     MaterialAutocompleteComponent,
-    MaterialSelectComponent
+    MaterialSelectComponent,
+    MaterialDatepickerComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ phConfig.setLocale(en)
     MaterialInputComponent,
     MaterialTextareaComponent,
     MaterialAutocompleteComponent,
-    MaterialSelectComponent
+    MaterialSelectComponent,
+    MaterialDatepickerComponent
   ],
   providers: [
     ModalService,
@@ -66,7 +69,8 @@ phConfig.setLocale(en)
     MaterialInputComponent,
     MaterialTextareaComponent,
     MaterialAutocompleteComponent,
-    MaterialSelectComponent
+    MaterialSelectComponent,
+    MaterialDatepickerComponent
   ],
 })
 export class SharedModule { }

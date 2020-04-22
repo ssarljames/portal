@@ -1,5 +1,14 @@
-<h1><mat-icon>developer_board</mat-icon> Posts</h1>
-<a mat-raised-button routerLink="create">Create</a>
+
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <h1><mat-icon>developer_board</mat-icon> Posts</h1>
+    </div>
+    <div class="col-sm-6 text-right">
+        <button mat-raised-button routerLink="create"><mat-icon>library_add</mat-icon> Create</button>
+    </div>
+</div>
 
 <table mat-table [dataSource]="dataSource">
 

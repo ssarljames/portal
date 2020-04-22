@@ -11,7 +11,7 @@
             <button mat-icon-button *ngIf="isHandset" (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
-            <h1>CS<sup>3</sup> &nbsp;&nbsp;&nbsp;&nbsp;</h1>
+            <img src="/assets/icons/icon-72x72.png" alt="" class="cs-logo">
             <span class="menu-spacer"></span>
 
             <a *ngFor="let link of links" [class]="{'d-none': isHandset}" mat-button [routerLink]="link.url" routerLinkActive="_active" [routerLinkActiveOptions]="{ exact: link.exact }">

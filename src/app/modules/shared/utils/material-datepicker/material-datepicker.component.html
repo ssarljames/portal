@@ -1,0 +1,7 @@
+<mat-form-field [class]="class" [appearance]="appearance">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput [readonly]="true" [matDatepicker]="picker" [formControl]="control" [type]="type" autocomplete="off" [placeholder]="placeholder">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="control.errors">{{ control.errors.required ? 'Required' : control.errors[0] }}</mat-error>
+</mat-form-field>

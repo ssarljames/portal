@@ -20,6 +20,12 @@ export const MENU: NavItem[] = [
       allowed_roles: []
     },
     {
+      displayName: 'Events',
+      iconName: 'event',
+      route: 'management/events',
+      allowed_roles: []
+    },
+    {
       displayName: 'Administration',
       iconName: 'account_balance',
       allowed_roles: ['administrator'],

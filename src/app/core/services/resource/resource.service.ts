@@ -113,7 +113,6 @@ export class ResourceService<T extends Model> {
       .get<T[]>(`${this.host}/${this.resource}`, queryOptions)
       .pipe(map((response: any) => this.convertData(response)))
       .pipe(map((item:T[]) => {
-        
 
         if(this.action)
           this.action.list(item);
@@ -140,7 +139,14 @@ export class ResourceService<T extends Model> {
       }
     }
 
-    return response.data ? response.data : response;
+
+    const retVal = response && response.data ? response.data : response;
+
+    if(!retVal)
+      console.error(`Response data from ${this.getResourceURI()} is empty...`);
+      
+
+    return retVal;
   }
 
   public getMeta():any{

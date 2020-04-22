@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post/post.service';
 import { Store } from '@ngrx/store';
 import { Post } from 'src/app/models/post/post';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalService } from '../../shared/services/modal/modal.service';
 
 @Component({
   selector: 'app-show',
@@ -17,7 +18,9 @@ export class ShowComponent implements OnInit {
 
   constructor(private postService: PostService,
               private store: Store<{posts: Post[]}>,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private modalService: ModalService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -34,6 +37,20 @@ export class ShowComponent implements OnInit {
     this.postService.read(this.post_id).subscribe( post => {
 
     });
+  }
+
+  deletePost(): void{
+    this.modalService.confirm({
+      message: 'Are you sure to delete this post?',
+      type: 'warn'
+    }).then(v => {
+      if(v){
+        this.postService.delete(this.post).subscribe(() => {
+          this.modalService.toast('Post was successfully deleted.', 'Success', 'Success');
+          this.router.navigate(['/management/posts']);
+        });
+      }
+    })
   }
 
 }

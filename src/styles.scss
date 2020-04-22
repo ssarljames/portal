@@ -93,3 +93,14 @@
         z-index: 1000;
         /* Ensure that your app's content doesn't overlap the toolbar */
     }
+
+    @import 'app/styles/ckeditor.scss';
+
+    .cs-logo{
+        height: 45px;
+        margin-right: 17px;        
+    }
+
+    .ck-editor__editable_inline {
+        min-height: 200px;
+    }

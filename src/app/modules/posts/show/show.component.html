@@ -1,10 +1,16 @@
 <mat-card *ngIf="post">
     <mat-card-header>
-        <mat-card-title>Post Detail</mat-card-title>
+        <mat-card-title>{{ post.title | titlecase }}</mat-card-title>
+        <mat-card-subtitle>Posted by {{ post.user.fullname }} at {{ post.created_at | parseDate | dfnsFormat: 'MM/DD/YYYY'}} </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        Title: {{ post.title }}
+
+        <div [innerHTML]="post.content" class="ck-content"></div>
+
     </mat-card-content>
     <mat-card-actions align="end">
+        <button mat-button color="basic" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
+        <button mat-button routerLink="../"><mat-icon>cancel</mat-icon> Back to Posts</button>
+        <button mat-button color="warn" (click)="deletePost()"><mat-icon>delete</mat-icon> Delete</button>
     </mat-card-actions>
 </mat-card>

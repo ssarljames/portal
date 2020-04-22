@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ !post ? 'Create' : 'Edit' }} Post</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <app-material-input [control]="form.controls.title" label="Title" class="full-width"></app-material-input>
+
+
+        <ckeditor class="text-dark" [editor]="editor" [config]="editorConfig"  [formControl]="form.controls.content"></ckeditor>
+        <mat-error *ngIf="form.controls.content.errors">{{ form.controls.content.errors }}</mat-error>
+    
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="save()" [disabled]="saving"><mat-icon>save</mat-icon> {{ saving ? 'Saving...' : 'Save' }}</button>
+        <button mat-raised-button color="basic" [routerLink]="'/management/posts/' + (post ? post.id : '')">Cancel</button>
+    </mat-card-actions>
+</mat-card>

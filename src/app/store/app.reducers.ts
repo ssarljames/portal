@@ -3,6 +3,7 @@ import { StationReducer } from  './station/reducer';
 import { StationUsageLogReducer } from  './station-usage-log/reducer';
 import { ServiceTransactionReducer } from  './service-transaction/reducer';
 import { PostReducer } from  './post/reducer';
+import { EventReducer } from  './event/reducer';
 
 
 export const AppReducers = {
@@ -10,5 +11,6 @@ export const AppReducers = {
   stations: StationReducer,
   station_usage_logs: StationUsageLogReducer,
   service_transactions: ServiceTransactionReducer,
-  posts: PostReducer
+  posts: PostReducer,
+  events: EventReducer
 }

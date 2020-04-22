@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from 'src/app/core/utils/form-group/form-group';
 import { FormControl } from '@angular/forms';
 
@@ -16,50 +16,15 @@ import { ModalService } from '../../shared/services/modal/modal.service';
 })
 export class CreateComponent implements OnInit {
 
-  form: FormGroup;
-
-  editor = ClassicEditor;
-
-  saving: boolean = false;
-
-  editorConfig = {
-    placeholder: 'Content here...'
-  };
-
-  constructor(private postService: PostService,
-              private router: Router,
-              private modalService: ModalService) {
-
-    this.form = new FormGroup({
-      title:  new FormControl(''),
-      content:  new FormControl(''),
-      valid_until: new FormControl(''),
-      type: new FormControl('')
-    });
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
 
   }
 
-  save(): void{
-    if(this.form.valid){
-      this.saving = true;
-
-      const post: Post = (new Post()).fill(this.form.value); 
-
-      this.postService.create(post).subscribe( post => {
-
-        this.router.navigate(['management/posts']);
-        this.modalService.toast('New post was saved.', 'Success', 'success');
-      },
-      e => {
-        this.form.fillErrors(e);
-        this.saving = false;
-        this.modalService.toast('There was an error saving the post.', 'Error', 'error');
-      }
-      );
-    }
+  saved(post: Post): void{
+    this.router.navigate(['/management/posts/' + post.id]);
   }
 
 }

@@ -12,42 +12,46 @@
     <div class="row">
         <div class="col-lg-8">
             <mat-card>
-                <mat-card-header>
-                    <mat-card-title>News Feed by CS3</mat-card-title>
-                </mat-card-header>
                 <mat-card-content>
+                    <h1><mat-icon>local_offer</mat-icon> Posts</h1>
 
                     <div *ngFor="let post of (posts | sort: 'created_at':'desc')">
+                        <h2 class="mb-0">{{ post.title | titlecase }}</h2>
+                        <span class="text-muted">Posted by {{ post.user.fullname }} {{ post.created_at | parseDate | dfnsDistanceInWordsToNow | lowercase | titlecase }} ago</span>
+                        <br>
+                        <br>
 
-                        <h3 class="mb-0">{{ post.title | titlecase }}</h3>
-                        <small class="text-muted">by {{ post.user.fullname }} at {{ post.created_at | parseDate | dfnsFormat: 'MM/DD/YYYY'}} </small>
-                       
-                        <br>
-                        <br>
-                        
                         <div [innerHTML]="post.content" class="ck-content"></div>
-                        <hr>
+
+                        <mat-divider></mat-divider>
+                        <br>
                     </div>
+
+                    <mat-error>No more posts</mat-error>
 
                 </mat-card-content>
             </mat-card>
         </div>
         <div class="col-lg-4">
             <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Activities</mat-card-title>
-                </mat-card-header>
                 <mat-card-content>
 
-                    <div *ngFor="let item of [1,2]">
+                    <h1><mat-icon>events</mat-icon> Events</h1>
 
-                        <h3>CS Week 2020</h3>
-                        <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i>
+                    <div *ngFor="let event of events">
 
-                        <br><br>
-                        <hr>
+                        <h2>{{ event.name }}</h2>
+
+                        <br>
+
+                        <div class="ck-content" [innerHTML]="event.description"></div>
+
+
+                        <mat-divider></mat-divider>
+                        <br>
                     </div>
+
+                    <mat-error>No more events</mat-error>
 
                 </mat-card-content>
             </mat-card>

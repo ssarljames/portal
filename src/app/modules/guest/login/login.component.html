@@ -1,7 +1,7 @@
 <form [formGroup]="form" autocomplete="off" (submit)="submit()">
     <h2 mat-dialog-title> Sign In</h2>
     <mat-dialog-content class="mat-typography">
-        <mat-form-field class="full-width">
+        <!-- <mat-form-field class="full-width">
             <mat-label>Username</mat-label>
             <input matInput [formControl]="form.controls.username" placeholder="Username">
             <mat-error>Required</mat-error>
@@ -14,7 +14,15 @@
             <mat-label>Password</mat-label>
             <input matInput type="password" [formControl]="form.controls.password" placeholder="Password">
             <mat-error>Required</mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
+
+
+        <app-material-input icon="account_circle" class="full-width" [control]="form.controls.username" label="Username"></app-material-input>
+       
+        <br><br>
+
+
+        <app-material-input icon="lock" class="full-width" [control]="form.controls.password" type="password" label="Password"></app-material-input>
 
         <div class="mat-error" *ngIf="error">
             <br><br>

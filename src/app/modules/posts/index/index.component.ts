@@ -20,8 +20,6 @@ export class IndexComponent implements OnInit {
               private router: Router) {
 
     store.select('posts').subscribe( posts => {
-      console.log(posts);
-      
       this.dataSource.connect().next(posts);
     })
 
@@ -40,7 +38,7 @@ export class IndexComponent implements OnInit {
   show(id: string): void{
     setTimeout(() => {
       this.router.navigate([`/management/posts/${id}`]);
-    }, 300);
+    }, 100);
   }
 
 }
