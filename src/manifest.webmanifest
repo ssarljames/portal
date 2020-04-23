@@ -1,8 +1,8 @@
 {
   "name": "cs-cube",
   "short_name": "cs-cube",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#ffeb3b",
+  "background_color": "#ffeb3b",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
