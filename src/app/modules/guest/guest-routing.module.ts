@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ViewPostComponent } from './view-post/view-post.component';
+import { ServicesComponent } from './services/services.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'services',
+    component: ServicesComponent
   },
   {
     path: 'posts/:id',

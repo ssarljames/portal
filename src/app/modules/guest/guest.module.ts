@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ViewPostComponent } from './view-post/view-post.component';
+import { ServicesComponent } from './services/services.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ViewPostComponent } from './view-post/view-post.component';
     LoginComponent,
     HomeComponent,
     AboutComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    ServicesComponent
   ],
   imports: [
     CommonModule,
