@@ -8,8 +8,15 @@
         <div class="ck-content" [innerHTML]="event.description"></div>
     </mat-card-content>
     <mat-card-actions align="end">
-        <button mat-button color="accent" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
-        <button mat-button routerLink="../"><mat-icon>cancel</mat-icon> Back to Events</button>
-        <button mat-button color="error" (click)="deleteEvent()"><mat-icon>delete</mat-icon> Delete</button>
+
+        <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Events</button>
+        <button mat-raised-button color="accent" routerLink="monitor-attendance"><mat-icon>group</mat-icon> Monitor Attendance</button>
+
+        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon> Option</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item color="accent" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
+            <button mat-menu-item color="error" (click)="deleteEvent()"><mat-icon>delete</mat-icon> Delete</button>
+        </mat-menu>
+
     </mat-card-actions>
 </mat-card>

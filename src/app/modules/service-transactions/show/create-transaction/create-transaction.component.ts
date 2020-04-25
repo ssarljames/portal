@@ -3,7 +3,6 @@ import { PrintQuality } from 'src/app/models/print-quality/print-quality';
 import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { Member } from 'src/app/models/member/member';
 
 
 import * as format from 'date-fns/format';
@@ -15,6 +14,7 @@ import { ServiceTransaction } from 'src/app/models/service-transaction/service-t
 import { ServiceTransactionItem } from 'src/app/models/service-transaction-item/service-transaction-item';
 import { ServiceTransactionService } from 'src/app/services/service-transaction/service-transaction.service';
 import { Station } from 'src/app/models/station/station';
+import { User } from 'src/app/models/user/user';
 
 @Component({
   selector: 'app-create-transaction',
@@ -27,11 +27,11 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
 
   @ViewChild('cancelButton') cancelButton: MatButton;
 
-  members: Member[] = [
-    {
+  customers: User[] = [
+    (new User()).fill({
       id: '1',
       fullname: 'Anonymous'
-    }
+    })
   ];
 
 
@@ -54,7 +54,7 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
               private serviceTransactionService: ServiceTransactionService,
               @Inject(MAT_DIALOG_DATA) private matData: any) {
     this.transaction = new ServiceTransaction();
-    this.transaction.member_id = '1';
+    this.transaction.customer_user_id = '1';
     this.transaction.timeFormatted = format(new Date(), "MMM DD, YYYY hh:mm A");
 
     this.currentTransactionItem = new ServiceTransactionItem();

@@ -22,7 +22,7 @@ export class IndexComponent implements OnInit {
 
 
     store.select('events').subscribe( events => {      
-      this.dataSource.connect().next(events);
+      this.dataSource.connect().next(events.map( e => new Event().fill(e)));
     })
 
   }

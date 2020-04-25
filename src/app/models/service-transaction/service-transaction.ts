@@ -1,21 +1,21 @@
 import { Model } from 'src/app/models/model/model';
 import { User } from '../user/user';
-import { Member } from '../member/member';
 import { ServiceTransactionItem } from '../service-transaction-item/service-transaction-item';
 export class ServiceTransaction extends Model{
 
   station_id: string;
   user_id: string;
-  member_id: string;
   sales: number;
   time: Date;
+
+  customer_user_id: string;
 
   remarks: string;
 
   timeFormatted: string;
 
   user: User;
-  member: Member;
+  customer: User;
 
   transaction_items: ServiceTransactionItem[];
 

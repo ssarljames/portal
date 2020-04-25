@@ -44,3 +44,4 @@ export class EventService extends ResourceService<Event> {
     super(http, 'events', null, new EventAction(store));
   }
 }
+

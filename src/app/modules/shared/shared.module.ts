@@ -73,4 +73,8 @@ phConfig.setLocale(en)
     MaterialDatepickerComponent
   ],
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor(){
+    console.log('Shared Module Loaded');
+  }
+}

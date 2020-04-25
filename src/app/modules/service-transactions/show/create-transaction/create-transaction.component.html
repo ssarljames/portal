@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-lg-3">
             <mat-form-field class="full-width">
-                <mat-label>Member</mat-label>
-                <mat-select [(ngModel)]="transaction.member_id" [disabled]="true">
-                    <mat-option *ngFor="let member of members" [value]="member.id">
-                        {{ member.fullname }}
+                <mat-label>Customer</mat-label>
+                <mat-select [(ngModel)]="transaction.customer_user_id" [disabled]="true">
+                    <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                        {{ customer.fullname }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

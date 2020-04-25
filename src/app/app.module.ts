@@ -1,7 +1,7 @@
 import { element } from 'protractor';
 import { NavService } from './layout/authenticated-page/side-nav/side-menu-item/nav.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error/http-error.interceptor';
-import { RouterModule, GuardsCheckEnd, NavigationEnd } from '@angular/router';
+import { RouterModule, GuardsCheckEnd, NavigationEnd, GuardsCheckStart, NavigationError, NavigationCancel, PreloadAllModules, NavigationStart } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -43,15 +43,15 @@ import { environment } from '../environments/environment';
 
 import { AppReducers } from './store/app.reducers';
 
-export class HammerConfig extends HammerGestureConfig {
-  overrides = {
-    swipe: {
-      direction: hammer.DIRECTION_HORIZONTAL,
-    },
-    pinch: { enable: false },
-    rotate: { enable: false }
-  }
-}
+// export class HammerConfig extends HammerGestureConfig {
+//   overrides = {
+//     swipe: {
+//       direction: hammer.DIRECTION_HORIZONTAL,
+//     },
+//     pinch: { enable: false },
+//     rotate: { enable: false }
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -71,7 +71,10 @@ export class HammerConfig extends HammerGestureConfig {
     FooterComponent
   ],
   imports: [
-    RouterModule,
+
+    RouterModule.forRoot([], {
+      // preloadingStrategy: PreloadAllModules
+    }),
 
     SharedModule,
     BrowserModule,
@@ -89,9 +92,10 @@ export class HammerConfig extends HammerGestureConfig {
       silentApis: ['assa'],
       id: 'http-progressbar'
     }),
+
     NgProgressRouterModule.withConfig({
-      startEvents: [GuardsCheckEnd],
-      completeEvents: [NavigationEnd],
+      startEvents: [ NavigationStart ],
+      completeEvents: [ NavigationCancel, NavigationEnd, NavigationError],
       id: 'router-progressbar'
     }),
 
@@ -113,10 +117,10 @@ export class HammerConfig extends HammerGestureConfig {
       useClass: HttpErrorInterceptor,
       multi: true
     },
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: HammerConfig
-    },
+    // {
+    //   provide: HAMMER_GESTURE_CONFIG,
+    //   useClass: HammerConfig
+    // },
     NavService
 
   ],

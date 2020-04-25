@@ -16,4 +16,8 @@ import { DateFnsModule } from 'ngx-date-fns';
     DateFnsModule.forRoot()
   ]
 })
-export class SettingsModule { }
+export class SettingsModule { 
+  constructor(){
+    console.log('Settings Module Loaded');
+  }
+}

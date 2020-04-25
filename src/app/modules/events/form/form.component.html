@@ -7,11 +7,12 @@
         <app-material-select [control]="form.controls.type" [options]="eventTypes" label="Event Type" class="full-width"></app-material-select>
 
         <app-material-datepicker [control]="form.controls.start_date" [label]="notSingleDayEvent ? 'Start Date' : 'Date'"></app-material-datepicker>
-        
-        <mat-checkbox class="ml-3" [checked]="notSingleDayEvent" (change)="toggleNotSingleDayEvent($event)">More than 1 Day Event</mat-checkbox>
         <br>
         <app-material-datepicker [control]="form.controls.end_date" *ngIf="notSingleDayEvent" label="End Date"></app-material-datepicker>
-
+        <br>
+        <mat-checkbox class="d-block" [checked]="notSingleDayEvent" (change)="toggleNotSingleDayEvent($event)">More than 1 Day Event</mat-checkbox>
+        <mat-checkbox *ngIf="notSingleDayEvent" [formControl]="form.controls.include_weekends">Include Weekends</mat-checkbox>
+       
         <ckeditor [editor]="editor" [formControl]="form.controls.description" [config]="{ placeholder: 'Put event description here...'}"></ckeditor>
     </mat-card-content>
     <mat-card-actions align="end">

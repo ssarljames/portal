@@ -40,17 +40,17 @@ export class ResourceService<T extends Model> {
     return this.getResourceURI();
   }
 
-  public get(url: string): Observable<any>{
-    return this.httpClient.get<any[]>(`${this.host}/${url}`);
+  public get(url: string, queryOptions: any = {}): Observable<any>{
+    return this.httpClient.get<any[]>(`${this.host}/${url}`, queryOptions);
   }
 
   public queryRaw(queryOptions: any): Observable<any>{
     return this.httpClient.get<any[]>(`${this.host}/${this.resource}`, queryOptions);
   }
 
-  public create(item: T): Observable<T> {
+  public create(item: T, parent: string = ''): Observable<T> {
     return this.httpClient
-      .post<T>(`${this.host}/${this.resource}`, item)
+      .post<T>(`${this.host}/${parent}${this.resource}`, item)
       .pipe(map((response: any): any => this.convertData(response)))
       .pipe(map((item:T, index) => {
 
@@ -61,10 +61,10 @@ export class ResourceService<T extends Model> {
       }));
   }
 
-  public update(item: T): Observable<T> {
+  public update(item: T, parent: string = ''): Observable<T> {
     const _item: any = item;
     const id = _item.id;
-    return this.httpClient.put<T>(`${this.host}/${this.resource}/${id}`, item)
+    return this.httpClient.put<T>(`${this.host}/${parent}${this.resource}/${id}`, item)
               .pipe(map((response: any): any => this.convertData(response)))
               .pipe(map((item:T, index) => {
 
@@ -77,18 +77,6 @@ export class ResourceService<T extends Model> {
   }
 
 
-  // public update(item: any): Observable<any> {
-  //   const isFormData = (item instanceof FormData);
-  //   const id = isFormData ? item.get('id') : item.id;
-
-  //   if(isFormData)
-  //     item.append('_method', 'PUT');
-  //   else
-  //     item._method = 'PUT';
-
-  //   return this.httpClient.post<any>(`${this.host}/${this.resource}/${id}`, item );
-  // }
-
   public save(item: any): Observable<any>{
     if( ((item instanceof FormData)  &&  item.get('id').toString() == "undefined") || (!(item instanceof FormData) && !item.id))
       return this.create(item)
@@ -96,8 +84,8 @@ export class ResourceService<T extends Model> {
   }
 
 
-  public read(id: any, option: {} = {}): Observable<T> {
-    return this.httpClient.get<T>(`${this.host}/${this.resource}/${id}`, option)
+  public read(id: any, option: {} = {}, parent: string = ''): Observable<T> {
+    return this.httpClient.get<T>(`${this.host}/${parent}${this.resource}/${id}`, option)
               .pipe(map((response: any): any => this.convertData(response)))
               .pipe(map((item:T, index) => {
 
@@ -108,9 +96,9 @@ export class ResourceService<T extends Model> {
               }));
   }
 
-  public query(queryOptions: {} = {}): Observable<T[]> {
+  public query(queryOptions: {} = {}, parent: string = ''): Observable<T[]> {
     return this.httpClient
-      .get<T[]>(`${this.host}/${this.resource}`, queryOptions)
+      .get<T[]>(`${this.host}/${parent}${this.resource}`, queryOptions)
       .pipe(map((response: any) => this.convertData(response)))
       .pipe(map((item:T[]) => {
 
@@ -121,9 +109,9 @@ export class ResourceService<T extends Model> {
       }));
   }
 
-  public delete(item: T) {
+  public delete(item: T, parent: string = '') {
     return this.httpClient
-      .delete(`${this.host}/${this.resource}/${item.id}`)
+      .delete(`${this.host}/${parent}${this.resource}/${item.id}`)
       .pipe(map( () => {
         if(this.action)
           this.action.delete(item)

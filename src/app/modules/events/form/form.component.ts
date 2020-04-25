@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Event } from 'src/app/models/event/event';
 import { EventService } from 'src/app/services/event/event.service';
 import { FormGroup } from 'src/app/core/utils/form-group/form-group';
@@ -10,6 +10,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 
 import * as format from 'date-fns/format';
+import * as add_days from 'date-fns/add_days';
+
 import { ModalService } from '../../shared/services/modal/modal.service';
 
 @Component({
@@ -17,7 +19,7 @@ import { ModalService } from '../../shared/services/modal/modal.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
 
   @Input() event: Event;
   @Output() onSaved: EventEmitter<Event> = new EventEmitter();
@@ -34,6 +36,11 @@ export class FormComponent implements OnInit {
   constructor(private eventService: EventService,
               private modalService: ModalService) { }
 
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.ngOnInit();
+  }
+
   ngOnInit(): void {
     this.form = new FormGroup({
       id: new FormControl(this.event ? this.event.id : ''),
@@ -41,8 +48,11 @@ export class FormComponent implements OnInit {
       description: new FormControl(this.event ? this.event.description : '', Validators.required),
       type: new FormControl(this.event ? this.event.type : '', Validators.required),
       start_date: new FormControl(this.event ? this.event.start_date : new Date(), Validators.required),
-      end_date: new FormControl(this.event ? this.event.end_date : null)
+      end_date: new FormControl(this.event ? this.event.end_date : null),
+      include_weekends: new FormControl(this.event ? this.event.include_weekends : '')
     });
+
+    this.notSingleDayEvent = this.event && this.event.end_date ? true : false;
 
     this.eventTypes = [
       {
@@ -65,7 +75,7 @@ export class FormComponent implements OnInit {
     if(this.notSingleDayEvent == false)
       this.form.controls.end_date.setValue(null);
     else
-      this.form.controls.end_date.setValue(this.form.controls.start_date.value);
+      this.form.controls.end_date.setValue( add_days(this.form.controls.start_date.value, 1) );
   }
 
   save(): void{

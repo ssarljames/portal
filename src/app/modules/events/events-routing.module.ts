@@ -4,7 +4,9 @@ import { IndexComponent } from './index/index.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ShowComponent } from './show/show.component';
+import { MonitorAttendanceComponent } from './show/manage-attendance/monitor-attendance.component';
 
+import { ConfirmLeaveGuard } from '../../core/guards/confirm-leave/confirm-leave.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +20,11 @@ const routes: Routes = [
   {
     path: ':id/edit',
     component: EditComponent
+  },
+  {
+    path: ':id/monitor-attendance',
+    component: MonitorAttendanceComponent,
+    canDeactivate: [ ConfirmLeaveGuard ]
   },
   {
     path: ':id',

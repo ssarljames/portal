@@ -19,7 +19,7 @@
     <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef>Event Date</mat-header-cell>
         <mat-cell *matCellDef="let event">
-            {{ event.start_date | parseDate | dfnsFormat: 'MMM DD, YYYY' }}
+            {{ event.event_date }}
         </mat-cell>
     </ng-container>
 

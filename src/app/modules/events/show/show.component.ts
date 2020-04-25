@@ -48,7 +48,7 @@ export class ShowComponent implements OnInit {
     }).then( c => {
       if(c)
         this.eventService.delete(this.event).subscribe( () => {
-          this.router.navigate(['/management/events']);
+          this.router.navigate(['/monitorment/events']);
           this.modalService.toast('Event was deleted.', 'Success', 'success');
         });
     })

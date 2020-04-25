@@ -1,0 +1,70 @@
+<div *ngIf="event">
+    <h1>
+        <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back</button>
+        Attendance Monitoring for {{ event.name }}  
+    </h1>
+    <mat-tab-group *ngIf="dates.length > 0" [selectedIndex]="defaultTabIndex" animationDuration="0ms" color="accent" (selectedTabChange)="tabChange($event)">
+        <mat-tab *ngFor="let d of dates; let i = index"
+                    [label]="d | dfnsFormat: 'dddd MMM DD'"
+                    [disabled]="(d | isFuture) || (d | isToday) == false && (recording || initializing)">
+
+            <ng-template matTabContent>
+                <div class="container-fluid mt-3">
+                    <h1><span *ngIf="dates.length > 1">Day {{ i }} - </span> {{ d | parseDate | dfnsFormat: 'dddd MMM DD, YYYY' }}</h1>
+                    
+
+                    <div class="row">
+                        <div class="col-lg-4 text-center" *ngIf="d | isToday" >
+                            <!-- <div class="bg-info" style="width: 300px;height: 300px;margin: 0 auto;">
+
+                            </div> -->
+                            <zxing-scanner *ngIf="recording"></zxing-scanner>
+                            <br>
+                            <br>
+                            <button mat-raised-button [disabled]="initializing" [color]="recording ? 'warn' : ( initializing ? 'basic' : 'primary')" (click)="toggleRecording(d)">
+                                <mat-icon>{{ initializing ? 'hourglass_empty' : (recording ? 'stop' : 'videocam') }}</mat-icon>
+                                {{ initializing ? 'Processing...' : (recording ? 'Stop QR Scanning' : 'Start QR Scanning') }}
+                            </button>
+                            <br><br>
+                        </div>
+                        <div [ngClass]="{ 'col-lg-8': (d | isToday), 'col-lg-12': !(d | isToday) }">
+                            <table mat-table [dataSource]="dataSource">
+            
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                                    <mat-cell *matCellDef="let entry">
+                                        {{ entry.user.fullname }}
+                                    </mat-cell>
+                                </ng-container>
+            
+            
+                                <ng-container matColumnDef="time">
+                                    <mat-header-cell *matHeaderCellDef>Log Time</mat-header-cell>
+                                    <mat-cell *matCellDef="let entry" class="text-center">
+                                        {{ entry.time | parseDate | dfnsFormat: 'hh:mm A' }}
+                                    </mat-cell>
+                                </ng-container>
+            
+                                <ng-container matColumnDef="type">
+                                    <mat-header-cell *matHeaderCellDef>Log Type</mat-header-cell>
+                                    <mat-cell *matCellDef="let entry">
+                                        Time In
+                                    </mat-cell>
+                                </ng-container>
+            
+                                <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+                                <mat-row *matRowDef="let entry; columns: columns" matRipple></mat-row>
+            
+                            </table>
+        
+                            <app-ellipis-loading *ngIf="loading" class="mt-4"></app-ellipis-loading>
+                        </div>
+                    </div>
+
+                </div>
+
+            </ng-template>
+
+        </mat-tab>
+    </mat-tab-group>
+</div>

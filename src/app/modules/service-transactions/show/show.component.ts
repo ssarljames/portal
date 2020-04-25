@@ -39,7 +39,7 @@ export class ShowComponent implements OnInit {
   print_qualities: PrintQuality[] = [];
   service_rates: ServiceRate[] = [];
 
-  transactionTableColumns: string[] = [ 'time', 'member', 'sales' ];
+  transactionTableColumns: string[] = [ 'time', 'customer', 'sales' ];
 
   sales: number = 0;
 
