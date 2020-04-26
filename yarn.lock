@@ -5733,13 +5733,6 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-ng-connection-service@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/ng-connection-service/-/ng-connection-service-1.0.4.tgz#02854a6eabd9a8fe44f0ad63024289652039a179"
-  integrity sha512-WrZfK+hUzrJS77ItxXI08rUN6Av77W3+LsaJEPufyo2wRe7Tn8xG18FHHEbbgqKkJeDT/yGJBH2xOaT+1jb22g==
-  dependencies:
-    tslib "^1.9.0"
-
 ngx-date-fns@4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/ngx-date-fns/-/ngx-date-fns-4.0.3.tgz#a24c5c877551effcac64fe68a18bcbf33a9eac7c"

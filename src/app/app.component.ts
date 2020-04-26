@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeService } from './core/services/theme/theme.service';
-import { ConnectionService } from 'ng-connection-service';
+// import { ConnectionService } from 'ng-connection-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,12 +14,12 @@ export class AppComponent {
   isOffline: boolean = false;
 
   constructor(private themeService: ThemeService,
-              private connectionService: ConnectionService,
+              // private connectionService: ConnectionService,
               private router: Router) {
 
-    this.connectionService.monitor().subscribe(isConnected => {
-      this.isOffline = isConnected == false;
-    });
+    // this.connectionService.monitor().subscribe(isConnected => {
+    //   this.isOffline = isConnected == false;
+    // });
 
     const path = localStorage.getItem('path');
     if(path){
