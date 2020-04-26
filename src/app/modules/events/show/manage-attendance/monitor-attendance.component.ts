@@ -58,8 +58,6 @@ export class MonitorAttendanceComponent implements OnInit {
     const event_id = this.activatedRoute.snapshot.params.id;
 
     this.store.select('events').subscribe(events => {
-      console.log(events);
-      
       if(events.length > 0){
         this.event = (new Event()).fill( events.find(e => e && e.id == event_id) );
 

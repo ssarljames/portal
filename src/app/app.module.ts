@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { NavService } from './layout/authenticated-page/side-nav/side-menu-item/nav.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error/http-error.interceptor';
 import { RouterModule, GuardsCheckEnd, NavigationEnd, GuardsCheckStart, NavigationError, NavigationCancel, PreloadAllModules, NavigationStart } from '@angular/router';
@@ -35,7 +34,7 @@ import { UnderConstructionComponent } from './layout/under-construction/under-co
 import { UpdatePasswordComponent } from './layout/authenticated-page/update-password/update-password.component';
 import { UnknownErrorComponent } from './layout/errors/unknown-error/unknown-error.component';
 
-import * as hammer from 'hammerjs';
+// import * as hammer from 'hammerjs';
 // import { HammerManager, HammerInstance } from '@angular/material/core';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
