@@ -18,7 +18,7 @@
                             <!-- <div class="bg-info" style="width: 300px;height: 300px;margin: 0 auto;">
 
                             </div> -->
-                            <zxing-scanner *ngIf="recording"></zxing-scanner>
+                            <zxing-scanner [enable]="recording" (scanSuccess)="scan($event)"></zxing-scanner>
                             <br>
                             <br>
                             <button mat-raised-button [disabled]="initializing" [color]="recording ? 'warn' : ( initializing ? 'basic' : 'primary')" (click)="toggleRecording(d)">

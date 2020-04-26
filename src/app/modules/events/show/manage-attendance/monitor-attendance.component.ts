@@ -155,4 +155,8 @@ export class MonitorAttendanceComponent implements OnInit {
 
   }
 
+  scan(code: string): void{
+    this.modalService.toast(`Code: ${code}`, 'Scan Complete', 'success');
+  }
+
 }

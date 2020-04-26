@@ -12,6 +12,7 @@ export class Event extends Model{
     description: string;
     type: number;
     user_id: string;
+
     start_date: Date;
     end_date: Date;
     
@@ -24,7 +25,7 @@ export class Event extends Model{
 
     get event_date(): string{
         let dateStr = '';
-        const d1 = parse(this.start_date);
+        const d1 = parse(this.start_date);        
 
         if(this.end_date == null)
             dateStr = format(d1, 'MMM DD, YYYY');

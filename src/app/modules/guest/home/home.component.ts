@@ -24,13 +24,14 @@ export class HomeComponent implements OnInit {
     });
 
     store.select('events').subscribe( events => {
-      this.events = events;
+      this.events = events.map( e => (new Event()).fill(e));
+      console.log(this.events);
     });
 
   }
   ngOnInit(): void {
-    this.postService.query().subscribe()
-    this.eventService.query().subscribe()
+    this.postService.query().subscribe( posts => {} )
+    this.eventService.query().subscribe( events => {} )
   }
 
 }
