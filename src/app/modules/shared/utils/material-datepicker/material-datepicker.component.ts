@@ -15,6 +15,10 @@ export class MaterialDatepickerComponent implements OnInit {
   @Input() type: string;
   @Input() icon: string;
   @Output() onEnter: EventEmitter<any>;
+  @Input() filter: (d: Date) => {};
+
+  @Input('max') _max: Date;
+  @Input('min') _min: Date;
 
   @Input() appearance: 'legacy' | 'standard' | 'fill' | 'outline';
 

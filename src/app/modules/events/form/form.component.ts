@@ -11,6 +11,10 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import * as format from 'date-fns/format';
 import * as add_days from 'date-fns/add_days';
+import * as is_weekend from 'date-fns/is_weekend';
+import * as is_saturday from 'date-fns/is_saturday';
+import * as is_sunday from 'date-fns/is_sunday';
+import * as is_friday from 'date-fns/is_friday';
 
 import { ModalService } from '../../shared/services/modal/modal.service';
 
@@ -42,14 +46,23 @@ export class FormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
+    let defaultStart: Date = new Date();
+
+    defaultStart = is_saturday(defaultStart)
+                      ? add_days(defaultStart, 2)
+                      : is_sunday(defaultStart)
+                          ? add_days(defaultStart, 1)
+                          : defaultStart;
+
     this.form = new FormGroup({
       id: new FormControl(this.event ? this.event.id : ''),
       name: new FormControl(this.event ? this.event.name : '', Validators.required),
       description: new FormControl(this.event ? this.event.description : '', Validators.required),
       type: new FormControl(this.event ? this.event.type : '', Validators.required),
-      start_date: new FormControl(this.event ? this.event.start_date : new Date(), Validators.required),
+      start_date: new FormControl(this.event ? this.event.start_date : defaultStart, Validators.required),
       end_date: new FormControl(this.event ? this.event.end_date : null),
-      include_weekends: new FormControl(this.event ? this.event.include_weekends : '')
+      include_weekends: new FormControl(this.event ? this.event.include_weekends : false)
     });
 
     this.notSingleDayEvent = this.event && this.event.end_date ? true : false;
@@ -74,8 +87,9 @@ export class FormComponent implements OnInit, OnChanges {
     this.notSingleDayEvent = change.checked;
     if(this.notSingleDayEvent == false)
       this.form.controls.end_date.setValue(null);
-    else
-      this.form.controls.end_date.setValue( add_days(this.form.controls.start_date.value, 1) );
+    else{
+      this.form.controls.end_date.setValue( this.form.controls.start_date.value);
+    }
   }
 
   save(): void{
@@ -105,6 +119,10 @@ export class FormComponent implements OnInit, OnChanges {
       });
 
     }
+  }
+
+  filterWeekends = (d: Date | null): boolean => {
+    return this.form.controls.include_weekends.value || is_weekend(d) == false;
   }
 
 }

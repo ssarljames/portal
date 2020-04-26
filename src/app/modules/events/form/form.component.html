@@ -1,17 +1,45 @@
-<mat-card>
+<mat-card *ngIf="form">
     <mat-card-header>
         <mat-card-title>{{ event ? 'Edit' : 'New' }} Event</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <app-material-input [control]="form.controls.name" label="Event Name" class="full-width"></app-material-input>
-        <app-material-select [control]="form.controls.type" [options]="eventTypes" label="Event Type" class="full-width"></app-material-select>
 
-        <app-material-datepicker [control]="form.controls.start_date" [label]="notSingleDayEvent ? 'Start Date' : 'Date'"></app-material-datepicker>
+        <div class="row">
+            <div class="col-md-4">
+                <app-material-input class="full-width" [control]="form.controls.name" label="Event Name"></app-material-input>
+            </div>
+            <div class="col-md-4">
+                <app-material-select class="full-width" [control]="form.controls.type" [options]="eventTypes" label="Event Type"></app-material-select>        
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <app-material-datepicker 
+                            [filter]="filterWeekends" 
+                            class="full-width" 
+                            [control]="form.controls.start_date" 
+                            [label]="notSingleDayEvent ? 'Start Date' : 'Date'">
+                </app-material-datepicker>
+            </div>
+            <div class="col-md-4">
+
+                <app-material-datepicker 
+                            [filter]="filterWeekends" 
+                            class="full-width" 
+                            [control]="form.controls.end_date" 
+                            *ngIf="notSingleDayEvent" 
+                            label="End Date">
+                </app-material-datepicker>
+            </div>
+        </div>
+
+        <mat-checkbox class="mr-2" 
+                        [checked]="notSingleDayEvent" 
+                        (change)="toggleNotSingleDayEvent($event)">
+                        More than 1 Day Event
+        </mat-checkbox>
         <br>
-        <app-material-datepicker [control]="form.controls.end_date" *ngIf="notSingleDayEvent" label="End Date"></app-material-datepicker>
-        <br>
-        <mat-checkbox class="d-block" [checked]="notSingleDayEvent" (change)="toggleNotSingleDayEvent($event)">More than 1 Day Event</mat-checkbox>
-        <mat-checkbox *ngIf="notSingleDayEvent" [formControl]="form.controls.include_weekends">Include Weekends</mat-checkbox>
+        <mat-checkbox  [formControl]="form.controls.include_weekends">Include Weekends</mat-checkbox>
        
         <ckeditor [editor]="editor" [formControl]="form.controls.description" [config]="{ placeholder: 'Put event description here...'}"></ckeditor>
     </mat-card-content>
