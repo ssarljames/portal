@@ -14,6 +14,12 @@ export const MENU: NavItem[] = [
       allowed_roles: []
     },
     {
+      displayName: 'Students',
+      iconName: 'contacts',
+      route: 'management/students',
+      allowed_roles: []
+    },
+    {
       displayName: 'Posting',
       iconName: 'developer_board',
       route: 'management/posts',

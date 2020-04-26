@@ -17,6 +17,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { EventTimeLog } from 'src/app/models/event-time-log/event-time-log';
 import { BehaviorSubject } from 'rxjs';
+import { MaterialSelectOption } from 'src/app/modules/shared/utils/material-select/material-select.component';
+import { FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-monitor-attendance',
@@ -40,6 +43,14 @@ export class MonitorAttendanceComponent implements OnInit {
   initializing: boolean = false;
 
   subject: BehaviorSubject<EventTimeLog[]>;
+
+  codeQueue: string[] = [];
+
+  logTypes: MaterialSelectOption[] = EventTimeLog.TYPES;
+
+  logType: FormControl = new FormControl(1);
+
+  pauseScan: boolean = false;
 
   constructor(private eventService: EventService,
               private store: Store<{events: Event[]}>,
@@ -110,7 +121,7 @@ export class MonitorAttendanceComponent implements OnInit {
     }
 
     if(is_today(this.dates[this.defaultTabIndex]))
-      this.subject.next(this.event.time_logs);
+      this.subject.next(this.event.time_logs.map( log => (new EventTimeLog()).fill(log) ));
     
   }
 
@@ -142,21 +153,51 @@ export class MonitorAttendanceComponent implements OnInit {
       this.initializing = false;
     }, 2000);
 
-    // const log: EventTimeLog = new EventTimeLog().fill({
-    //   user_id: this.subject.getValue().length % 2 + 1
-    // });
-
-    // this.eventTimeLogService.create(log, `events/${this.event.id}/`).subscribe( log => {
-      
-      
-    //   this.subject.next([log, ...this.subject.getValue()] );
-
-    // });
 
   }
 
   scan(code: string): void{
-    this.modalService.toast(`Code: ${code}`, 'Scan Complete', 'success');
+
+
+
+    if(this.pauseScan)
+      return;
+
+    this.pauseScan = true;
+
+    const log: EventTimeLog = new EventTimeLog().fill({
+      code: code,
+      type: this.logType.value
+    });
+
+    this.eventTimeLogService.create(log, `events/${this.event.id}/`).subscribe( log => {
+      
+      this.modalService.toast(`${ log.user.fullname } was logged to the event.`, 'Scan Complete', 'success');
+      
+      this.subject.next([ (new EventTimeLog()).fill(log) , ...this.subject.getValue()] );
+
+      setTimeout(() => {
+        this.pauseScan = false;
+      }, 1000);
+
+
+    },
+    e => {
+
+      this.pauseScan = false;
+
+      if(e instanceof HttpErrorResponse){
+
+        const error: HttpErrorResponse = e;
+
+        if(error.status == 409)
+          this.modalService.toast(`Entry already exist.`, 'Scan Failed', 'error');
+        else
+          this.modalService.toast(`Code  "${code}" not found.`, 'Scan Failed', 'error');
+
+      }
+
+    });
   }
 
 }

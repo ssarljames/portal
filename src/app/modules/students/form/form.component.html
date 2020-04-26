@@ -1,0 +1,23 @@
+<mat-card *ngIf="form">
+    <mat-card-header>
+        <mat-card-title>{{ student ? 'Edit Student' : 'New Student' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <app-material-input class="full-width" [control]="form.controls.id_number" label="ID Number"></app-material-input>
+        <app-material-input class="full-width" [control]="form.controls.lastname" label="Lastname"></app-material-input>
+        <app-material-input class="full-width" [control]="form.controls.firstname" label="Firstname"></app-material-input>
+        <app-material-input class="full-width" [control]="form.controls.middlename" label="Middlename"></app-material-input>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" [disabled]="saving || form.invalid" (click)="save()">
+            <mat-icon>{{ saving ? 'hourglass_empty' : 'save' }}</mat-icon>
+            {{ saving ? (student 
+                                ? 'Updating...' 
+                                : 'Saving...')
+                       : (student 
+                                ? 'Update' 
+                                : 'Save')      }}
+        </button>
+        <a routerLink="../" mat-raised-button>Cancel</a>
+    </mat-card-actions>
+</mat-card>

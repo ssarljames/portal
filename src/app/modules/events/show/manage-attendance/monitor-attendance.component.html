@@ -3,7 +3,7 @@
         <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back</button>
         Attendance Monitoring for {{ event.name }}  
     </h1>
-    <mat-tab-group *ngIf="dates.length > 0" [selectedIndex]="defaultTabIndex" animationDuration="0ms" color="accent" (selectedTabChange)="tabChange($event)">
+    <mat-tab-group *ngIf="dates.length > 0" [selectedIndex]="defaultTabIndex" animationDuration="1000ms" color="accent" (selectedTabChange)="tabChange($event)">
         <mat-tab *ngFor="let d of dates; let i = index"
                     [label]="d | dfnsFormat: 'dddd MMM DD'"
                     [disabled]="(d | isFuture) || (d | isToday) == false && (recording || initializing)">
@@ -21,11 +21,15 @@
                             <zxing-scanner [enable]="recording" (scanSuccess)="scan($event)"></zxing-scanner>
                             <br>
                             <br>
+                            <app-material-select  required="true"  [control]="logType" [options]="logTypes" label="Log Type"></app-material-select>
+                            <br>
                             <button mat-raised-button [disabled]="initializing" [color]="recording ? 'warn' : ( initializing ? 'basic' : 'primary')" (click)="toggleRecording(d)">
                                 <mat-icon>{{ initializing ? 'hourglass_empty' : (recording ? 'stop' : 'videocam') }}</mat-icon>
                                 {{ initializing ? 'Processing...' : (recording ? 'Stop QR Scanning' : 'Start QR Scanning') }}
                             </button>
                             <br><br>
+                            <!-- <input type="text" #code>
+                            <button (click)="scan(code.value)">Scan</button> -->
                         </div>
                         <div [ngClass]="{ 'col-lg-8': (d | isToday), 'col-lg-12': !(d | isToday) }">
                             <table mat-table [dataSource]="dataSource">
@@ -48,7 +52,7 @@
                                 <ng-container matColumnDef="type">
                                     <mat-header-cell *matHeaderCellDef>Log Type</mat-header-cell>
                                     <mat-cell *matCellDef="let entry">
-                                        Time In
+                                        {{ entry.computedTypeLabel }}
                                     </mat-cell>
                                 </ng-container>
             

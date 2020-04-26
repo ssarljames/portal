@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import(`./modules/events/events.module`).then(m => m.EventsModule)
       },
       {
+        path: 'students',
+        loadChildren: () => import(`./modules/students/students.module`).then(m => m.StudentsModule)
+      },
+      {
         path: 'service-transactions',
         loadChildren: () => import(`./modules/service-transactions/service-transactions.module`).then(m => m.ServiceTransactionsModule)
       },

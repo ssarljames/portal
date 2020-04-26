@@ -4,6 +4,7 @@ import { StationUsageLogReducer } from  './station-usage-log/reducer';
 import { ServiceTransactionReducer } from  './service-transaction/reducer';
 import { PostReducer } from  './post/reducer';
 import { EventReducer } from  './event/reducer';
+import { StudentReducer } from  './student/reducer';
 
 
 export const AppReducers = {
@@ -12,5 +13,6 @@ export const AppReducers = {
   station_usage_logs: StationUsageLogReducer,
   service_transactions: ServiceTransactionReducer,
   posts: PostReducer,
-  events: EventReducer
+  events: EventReducer,
+  students: StudentReducer
 }
