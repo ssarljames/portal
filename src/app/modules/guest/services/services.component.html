@@ -1,1 +1,7 @@
-<p>services works!</p>
+
+<div *ngIf="mapImageUrl" >
+    <h3>Location: </h3>
+    <img [src]="mapImageUrl" alt="">    
+</div>
+
+<span class="text-muted" *ngIf="!mapImageUrl">Loading GPS...</span>

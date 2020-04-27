@@ -5,6 +5,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { StudentService } from 'src/app/services/student/student.service';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { GeoService } from 'src/app/core/services/geo/geo.service';
 
 @Component({
   selector: 'app-index',
