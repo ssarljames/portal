@@ -1,0 +1,8 @@
+{
+  "name": "cs-cube",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,6 +1,6 @@
 import { NavService } from './layout/authenticated-page/side-nav/side-menu-item/nav.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error/http-error.interceptor';
-import { RouterModule, GuardsCheckEnd, NavigationEnd, GuardsCheckStart, NavigationError, NavigationCancel, PreloadAllModules, NavigationStart } from '@angular/router';
+import { RouterModule, GuardsCheckEnd, NavigationEnd, GuardsCheckStart, NavigationError, NavigationCancel, PreloadAllModules, NavigationStart, RouteReuseStrategy } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,6 +15,11 @@ import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
 
 import { StoreModule } from '@ngrx/store';
+
+
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -102,8 +107,8 @@ import { AppReducers } from './store/app.reducers';
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
-    StoreModule.forRoot(AppReducers)
-
+    StoreModule.forRoot(AppReducers),
+    IonicModule.forRoot()
   ],
   providers: [
     {
@@ -120,8 +125,10 @@ import { AppReducers } from './store/app.reducers';
     //   provide: HAMMER_GESTURE_CONFIG,
     //   useClass: HammerConfig
     // },
-    NavService
-
+    NavService,
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
