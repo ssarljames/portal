@@ -139,7 +139,7 @@ export class MonitorAttendanceComponent implements OnInit {
         date: format(date, 'YYYY-MM-DD')
       }
     }, `events/${this.event.id}/`).subscribe( logs => {
-      this.subject.next(logs);
+      this.subject.next(logs.map( log => (new EventTimeLog()).fill(log)));
       this.loading = false;
     });
   }

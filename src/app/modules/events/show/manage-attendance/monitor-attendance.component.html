@@ -28,8 +28,8 @@
                                 {{ initializing ? 'Processing...' : (recording ? 'Stop QR Scanning' : 'Start QR Scanning') }}
                             </button>
                             <br><br>
-                            <!-- <input type="text" #code>
-                            <button (click)="scan(code.value)">Scan</button> -->
+                            <input type="text" value="17-1-00137" #code>
+                            <button (click)="scan(code.value)">Scan</button>
                         </div>
                         <div [ngClass]="{ 'col-lg-8': (d | isToday), 'col-lg-12': !(d | isToday) }">
                             <table mat-table [dataSource]="dataSource">
