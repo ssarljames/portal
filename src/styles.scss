@@ -5,6 +5,7 @@
         // background: #ccc;
         height: unset !important;
         width: unset !important;
+        overscroll-behavior-y: contain !important;
     }
 
     .modal-content {
@@ -104,3 +105,8 @@
     .ck-editor__editable_inline {
         min-height: 200px;
     }
+
+    // body
+    // {
+    //     overscroll-behavior-y: contain !important;
+    // }
