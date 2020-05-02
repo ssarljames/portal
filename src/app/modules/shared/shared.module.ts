@@ -18,21 +18,28 @@ import { MaterialTextareaComponent } from './utils/material-textarea/material-te
 import { MaterialAutocompleteComponent } from './utils/material-autocomplete/material-autocomplete.component';
 import { MaterialSelectComponent } from './utils/material-select/material-select.component';
 import { MaterialDatepickerComponent } from './utils/material-datepicker/material-datepicker.component';
+import { CardComponent } from './utils/card/card.component';
 
 const phConfig = new DateFnsConfigurationService();
 phConfig.setLocale(en)
 
+
+const FOR_EXPORT = [
+  PromptComponent,
+  AlertComponent,
+  ConfirmationComponent,
+  EllipisLoadingComponent,
+  MaterialInputComponent,
+  MaterialTextareaComponent,
+  MaterialAutocompleteComponent,
+  MaterialSelectComponent,
+  MaterialDatepickerComponent,
+  CardComponent
+]
+
 @NgModule({
   declarations: [
-    PromptComponent,
-    AlertComponent,
-    ConfirmationComponent,
-    EllipisLoadingComponent,
-    MaterialInputComponent,
-    MaterialTextareaComponent,
-    MaterialAutocompleteComponent,
-    MaterialSelectComponent,
-    MaterialDatepickerComponent
+    ...FOR_EXPORT
   ],
   imports: [
     CommonModule,
@@ -51,12 +58,8 @@ phConfig.setLocale(en)
     FormsModule,
     DateFnsModule,
     PipesModule,
-    EllipisLoadingComponent,
-    MaterialInputComponent,
-    MaterialTextareaComponent,
-    MaterialAutocompleteComponent,
-    MaterialSelectComponent,
-    MaterialDatepickerComponent
+
+    ...FOR_EXPORT
   ],
   providers: [
     ModalService,
@@ -64,17 +67,7 @@ phConfig.setLocale(en)
     { provide: DateFnsConfigurationService, useValue: phConfig }
   ],
   entryComponents: [
-    PromptComponent,
-    EllipisLoadingComponent,
-    MaterialInputComponent,
-    MaterialTextareaComponent,
-    MaterialAutocompleteComponent,
-    MaterialSelectComponent,
-    MaterialDatepickerComponent
+    ...FOR_EXPORT
   ],
 })
-export class SharedModule {
-  constructor(){
-    console.log('Shared Module Loaded');
-  }
-}
+export class SharedModule { }

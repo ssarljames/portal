@@ -31,19 +31,7 @@
                         ],
                         "styles": [
                             "./node_modules/sweetalert2/src/sweetalert2.scss",
-                            "src/styles.scss",
-
-                            {
-                                "input": "src/themes/cs3-default.scss",
-                                "bundleName": "assets/css/themes/cs3-default",
-                                "lazy": true
-                            },
-
-                            {
-                                "input": "src/themes/cs3-dark.scss",
-                                "bundleName": "assets/css/themes/cs3-dark",
-                                "lazy": true
-                            }
+                            "src/styles.scss"
                         ],
                         "scripts": []
                     },

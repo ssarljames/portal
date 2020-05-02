@@ -151,7 +151,6 @@ export class PrintingServiceComponent implements OnInit {
           this.stateService.unset('service_rates');
         },
         (e) => {
-          console.log(e);
           this.modalService.alert({
             message: 'Error occured!',
             type: 'warn'

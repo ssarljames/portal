@@ -9,17 +9,17 @@ import { GeoService } from 'src/app/core/services/geo/geo.service';
 export class ServicesComponent implements OnInit {
 
 
-  mapImageUrl: string = null;
+  // mapImageUrl: string = null;
 
   constructor(private geoService: GeoService) { }
 
   ngOnInit(): void {
 
-    this.geoService.connect.subscribe( position => {
-      this.mapImageUrl = this.geoService.getImage();      
-    });
+    // this.geoService.connect.subscribe( position => {
+    //   this.mapImageUrl = this.geoService.getImage();      
+    // });
 
-    this.geoService.getLocation();
+    // this.geoService.getLocation();
   }
 
 }

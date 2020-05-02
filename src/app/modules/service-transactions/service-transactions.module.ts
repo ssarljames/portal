@@ -20,8 +20,4 @@ import { CreateTransactionComponent } from './show/create-transaction/create-tra
     SharedModule
   ]
 })
-export class ServiceTransactionsModule { 
-  constructor(){
-    console.log('Service Transactions Module Loaded');
-  }
-}
+export class ServiceTransactionsModule { }

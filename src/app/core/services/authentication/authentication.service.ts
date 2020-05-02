@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
 import { StateService } from '../state/state.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { HttpShowResponse } from '../resource/resource.service';
 
 
 
@@ -52,7 +53,9 @@ export class AuthenticationService {
   fetchUser(): void{
     if(this.authInfo && this.authInfo.token && this.authInfo.token.user_id && this.userFetching == false){
       this.userFetching = true;
-      this.http.get<User>(`${this.endpoint}/users/${this.authInfo.token.user_id}`).subscribe(user => {
+      this.http.get<HttpShowResponse>(`${this.endpoint}/users/${this.authInfo.token.user_id}`).subscribe( (response: HttpShowResponse) => {
+
+        const user: User = response.data;
         this.$currentUser.next(user);
         this.userFetched = true;
         this.userFetching = false;

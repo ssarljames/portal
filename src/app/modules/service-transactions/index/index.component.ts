@@ -1,35 +1,65 @@
 import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StationService } from 'src/app/services/station/station.service';
 import { Station } from 'src/app/models/station/station';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { StateService } from 'src/app/core/services/state/state.service';
 import { Store } from '@ngrx/store';
 import { StationLoadAction } from 'src/app/store/station/actions';
+import { StationUsageLog } from 'src/app/models/station-usage-log/station-usage-log';
+import { Subscription } from 'rxjs';
+
+import { MatTableDataSource } from '@angular/material/table';
+import { StationUsageLogService } from '../../../services/station-usage-log/station-usage-log.service';
+import { StationUsageLogLoadAction } from '../../../store/station-usage-log/actions';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, OnDestroy {
 
 
   stations: Station[];
 
   fetchingStations: boolean = false;
 
+
+
+
+  station_usage_logs_mds: MatTableDataSource<StationUsageLog> = new MatTableDataSource();
+
+  stationUsageLogsTableColumns: string[] = [ 'created_at', 'station', 'user', 'time_in', 'time_out', 'total_time' ];
+
+  isDataLoaded: boolean = false;
+  isLoading: boolean = false;
+
+  subs: Subscription[] = [];
+
   constructor(private stationService: StationService,
               private authService: AuthenticationService,
               private router: Router,
               private stateService: StateService,
               private modalService: ModalService,
-              private store: Store<{ stations: Station[]}>) {
+              private stationUsageLogService: StationUsageLogService,
+              private store: Store<{ stations: Station[], station_usage_logs: StationUsageLog[]}>) {
 
-              this.store.select('stations').subscribe( stations => {
-                this.stations = stations;
-              });
+              this.subs.push(
+                this.store.select('stations').subscribe( stations => {
+                  this.stations = stations;
+                })
+              );
+
+
+              this.subs.push(
+                this.store.select('station_usage_logs').subscribe(station_usage_logs => {
+                  this.isDataLoaded = true;
+                  this.station_usage_logs_mds.connect().next(station_usage_logs);
+                })
+              );
+
 
   }
 
@@ -39,6 +69,13 @@ export class IndexComponent implements OnInit {
       this.setActiveStation(station);
     else
       this.fetchStations();
+
+
+    this.fetchStationUsageLogs();
+  }
+  
+  ngOnDestroy(): void{
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   fetchStations(): void{
@@ -92,5 +129,23 @@ export class IndexComponent implements OnInit {
     this.stateService.set('active_station', station);
     this.router.navigate([`management/service-transactions/${station.id}`]);
   }
+
+
+
+
+  fetchStationUsageLogs(): void{
+    this.isLoading = true;
+    this.stationUsageLogService.query({
+      params: {
+        sortBy: 'created_at',
+        sortOrder: 'desc'
+      }
+    }).subscribe((station_usage_logs) => {
+      this.store.dispatch(new StationUsageLogLoadAction(station_usage_logs))
+      this.isDataLoaded = true;
+      this.isLoading = false;
+    });
+  }
+
 
 }

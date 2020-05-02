@@ -1,39 +1,69 @@
+<!-- <div class="row">
+    <div class="col-md-12">
+
+        <mat-card>
+            <mat-card-content>
+                <div class="bg-info w-100" style="height: 200px;"></div>
+                <div>
+                    <div class="bg-warning r-50" style="height: 150px;width: 150px;margin: 0 auto;margin-top: -70px;">
+                        <img src="assets/images/profile.png" alt="" style="height: 100%;">
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        
+    </div>
+</div> -->
+
 <h1>Account Settings</h1>
 
-<div class="row">
-    <div class="col-lg-4">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    Security
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
+<mat-tab-group>
+    <mat-tab label="Security">
 
-                <br>
+        <ng-template matTabContent>
+            <div class="container-fluid mt-3">
+                
+                <div class="row">
+                    <div class="col-lg-4">
+                        <mat-card>
+                            <mat-card-content>
 
-                <mat-form-field class="full-width">
-                    <mat-label>Username</mat-label>
-                    <input matInput [formControl]="userForm.controls.username" type="text" autocomplete="off">
-                    <mat-error>{{ userForm.controls.username.errors }}</mat-error>
-                </mat-form-field>
+                                <br>
 
-                <mat-form-field class="full-width">
-                    <mat-label>New Password</mat-label>
-                    <input matInput [formControl]="userForm.controls.new_password" type="password" autocomplete="off">
-                    <mat-error>{{ userForm.controls.new_password.errors }}</mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <mat-label>Confirm New Password</mat-label>
-                    <input matInput [formControl]="userForm.controls.confirm_new_password" type="password" autocomplete="off">
-                    <mat-error>{{ userForm.controls.confirm_new_password.errors }}</mat-error>
-                </mat-form-field>
+                                <mat-form-field class="full-width">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput [formControl]="userForm.controls.username" type="text" autocomplete="off">
+                                    <mat-error>{{ userForm.controls.username.errors }}</mat-error>
+                                </mat-form-field>
 
-            </mat-card-content>
+                                <mat-form-field class="full-width">
+                                    <mat-label>New Password</mat-label>
+                                    <input matInput [formControl]="userForm.controls.new_password" type="password" autocomplete="off">
+                                    <mat-error>{{ userForm.controls.new_password.errors }}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="full-width">
+                                    <mat-label>Confirm New Password</mat-label>
+                                    <input matInput [formControl]="userForm.controls.confirm_new_password" type="password" autocomplete="off">
+                                    <mat-error>{{ userForm.controls.confirm_new_password.errors }}</mat-error>
+                                </mat-form-field>
 
-            <mat-card-actions align=end>
-                <button mat-raised-button color="primary" (click)="saveUser()">Save</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
-</div>
+                            </mat-card-content>
+
+                            <mat-card-actions align=end>
+                                <button mat-raised-button color="primary" (click)="saveUser()">Save</button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+
+            </div>
+
+        </ng-template>
+
+    </mat-tab>
+
+    <mat-tab label="Personal Information">
+        <br>
+        <span class="text-muted">This feature is not implemented yet.</span>
+    </mat-tab>
+</mat-tab-group>

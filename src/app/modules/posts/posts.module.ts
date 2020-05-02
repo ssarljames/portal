@@ -31,8 +31,4 @@ import { FormComponent } from './form/form.component';
     FormComponent
   ]
 })
-export class PostsModule { 
-  constructor(){
-    console.log('Posts Module Loaded');
-  }
-}
+export class PostsModule { }

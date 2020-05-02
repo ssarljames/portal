@@ -7,28 +7,32 @@
     </div>
 </div>
 
-<table mat-table [dataSource]="dataSource">
+<mat-card>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
 
-    <ng-container matColumnDef="id_number">
-        <mat-header-cell *matHeaderCellDef>ID Number</mat-header-cell>
-        <mat-cell *matCellDef="let student">
-            {{ student.id_number | titlecase }}
-        </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="fullname">
-        <mat-header-cell *matHeaderCellDef>Fullname</mat-header-cell>
-        <mat-cell *matCellDef="let student">
-            {{ student.fullname | titlecase }}
-        </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="created_at">
-        <mat-header-cell *matHeaderCellDef>Created At</mat-header-cell>
-        <mat-cell *matCellDef="let student">
-            {{ student.created_at | parseDate | dfnsDistanceInWordsToNow }} ago
-        </mat-cell>
-    </ng-container>
+            <ng-container matColumnDef="id_number">
+                <mat-header-cell *matHeaderCellDef>ID Number</mat-header-cell>
+                <mat-cell *matCellDef="let student">
+                    {{ student.id_number | titlecase }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fullname">
+                <mat-header-cell *matHeaderCellDef>Fullname</mat-header-cell>
+                <mat-cell *matCellDef="let student">
+                    {{ student.fullname | titlecase }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="created_at">
+                <mat-header-cell *matHeaderCellDef>Created At</mat-header-cell>
+                <mat-cell *matCellDef="let student">
+                    {{ student.created_at | parseDate | dfnsDistanceInWordsToNow }} ago
+                </mat-cell>
+            </ng-container>
 
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let student; columns: columns" mat-ripple (click)="selectStudent(student)"></mat-row>
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <mat-row *matRowDef="let student; columns: columns" mat-ripple (click)="selectStudent(student)"></mat-row>
 
-</table>
+        </table>
+    </mat-card-content>
+</mat-card>

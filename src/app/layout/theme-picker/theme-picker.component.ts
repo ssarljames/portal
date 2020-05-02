@@ -24,7 +24,7 @@ export class ThemePickerComponent implements OnInit {
 
 
   selectTheme(theme: Theme): void{
-    if(theme.name != this.currentTheme.name){
+    if(theme.className != this.currentTheme.className){
       this.currentTheme = this.themeService.setTheme(theme);
     }
   }

@@ -42,3 +42,78 @@
     </div>
 </div>
 
+
+<br><br>
+
+<mat-card class="h-100">
+  <mat-card-header>
+      <mat-card-title>Station Usage Logs</mat-card-title>
+      <mat-card-subtitle>
+          Lorem Ipsum
+      </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+      <div class="table-responsive">
+        <mat-table *ngIf="isDataLoaded || !isLoading" [dataSource]="station_usage_logs_mds" class="full-width table-hover mb-3">
+
+          <ng-container matColumnDef="created_at">
+              <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+              <mat-cell *matCellDef="let log">
+                  {{ log.created_at | parseDate | dfnsFormat: 'MMM DD, YYYY' }}
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="station">
+              <mat-header-cell *matHeaderCellDef>Station</mat-header-cell>
+              <mat-cell *matCellDef="let log">
+                  {{ log.station.description }}
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="user">
+              <mat-header-cell *matHeaderCellDef>User</mat-header-cell>
+              <mat-cell *matCellDef="let log">
+                  {{ log.user.fullname }}
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="time_in">
+              <mat-header-cell *matHeaderCellDef>Time In</mat-header-cell>
+              <mat-cell *matCellDef="let log">
+                  {{ log.time_in | parseDate | dfnsFormat: 'hh:mm A' }}
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="time_out">
+              <mat-header-cell *matHeaderCellDef>Time Out</mat-header-cell>
+              <mat-cell *matCellDef="let log">
+                  <span *ngIf="log.time_out">
+                    {{ log.time_out | parseDate | dfnsFormat: 'hh:mm A' }}
+                    <i title="Logged out by system" *ngIf="log.logged_out_by_system" class="fa fa-exclamation-circle text-danger"></i>
+                  </span>
+                  <span *ngIf="log.time_out == null" class="badge badge-primary">On-Going</span>
+
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="total_time">
+              <mat-header-cell *matHeaderCellDef class="text-center">Total Time</mat-header-cell>
+              <mat-cell *matCellDef="let log" class="text-center">
+                  <span *ngIf="log.time_out">{{ log.total_time_formatted }}</span>
+              </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="total_sales">
+              <mat-header-cell *matHeaderCellDef class="text-center">Total Sales</mat-header-cell>
+              <mat-cell *matCellDef="let log" class="text-right pr-3">
+                  <span *ngIf="log.time_out">{{ log.total_sales }}</span>
+              </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="stationUsageLogsTableColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: stationUsageLogsTableColumns;"></mat-row>
+
+      </mat-table>
+
+      </div>
+      <app-ellipis-loading *ngIf="isLoading"></app-ellipis-loading>
+
+
+      <button *ngIf="isDataLoaded == false && isLoading == false" mat-button color="primary" (click)="fetchStationUsageLogs()">Load Content</button>
+      <button *ngIf="isDataLoaded && isLoading == false" mat-button color="primary" (click)="fetchStationUsageLogs()">Refresh</button>
+  </mat-card-content>
+</mat-card>

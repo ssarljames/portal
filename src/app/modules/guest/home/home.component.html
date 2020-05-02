@@ -1,23 +1,7 @@
 <div class="container-fluid">
+    
     <div class="row">
-      <div class="col-lg-12">
-          <div class="jumbotron">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-1 mr-3 text-center">
-                        <img _ngcontent-vog-c196="" src="/assets/icons/icon-128x128.png">
-                    </div>
-                    <div class="col-md-10">
-                        <h1 class="display-5 mb-1">VSU Computer Science Student Society</h1>
-                        <p class="lead">Lorem ipsum dolor sit amet, consecte tur adipiscing elit, sed do eiusmod tempor.</p>
-                    </div>
-                </div>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <mat-card>
                 <mat-card-content>
                     <h1><mat-icon>local_offer</mat-icon> Posts</h1>
@@ -39,30 +23,24 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <mat-card>
                 <mat-card-content>
 
                     <h1><mat-icon>events</mat-icon> Events</h1>
 
                     <div *ngFor="let event of events">
-
+        
                         <h2 class="mb-0">{{ event.name }}</h2>
                         <span class="text-muted">{{ event.event_date }}</span>
                         <br><br>
-
-
-                        <div class="ck-content" [innerHTML]="event.description"></div>
-
-
-                        <mat-divider></mat-divider>
+        
                         <br>
                     </div>
 
-                    <mat-error>No more events</mat-error>
-
                 </mat-card-content>
             </mat-card>
+
         </div>
     </div>
 </div>

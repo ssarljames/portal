@@ -6,6 +6,40 @@ import { map } from 'rxjs/operators';
 import { Model } from 'src/app/models/model/model';
 import { Store } from '@ngrx/store';
 
+
+export interface HttpShowResponse{
+  data: any;
+}
+
+export interface HttpResponseLinks{
+
+  first: string;
+  last: string;
+
+  next: string;
+  prev: string;
+}
+
+export interface HttpResponseMeta {
+
+  path: string;
+  total: number;
+  per_page: number;
+  from: number;
+  to: number;
+  current_page: number;
+  last_page: number;
+
+}
+
+export interface HttpCollectionResponse{
+
+  data: any[];
+  meta: HttpResponseMeta;
+  links: HttpResponseLinks;
+
+}
+
 export interface ResourceAction<T extends Model>{
 
   store: Store;

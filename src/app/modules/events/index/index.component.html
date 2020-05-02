@@ -7,22 +7,26 @@
     </div>
 </div>
 
-<table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let event">
-            {{ event.name }}
-        </mat-cell>
-    </ng-container>
-
-
-    <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef>Event Date</mat-header-cell>
-        <mat-cell *matCellDef="let event">
-            {{ event.event_date }}
-        </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let event; columns: columns" matRipple (click)="select(event)"></mat-row>
-</table>
+<mat-card>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let event">
+                    {{ event.name }}
+                </mat-cell>
+            </ng-container>
+        
+        
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef>Event Date</mat-header-cell>
+                <mat-cell *matCellDef="let event">
+                    {{ event.event_date }}
+                </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <mat-row *matRowDef="let event; columns: columns" matRipple (click)="select(event)"></mat-row>
+        </table>
+    </mat-card-content>
+</mat-card>

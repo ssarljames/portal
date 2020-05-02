@@ -169,9 +169,6 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
       transaction_item.paper_size_id = null;
       transaction_item.print_quality_id = null;
 
-      console.log(this.service_rates.filter(sr => sr.is_scanning));
-
-
       transaction_item.price = this.service_rates.filter(sr => sr.is_scanning)[0].rate;
     }
 
@@ -197,7 +194,6 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     //       this.currentTransactionItem.paper_size = pr.paper_size;
     //       this.currentTransactionItem.print_quality = pr.print_quality;
 
-    //       // console.log(this.currentTransactionItem);
 
     //   }
     // });

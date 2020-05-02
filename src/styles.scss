@@ -1,6 +1,8 @@
     /* You can add global styles to this file, and also import other style files */
     /* modal animation */
 
+    @import 'themes/theme.scss';
+
     body {
         // background: #ccc;
         height: unset !important;
@@ -72,6 +74,7 @@
 
     .mat-card {
         margin: 20px 0;
+        border-radius: 0px !important;
     }
 
     table.mat-table {
@@ -105,8 +108,3 @@
     .ck-editor__editable_inline {
         min-height: 200px;
     }
-
-    // body
-    // {
-    //     overscroll-behavior-y: contain !important;
-    // }

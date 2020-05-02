@@ -1,0 +1,14 @@
+
+
+    @import '~@angular/material/theming';
+    @include mat-core();
+    
+    .dark-theme{
+        @import 'cs3-dark.scss';
+    }
+
+    .default-theme{
+        @import 'cs3-default.scss';
+    }
+
+    

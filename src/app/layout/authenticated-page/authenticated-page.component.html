@@ -1,4 +1,4 @@
-<div *ngIf="user" (swiperight)="openNav()" (swipeleft)="closeNav()">
+<div *ngIf="user">
 
     <div *ngIf="user.reset_password == false;">
         <app-top-navbar (toggled)="onToggle($event)"></app-top-navbar>
@@ -13,7 +13,7 @@
             </mat-sidenav>
             <mat-sidenav-content>
                 <div style="min-height: 80vh;" class="p-3">
-                    <router-outlet></router-outlet>
+                    <router-outlet  (swiperight)="openNav()" (swipeleft)="closeNav()"></router-outlet>
                 </div>
             </mat-sidenav-content>
         </mat-sidenav-container>

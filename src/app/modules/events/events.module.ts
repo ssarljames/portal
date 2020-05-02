@@ -35,8 +35,4 @@ import { MonitorAttendanceComponent } from './show/manage-attendance/monitor-att
     FormComponent
   ]
 })
-export class EventsModule {
-  constructor(){
-    console.log('Events Module Loaded');
-  }
-}
+export class EventsModule { }

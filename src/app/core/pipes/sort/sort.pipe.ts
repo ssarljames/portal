@@ -7,9 +7,6 @@ export class SortPipe implements PipeTransform {
 
   transform(value: any[], ...args: string[]): any[] {
 
-    console.log(args);
-
-
     if(args.length == 0)
       return value;
 
@@ -18,9 +15,7 @@ export class SortPipe implements PipeTransform {
     value.forEach(element => {
       retVal.push(Object.assign({}, element));
     });
-
-    console.log(retVal);
-
+    
 
     const key = args[0];
 
