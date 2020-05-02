@@ -21,6 +21,8 @@ import { MaterialSelectOption } from 'src/app/modules/shared/utils/material-sele
 import { FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-monitor-attendance',
   templateUrl: './monitor-attendance.component.html',
@@ -51,6 +53,8 @@ export class MonitorAttendanceComponent implements OnInit {
   logType: FormControl = new FormControl(1);
 
   pauseScan: boolean = false;
+
+  isDev: boolean = !environment.production
 
   constructor(private eventService: EventService,
               private store: Store<{events: Event[]}>,
