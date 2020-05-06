@@ -1,0 +1,18 @@
+<h3 mat-dialog-title>Select Permission Group</h3>
+
+<div mat-dialog-content>
+    <mat-list *ngIf="permissions">
+        <mat-list-item matRipple (click)="selectPermission(key)" *ngFor="let key of objectKeys(permissions)">
+            <mat-icon class="mr-2">lock</mat-icon>
+            {{ permissions[key] }}
+        </mat-list-item>
+
+        <mat-list-item class="text-muted" *ngIf="permissions.length == 0">None</mat-list-item>
+    </mat-list>
+
+    <app-ellipis-loading *ngIf="permissions == null"></app-ellipis-loading>
+    <br>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial [mat-dialog-close]="null">Close</button>
+</div>

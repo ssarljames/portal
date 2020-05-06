@@ -3,7 +3,7 @@
         <h1><mat-icon>contacts</mat-icon> Students</h1>
     </div>
     <div class="col-sm-6 text-right">
-        <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon> New Student</button>
+        <button *hasPermission="'MANAGE_STUDENTS_CREATE'" mat-raised-button routerLink="create"><mat-icon>add</mat-icon> New Student</button>
     </div>
 </div>
 
@@ -34,5 +34,8 @@
             <mat-row *matRowDef="let student; columns: columns" mat-ripple (click)="selectStudent(student)"></mat-row>
 
         </table>
+
+        <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>
+
     </mat-card-content>
 </mat-card>

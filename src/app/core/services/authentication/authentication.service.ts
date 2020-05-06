@@ -53,10 +53,10 @@ export class AuthenticationService {
   fetchUser(): void{
     if(this.authInfo && this.authInfo.token && this.authInfo.token.user_id && this.userFetching == false){
       this.userFetching = true;
-      this.http.get<HttpShowResponse>(`${this.endpoint}/users/${this.authInfo.token.user_id}`).subscribe( (response: HttpShowResponse) => {
+      this.http.get<HttpShowResponse>(`${this.endpoint}/me`).subscribe( (response: HttpShowResponse) => {
 
         const user: User = response.data;
-        this.$currentUser.next(user);
+        this.setUser(user);
         this.userFetched = true;
         this.userFetching = false;
         if(this._requested_url){
@@ -114,7 +114,7 @@ export class AuthenticationService {
   }
 
   setUser(user: User): void{
-    this.$currentUser.next(user);
+    this.$currentUser.next( (new User()).fill(user) );
   }
 
 
@@ -147,6 +147,12 @@ export class AuthenticationService {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(msg);
+  }
+
+
+  updateProfile(user: User): Observable<User>{
+    return this.http.post<any>(`${environment.endpoint}/update-profile`, user)
+              .pipe(map((response: HttpShowResponse): User => response.data));
   }
 }
 

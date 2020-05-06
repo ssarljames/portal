@@ -1,0 +1,67 @@
+<div *ngIf="user">
+    <h1 class="mb-0">User Account Information</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Profile</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <mat-list>
+                        <mat-list-item><span class="text-muted">Username</span> <span class="flex-spacer"></span> {{ user.username }}</mat-list-item>
+                        <mat-list-item><span class="text-muted">Fullname</span> <span class="flex-spacer"></span> {{ user.fullname }}</mat-list-item>
+                        <mat-list-item><span class="text-muted">Created</span> <span class="flex-spacer"></span> {{ user.created_at | parseDate | dfnsDistanceInWordsToNow | titlecase }} ago</mat-list-item>
+                    </mat-list>
+
+                </mat-card-content>
+                <mat-card-actions align="end">
+            
+            
+                    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon> Option</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item color="basic" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
+                    </mat-menu>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Permissions</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <mat-list>
+                        <mat-list-item *ngFor="let permission of user.permission_group"
+                                 matRipple class="hover"
+                                 (click)="selectPermission(permission)">
+
+                            <mat-icon mat-list-icon>lock</mat-icon>
+                            <h4 mat-line>{{ permission.permission_label }}</h4>
+                            <p mat-line class="text-muted">
+                                <span *ngFor="let type of permission.types; let i = index">
+                                    {{ type.type_label }}{{ i < permission.types.length - 1 ? ', ' : ''}}
+                                </span>
+                            </p>
+                        </mat-list-item>
+
+                        <mat-list-item *ngIf="user.permissions.length == 0"
+                                 class="text-muted">
+                                 None
+                        </mat-list-item>
+
+                        <mat-list-item (click)="addPermission()" matRipple class="hover">
+                            <mat-icon mat-list-icon>library_add</mat-icon>
+                            <h4 mat-line>Add</h4>
+                        </mat-list-item>
+
+                    </mat-list>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -9,3 +9,7 @@ $cs3-dark-app-theme: mat-dark-theme($cs3-dark-app-primary, $cs3-dark-app-accent,
     box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgb(37, 37, 37);
 }
     
+
+.mat-ripple:hover{
+    background-color: rgba(255,255, 255,.05);
+}

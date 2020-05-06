@@ -22,6 +22,9 @@ export class SideNavComponent implements OnInit {
     this.navItems = this.navItems.filter((item) => {
       return this.filterItem(item);
     });
+
+    console.log(this.navItems);
+    
   }
 
   filterItem(item: NavItem): boolean{
@@ -30,8 +33,11 @@ export class SideNavComponent implements OnInit {
           return this.filterItem(item);
         });
 
-      return item.allowed_roles.length == 0
-      || item.allowed_roles.indexOf(this.authService.user.role) > -1;
+      return item.permission == null
+            || (item.children && item.children.length > 0) 
+            || this.authService
+                      .user
+                        .canAccess(item.permission);
   }
 
   ngOnInit(): void {

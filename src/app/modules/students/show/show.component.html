@@ -10,7 +10,7 @@
         <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Students</button>
         <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon> Option</button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item color="accent" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
+            <button  *hasPermission="'MANAGE_STUDENTS_UPDATE'" mat-menu-item color="accent" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
             <!-- <button mat-menu-item color="error" (click)="deleteStudent()"><mat-icon>delete</mat-icon> Delete</button> -->
         </mat-menu>
 

@@ -90,7 +90,8 @@ export class MonitorAttendanceComponent implements OnInit {
     const event_id = this.activatedRoute.snapshot.params.id;
     this.eventService.read(event_id, {
       params: {
-        include_logs: true
+        include_logs: true,
+        all_logs: true
       }
     }).subscribe( event => {
 

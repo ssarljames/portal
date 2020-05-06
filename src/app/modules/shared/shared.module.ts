@@ -1,4 +1,5 @@
 import { PipesModule } from './../../core/pipes/pipes.module';
+import { DirectivesModule } from './../../core/directives/directives.module';
 import { ConfirmationComponent } from './modals/confirmation/confirmation.component';
 import { AlertComponent } from './modals/alert/alert.component';
 import { ModalService } from './services/modal/modal.service';
@@ -48,7 +49,8 @@ const FOR_EXPORT = [
     NgbModule,
     ReactiveFormsModule,
     DateFnsModule.forRoot(),
-    PipesModule
+    PipesModule,
+    DirectivesModule
   ],
   exports: [
     CommonModule,
@@ -58,6 +60,7 @@ const FOR_EXPORT = [
     FormsModule,
     DateFnsModule,
     PipesModule,
+    DirectivesModule,
 
     ...FOR_EXPORT
   ],

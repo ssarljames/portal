@@ -12,7 +12,7 @@
                 <mat-icon>school</mat-icon>
             </div>
 
-            <h1 class="card-title">2nd Sem 2019-2020</h1>
+            <h1 [innerHTML]="!loaded ? 'Loading...' : dashboardState.semester"></h1>
             <span class="card-category">Current Academic Year</span>
         </mat-card>
     </div>
@@ -23,7 +23,7 @@
                 <mat-icon>supervised_user_circle</mat-icon>
             </div>
 
-            <h1 class="card-title">{{ dashboardState.students < 0 ? randomNumber : dashboardState.students }}</h1>
+            <h1 class="card-title">{{ !loaded ? randomNumber : dashboardState.students }}</h1>
             <span class="card-category">Student Accounts</span>
         </mat-card>
     </div>
@@ -34,7 +34,7 @@
                 <mat-icon>event</mat-icon>
             </div>
 
-            <h1 class="card-title">{{ dashboardState.events < 0 ? randomNumber : dashboardState.events }}</h1>
+            <h1 class="card-title">{{ !loaded ? randomNumber : dashboardState.events }}</h1>
             <span class="card-category">Events</span>
         </mat-card>
     </div>
@@ -44,7 +44,7 @@
             <div class="card-header">
                 <mat-icon>developer_board</mat-icon>
             </div>
-            <h1 class="card-title">{{ dashboardState.posts < 0 ? randomNumber : dashboardState.posts }}</h1>
+            <h1 class="card-title">{{ !loaded < 0 ? randomNumber : dashboardState.posts }}</h1>
             <span class="card-category">Posts</span>
         </mat-card>
     </div>

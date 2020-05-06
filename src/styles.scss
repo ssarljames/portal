@@ -98,6 +98,15 @@
         /* Ensure that your app's content doesn't overlap the toolbar */
     }
 
+    .flex-spacer {
+        -webkit-box-flex: 1;
+        flex-grow: 1 !important;
+    }
+      
+    .hover{
+        cursor: pointer;
+    }
+
     @import 'app/styles/ckeditor.scss';
 
     .cs-logo{

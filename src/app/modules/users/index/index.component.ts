@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -12,7 +13,7 @@ import { Store } from '@ngrx/store';
 })
 export class IndexComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'username', 'firstname', 'lastname', 'created_at', 'actions' ];
+  displayedColumns: string[] = [ 'username', 'firstname', 'lastname', 'created_at' ];
 
   users: User[] = [];
 
@@ -30,12 +31,7 @@ export class IndexComponent implements OnInit {
   user: User;
 
   constructor(private userService: UserService,
-              private authService: AuthenticationService,
               private store: Store<{users: User[]}>) {
-
-    authService.user$.subscribe( user => {
-      this.user = user;
-    });
 
     this.store.select('users').subscribe(users => {
       this.users = users;
@@ -66,6 +62,6 @@ export class IndexComponent implements OnInit {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
- }
+  }
 
 }

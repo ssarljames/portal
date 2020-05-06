@@ -36,5 +36,7 @@
             <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: columns" matRipple (click)="show(row.id)"></mat-row>
         </table>
+
+        <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>
     </mat-card-content>
 </mat-card>

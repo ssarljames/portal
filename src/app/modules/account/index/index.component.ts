@@ -18,8 +18,8 @@ export class IndexComponent implements OnInit {
   user_id: string;
 
   constructor(private authService: AuthenticationService,
-              private userService: UserService,
               private modalService: ModalService) {
+
     this.user_id = this.authService.user.id;
 
     this.userForm = new FormGroup({
@@ -45,7 +45,7 @@ export class IndexComponent implements OnInit {
         password: true
       }).then(p => {
         if(p)
-          this.userService.update((new User()).formFill(this.userForm).set('password', p)).subscribe((user) => {
+          this.authService.updateProfile((new User()).formFill(this.userForm).set('password', p)).subscribe((user) => {
             this.modalService.swal({
               title: 'Account information saved!',
               icon: 'success'

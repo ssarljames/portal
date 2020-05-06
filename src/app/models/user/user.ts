@@ -19,4 +19,48 @@ export class User extends Model {
   is_administrator: boolean;
 
   deactivated_at: Date;
+
+  permissions: Permission[];
+
+  canAccess(code: string): boolean{
+    return this.permissions.findIndex( p => p.permission_code == code) > -1
+  }
+
+  get permission_group(): PermissionGroup[]{
+
+    const unique = this.permissions
+                        .map(item => item.permission)
+                        .filter((value, index, self) => self.indexOf(value) === index)
+
+    let groups: PermissionGroup[] = [];
+
+    unique.forEach( value => {
+      groups.push({
+        permission_label: this.permissions.find( p => p.permission == value).permission_label,
+        user_id: this.permissions.find( p => p.permission == value).user_id,
+        permission: value,
+        types: this.permissions.filter( p => p.permission == value) 
+      });
+    });
+
+    return groups;
+  }
+}
+
+export class Permission extends Model {
+  user_id: number;
+  permission: number;
+  type: number;
+
+  permission_label: string;
+  type_label: string;
+
+  permission_code: string;
+}
+
+export interface PermissionGroup {
+  permission_label: string;
+  permission: number;
+  user_id: number;
+  types: Permission[];
 }

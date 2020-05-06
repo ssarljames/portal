@@ -18,7 +18,7 @@
                             <!-- <div class="bg-info" style="width: 300px;height: 300px;margin: 0 auto;">
 
                             </div> -->
-                            <zxing-scanner [enable]="recording" (scanSuccess)="scan($event)"></zxing-scanner>
+                            <zxing-scanner *ngIf="recording" [enable]="true" (scanSuccess)="scan($event)"></zxing-scanner>
                             <br>
                             <br>
                             <app-material-select  required="true"  [control]="logType" [options]="logTypes" label="Log Type"></app-material-select>

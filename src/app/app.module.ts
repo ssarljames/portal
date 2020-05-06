@@ -35,7 +35,7 @@ import { UpdatePasswordComponent } from './layout/authenticated-page/update-pass
 import { UnknownErrorComponent } from './layout/errors/unknown-error/unknown-error.component';
 
 import * as hammer from 'hammerjs';
-import { HammerManager, HammerInstance } from '@angular/material/core';
+// import { HammerManager, HammerInstance } from '@angular/material/core';
 
 import { FooterComponent } from './layout/footer/footer.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -43,15 +43,15 @@ import { environment } from '../environments/environment';
 
 import { AppReducers } from './store/app.reducers';
 
-export class HammerConfig extends HammerGestureConfig {
-  overrides = {
-    swipe: {
-      direction: hammer.DIRECTION_HORIZONTAL,
-    },
-    pinch: { enable: false },
-    rotate: { enable: false }
-  }
-}
+// export class HammerConfig extends HammerGestureConfig {
+//   overrides = {
+//     swipe: {
+//       direction: hammer.DIRECTION_HORIZONTAL,
+//     },
+//     pinch: { enable: false },
+//     rotate: { enable: false }
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -99,7 +99,7 @@ export class HammerConfig extends HammerGestureConfig {
       id: 'router-progressbar'
     }),
 
-    HammerModule,
+    // HammerModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
@@ -117,10 +117,10 @@ export class HammerConfig extends HammerGestureConfig {
       useClass: HttpErrorInterceptor,
       multi: true
     },
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: HammerConfig
-    },
+    // {
+    //   provide: HAMMER_GESTURE_CONFIG,
+    //   useClass: HammerConfig
+    // },
     NavService
 
   ],

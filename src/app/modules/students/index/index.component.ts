@@ -21,6 +21,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   subject: BehaviorSubject<Student[]>;
   susbcription: Subscription;
 
+  loading: boolean = false;
+
   constructor(private studentService: StudentService,
               private store: Store<{students: Student[]}>,
               private router: Router) {
@@ -42,7 +44,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   fetchStudents(): void{
-    this.studentService.query().subscribe();
+    this.loading = true;
+    this.studentService.query().subscribe( () => {
+      this.loading = false;
+    });
   }
 
   selectStudent(student: Student): void{

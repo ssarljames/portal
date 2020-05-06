@@ -22,10 +22,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
         switch (err.status) {
           case 401:
-
-                  setTimeout( () => {
-                      location.reload(true);
-                  }, 2000);
                   console.log(err.message);
                   this.authService.logout();
                   this.modalService.toast('Not logged in!');

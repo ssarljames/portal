@@ -6,6 +6,8 @@ import { SortPipe } from './sort/sort.pipe';
 import { LteTodayPipe } from './lte-today/lte-today.pipe';
 import { IsFuturePipe } from './is-future/is-future.pipe';
 import { IsTodayPipe } from './is-today/is-today.pipe';
+import { FindPipe } from './find/find.pipe';
+import { HasPermissionPipe } from './has-permission/has-permission.pipe';
 
 
 
@@ -15,7 +17,9 @@ import { IsTodayPipe } from './is-today/is-today.pipe';
     SortPipe,
     LteTodayPipe,
     IsFuturePipe,
-    IsTodayPipe
+    IsTodayPipe,
+    FindPipe,
+    HasPermissionPipe
   ],
   imports: [
     CommonModule
@@ -25,7 +29,9 @@ import { IsTodayPipe } from './is-today/is-today.pipe';
     SortPipe,
     LteTodayPipe,
     IsFuturePipe,
-    IsTodayPipe
+    IsTodayPipe,
+    FindPipe,
+    HasPermissionPipe
   ]
 })
 export class PipesModule { }

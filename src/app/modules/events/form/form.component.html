@@ -9,7 +9,7 @@
                 <app-material-input class="full-width" [control]="form.controls.name" label="Event Name"></app-material-input>
             </div>
             <div class="col-md-4">
-                <app-material-select class="full-width" [control]="form.controls.type" [options]="eventTypes" label="Event Type"></app-material-select>        
+                <app-material-select [required]="true" class="full-width" [control]="form.controls.type" [options]="eventTypes" label="Event Type"></app-material-select>        
             </div>
         </div>
         <div class="row">

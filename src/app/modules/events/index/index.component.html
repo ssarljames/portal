@@ -28,5 +28,7 @@
             <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
             <mat-row *matRowDef="let event; columns: columns" matRipple (click)="select(event)"></mat-row>
         </table>
+
+        <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>
     </mat-card-content>
 </mat-card>

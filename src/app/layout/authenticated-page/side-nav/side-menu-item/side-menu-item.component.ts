@@ -5,6 +5,8 @@ import { Component, OnInit, HostBinding, Input } from '@angular/core';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { User } from 'src/app/models/user/user';
 
 @Component({
   selector: 'app-side-menu-item',
@@ -32,9 +34,12 @@ export class SideMenuItemComponent implements OnInit {
   hasActive: boolean;
   isHandset: boolean;
 
+  user: User = null;
+
   constructor(public navService: NavService,
               public router: Router,
-              private breakpointObserver: BreakpointObserver) {
+              private breakpointObserver: BreakpointObserver,
+              private authService: AuthenticationService) {
 
 
     breakpointObserver.observe(Breakpoints.Handset).subscribe(state => {
@@ -46,6 +51,8 @@ export class SideMenuItemComponent implements OnInit {
 
     this.expanded = false;
     this.hasActive = false;
+
+    this.authService.user$.subscribe( user => this.user = user);
   }
 
   ngOnInit() {

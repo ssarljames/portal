@@ -1,0 +1,21 @@
+<h3 mat-dialog-title *ngIf="permission_group">
+  <mat-icon>lock</mat-icon>
+  {{ permission_group.permission_label }} Permission</h3>
+<div mat-dialog-content *ngIf="permission_group">
+  <mat-list *ngIf="types">
+    <mat-list-item *ngFor="let key of objectKeys(types)">
+      <mat-icon class="mr-2">vpn_key</mat-icon>
+      {{ types[key] }}
+      <span class="flex-spacer"></span>
+      <mat-checkbox (change)="checkChanges($event)" [value]="key" [checked]="permission_group.types | find:key:'type'"></mat-checkbox>
+    </mat-list-item>
+  </mat-list>
+
+  <app-ellipis-loading *ngIf="types.length ==  0"></app-ellipis-loading>
+  <br>
+  <br>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="changes.to_add.length + changes.to_remove.length == 0">Save Changes</button>
+  <button mat-button cdkFocusInitial [mat-dialog-close]="null">Close</button>
+</div>

@@ -4,6 +4,7 @@ import { IndexComponent } from './index/index.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdministratorGuard } from 'src/app/core/guards/administrator/administrator.guard';
+import { ShowComponent } from './show/show.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
     path: ':id/edit',
     component: EditComponent,
     canActivate: [ AdministratorGuard ]
+  },
+  {
+    path: ':id',
+    component: ShowComponent
   }
 ];
 

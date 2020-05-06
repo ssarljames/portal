@@ -8,3 +8,6 @@ $cs3-default-app-theme: mat-light-theme($cs3-default-app-primary, $cs3-default-a
     box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px #ccc;
 }
     
+.mat-ripple:hover{
+    background-color: rgba(0,0,0,.05);
+}
