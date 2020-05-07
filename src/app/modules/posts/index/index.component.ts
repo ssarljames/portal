@@ -5,6 +5,7 @@ import { Post } from '../../../models/post/post';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-index',
@@ -13,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class IndexComponent implements OnInit, OnDestroy {
 
-  columns: string[] = [ 'created_at', 'title', 'user' ];
+  visibleColumns: string[] = [];
   dataSource: MatTableDataSource<Post> = new MatTableDataSource();
 
   loading: boolean = false;
@@ -22,12 +23,18 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   constructor(private postService: PostService,
               private store: Store<{posts: Post[]}>,
-              private router: Router) {
+              private router: Router,
+              breakpointObserver: BreakpointObserver) {
 
     this.subscription = store.select('posts').subscribe( posts => {
                           this.dataSource.connect().next(posts);
                         });
 
+    breakpointObserver.observe(Breakpoints.Handset).subscribe( state => {
+      this.visibleColumns = state.matches
+                              ? [ 'created_at', 'title']
+                              : [ 'created_at', 'title', 'user' ];
+    })
   }
 
   ngOnInit(): void {
@@ -47,7 +54,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   show(id: string): void{
     setTimeout(() => {
-      this.router.navigate([`/management/posts/${id}`]);
+      this.router.navigate([`/posts/${id}`]);
     }, 100);
   }
 

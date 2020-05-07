@@ -15,7 +15,7 @@ export class CreateComponent implements OnInit {
   }
 
   onCreated(event: Event): void{
-    this.router.navigate(['/management/events/' + event.id]);
+    this.router.navigate(['/events/' + event.id]);
   }
 
 }

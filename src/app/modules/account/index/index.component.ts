@@ -1,10 +1,11 @@
 import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { FormControl, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user/user.service';
+import { UploaderService } from 'src/app/core/services/uploader/uploader.service';
 import { FormGroup } from 'src/app/core/utils/form-group/form-group';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-index',
@@ -17,10 +18,26 @@ export class IndexComponent implements OnInit {
 
   user_id: string;
 
+  progress: number;
+  infoMessage: any;
+  isUploading: boolean = false;
+  file: File = null;
+
+  done: boolean = true;
+
+
+  @ViewChild('fileInput') fileInput: HTMLInputElement;
+
+  imageUrl: string | ArrayBuffer = "/assets/images/profile.png";
+  fileName: string = "No file selected";
+
   constructor(private authService: AuthenticationService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private uploader: UploaderService) {
 
     this.user_id = this.authService.user.id;
+
+    this.imageUrl = authService.user.profile_image ? authService.user.profile_image : this.imageUrl
 
     this.userForm = new FormGroup({
       id: new FormControl(this.user_id, Validators.required),
@@ -31,6 +48,25 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.uploader.progressSource.subscribe(progress => {
+      this.progress = progress;
+    });
+  }
+
+
+  onChange(file: File) {
+    if (file) {
+      this.done = false;
+      this.fileName = file.name;
+      this.file = file;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = event => {
+        this.imageUrl = reader.result;
+      };
+    }
   }
 
   saveUser(): void{
@@ -63,4 +99,26 @@ export class IndexComponent implements OnInit {
       })
   }
 
+  doUpload() {
+    this.progress = 0;
+    this.isUploading = true;
+
+
+
+    const form: FormData = new FormData();
+
+    form.append('image', this.file);
+
+
+    
+    this.uploader.upload(form, `${environment.endpoint}/upload-profile-picture`).subscribe( response => {
+      this.isUploading = false;
+      this.modalService.toast('Profile photo changed!');
+      const user = this.authService.user;
+      user.profile_image = response.data;
+      this.authService.setUser(user);
+      this.done = true;
+      this.file = null;
+    });
+  }
 }

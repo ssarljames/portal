@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   select(event: Event): void{
     setTimeout( () => {
-      this.router.navigate(['/management/events/' + event.id]);
+      this.router.navigate(['/events/' + event.id]);
     }, 100);
   }
 

@@ -15,7 +15,7 @@ export class CreateComponent implements OnInit {
   }
 
   saved(student: Student): void{
-    this.router.navigate(['/management/students']);
+    this.router.navigate(['/students']);
   }
 
 }

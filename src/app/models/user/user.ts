@@ -22,6 +22,8 @@ export class User extends Model {
 
   permissions: Permission[];
 
+  profile_image: string;
+
   canAccess(code: string): boolean{
     return this.permissions.findIndex( p => p.permission_code == code) > -1
   }

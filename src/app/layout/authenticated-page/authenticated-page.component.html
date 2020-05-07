@@ -1,6 +1,6 @@
 <div *ngIf="user">
 
-    <div *ngIf="user.reset_password == false;">
+    <div *ngIf="user.reset_password == false;" (swipeleft)="closeNav()" (swiperight)="openNav()">
         <app-top-navbar (toggled)="onToggle($event)"></app-top-navbar>
 
         <mat-sidenav-container>
@@ -26,7 +26,7 @@
 <div *ngIf="user == null && error_occured == false" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #222;">
 
     <mat-toolbar color="primary">
-        Loading resources...
+        <!-- Loading resources... -->
     </mat-toolbar>
 
     <br>

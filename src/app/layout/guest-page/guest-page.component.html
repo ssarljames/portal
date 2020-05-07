@@ -21,7 +21,18 @@
 
             <div class="flex-spacer"></div>
 
-            <app-theme-picker title="Change Theme"></app-theme-picker>
+            <!-- <app-theme-picker title="Change Theme"></app-theme-picker> -->
+
+
+            <button *showOnMobile mat-button [matMenuTriggerFor]="matThemeMenu">
+                <mat-icon>format_color_fill</mat-icon>
+            </button>
+            <mat-menu #matThemeMenu="matMenu">
+                <button mat-menu-item (click)="toggleDarkMode()">
+                    <mat-icon>{{ is_dark_mode ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+                    <span>Dark Mode</span>
+                </button>
+            </mat-menu>
 
             <a mat-button (click)="signIn()">
           Sign In
@@ -30,7 +41,7 @@
     </mat-toolbar>
 
     <mat-sidenav-container>
-        <mat-sidenav [class]="{'d-none': !isHandset}" #sidenav [fixedInViewport]="false" role="dialog" mode="over" [opened]="false">
+        <mat-sidenav *showOnMobile #sidenav [fixedInViewport]="true" [fixedInViewport]="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="isHandset ? 'over' : 'side'" [opened]="isHandset == false">
             <mat-nav-list>
 
                 <a (click)="sidenav.close()"

@@ -5,6 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import { ApplicationService } from 'src/app/core/services/application/application.service';
 
 @Component({
   selector: 'app-authenticated-page',

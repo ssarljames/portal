@@ -8,6 +8,7 @@ $app-accent: mat-palette($mat-green);
 $app-warn: mat-palette($mat-red);
 // Create the theme object (a Sass map containing all of the palettes).
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
 :host {
     display: flex;
     flex-direction: column;

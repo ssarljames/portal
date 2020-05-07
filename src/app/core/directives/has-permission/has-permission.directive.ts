@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, ViewContainerRef, TemplateRef } from '@angular/core';
+import { Directive, Input, ViewContainerRef, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { User } from 'src/app/models/user/user';
 
@@ -10,9 +10,7 @@ export class HasPermissionDirective {
   user: User;
   code: string;
 
-  constructor(
-              private element: ElementRef,
-              private templateRef: TemplateRef<any>,
+  constructor(private templateRef: TemplateRef<any>,
               private viewContainer: ViewContainerRef,
               authService: AuthenticationService) {
 

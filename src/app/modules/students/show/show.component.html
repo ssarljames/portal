@@ -1,18 +1,33 @@
-<mat-card *ngIf="student">
-    <mat-card-header>
-        <mat-card-title>Student Info</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        {{ student.fullname }}
-    </mat-card-content>
-    <mat-card-actions align="end">
-
-        <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Students</button>
-        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon> Option</button>
-        <mat-menu #menu="matMenu">
-            <button  *hasPermission="'MANAGE_STUDENTS_UPDATE'" mat-menu-item color="accent" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
-            <!-- <button mat-menu-item color="error" (click)="deleteStudent()"><mat-icon>delete</mat-icon> Delete</button> -->
-        </mat-menu>
-
-    </mat-card-actions>
-</mat-card>
+<div class="row">
+    <div class="col-md-6">
+        <mat-card *ngIf="student">
+            <mat-card-header>
+                <mat-card-title>Student Info</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>
+                        <span class="text-muted">ID No.</span>
+                        <span class="flex-spacer"></span>
+                        {{ student.id_number }}
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span class="text-muted">Fullname</span>
+                        <span class="flex-spacer"></span>
+                        {{ student.fullname }}
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+            <mat-card-actions align="end">
+        
+                <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Students</button>
+                <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon> Option</button>
+                <mat-menu #menu="matMenu">
+                    <button  *hasPermission="'MANAGE_STUDENTS_UPDATE'" mat-menu-item color="accent" routerLink="edit"><mat-icon>edit</mat-icon> Edit</button>
+                    <!-- <button mat-menu-item color="error" (click)="deleteStudent()"><mat-icon>delete</mat-icon> Delete</button> -->
+                </mat-menu>
+        
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

@@ -22,6 +22,14 @@ export class Event extends Model{
 
     time_logs: EventTimeLog[];
 
+    get getTypeStr(): string{
+        switch (this.type) {
+            case 1: return 'Meeting/Assembly';
+            case 2: return 'Activity';
+            default: return 'Others';
+        }
+    }
+
 
     get event_date(): string{
         let dateStr = '';

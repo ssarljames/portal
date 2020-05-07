@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/modules/guest/login/login.component';
+import { ThemeService } from 'src/app/core/services/theme/theme.service';
 
 interface Link{
   displayName: string;
@@ -16,6 +17,8 @@ interface Link{
   styleUrls: ['./guest-page.component.scss']
 })
 export class GuestPageComponent implements OnInit {
+
+  is_dark_mode: boolean;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
@@ -42,7 +45,8 @@ export class GuestPageComponent implements OnInit {
   ]
 
   constructor(private matDialog: MatDialog,
-              private breakpointObserver: BreakpointObserver) {
+              private breakpointObserver: BreakpointObserver,
+              private themeService: ThemeService) {
 
     breakpointObserver.observe(Breakpoints.XSmall).subscribe( result => {
       this.isHandset = result.matches;
@@ -50,6 +54,9 @@ export class GuestPageComponent implements OnInit {
       if(this.isHandset == false && this.sidenav)
         this.sidenav.close();
     });
+
+
+    this.is_dark_mode = this.themeService.currentTheme.isDark
   }
 
   ngOnInit(): void {
@@ -71,4 +78,14 @@ export class GuestPageComponent implements OnInit {
     if(this.isHandset)
       this.sidenav.close();
   }
+  
+  toggleDarkMode(): void{
+
+    this.is_dark_mode = !this.is_dark_mode;
+
+    this.is_dark_mode
+      ? this.themeService.setDarkTheme()
+      : this.themeService.setLightTheme();
+  }
+
 }

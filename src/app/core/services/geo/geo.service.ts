@@ -54,8 +54,6 @@ export class GeoService {
  }
      
  private setCurrentPosition = ( position ) => { 
-
-    console.log(position);
     
     this.$data.next(position);
         

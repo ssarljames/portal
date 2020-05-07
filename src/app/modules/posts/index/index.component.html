@@ -5,7 +5,7 @@
     <div class="col-sm-6">
         <h1><mat-icon>developer_board</mat-icon> Posts</h1>
     </div>
-    <div class="col-sm-6 text-right">
+    <div *hasPermission="'MANAGE_POSTS_CREATE'" class="col-sm-6 text-right">
         <button mat-raised-button routerLink="create"><mat-icon>library_add</mat-icon> Create</button>
     </div>
 </div>
@@ -33,8 +33,8 @@
                 </mat-cell>
             </ng-container>
         
-            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: columns" matRipple (click)="show(row.id)"></mat-row>
+            <mat-header-row *matHeaderRowDef="visibleColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: visibleColumns" matRipple (click)="show(row.id)"></mat-row>
         </table>
 
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>

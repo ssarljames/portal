@@ -3,32 +3,33 @@ import { NavItem } from './side-menu-item/nav-item';
 export const MENU: NavItem[] = [
     {
       displayName: 'Dashboard',
-      route: 'management/',
+      route: '/dashboard',
       iconName: 'dashboard',
-      permission: null
+      permission: null,
+      routerLinkOption: {}
     },
     {
       displayName: 'Students',
       iconName: 'contacts',
-      route: 'management/students',
+      route: '/students',
       permission: 'MANAGE_STUDENTS_VIEW_ANY'
     },
     {
       displayName: 'Posting',
       iconName: 'developer_board',
-      route: 'management/posts',
+      route: '/posts',
       permission: 'MANAGE_POSTS_VIEW_ANY'
     },
     {
       displayName: 'Events',
       iconName: 'event',
-      route: 'management/events',
+      route: '/events',
       permission: 'MANAGE_EVENTS_VIEW_ANY'
     },
     {
       displayName: 'Service Transactions',
       iconName: 'print',
-      route: 'management/service-transactions',
+      route: '/service-transactions',
       permission: 'MANAGE_SERVICE_TRANSACTIONS_VIEW_ANY'
     },
     {
@@ -38,15 +39,15 @@ export const MENU: NavItem[] = [
       children: [
         {
           displayName: 'Users',
-          route: 'management/users',
+          route: '/users',
           iconName: 'group',
           permission: 'MANAGE_USERS_VIEW_ANY'
         },
         {
           displayName: 'Service Settings',
-          route: 'management/settings/printing-service',
+          route: '/settings/printing-service',
           iconName: 'insert_drive_file',
-          permission: 'MANAGE_PRINT_SERVICE_SETTINGS_VIEW_ANY'
+          permission: 'MANAGE_USERS_VIEW_ANY'
         },
       ]
     }

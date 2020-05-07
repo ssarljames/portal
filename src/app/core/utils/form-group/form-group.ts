@@ -10,12 +10,10 @@ export class FormGroup extends FG {
 
   fillErrors(e: any): void{
 
-    console.log(e);
 
     if(e.error.errors ?? false)
       for (const key in e.error.errors) {
         if (this.controls.hasOwnProperty(key)) {
-          console.log(key);
 
           this.controls[key].setErrors(e.error.errors[key]);
           this.controls[key].markAsTouched();

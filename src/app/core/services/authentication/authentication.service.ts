@@ -41,8 +41,6 @@ export class AuthenticationService {
     // if(this.authInfo && this.authInfo.token && this.authInfo.token.user_id)
     //   this.fetchUser(this.authInfo.token.user_id);
 
-    console.log('Auth Service init');
-
 
   }
 

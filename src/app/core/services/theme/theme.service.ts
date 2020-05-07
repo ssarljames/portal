@@ -80,6 +80,13 @@ export class ThemeService implements OnInit {
     return theme;
   }
 
+  setDarkTheme(): void{
+    this.setTheme( this._themes.find(t => t.isDark));
+  }
+
+  setLightTheme(): void{
+    this.setTheme( this._themes.find(t => !t.isDark));
+  }
 
 }
 

@@ -1,15 +1,38 @@
 <mat-card *ngIf="event">
     <mat-card-header>
-        <mat-card-title>{{ event.name }}</mat-card-title>
+        <mat-card-title>Event Details</mat-card-title>
     </mat-card-header>
     <mat-card-content>
 
+        <mat-list>
+            <mat-list-item>
+                <mat-icon mat-list-icon>meeting_room</mat-icon>
+                <h4 mat-line>{{ event.name }}</h4>
+                <p mat-line class="text-muted">Event Name</p>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>class</mat-icon>
+                <h4 mat-line>{{ event.getTypeStr }}</h4>
+                <p mat-line class="text-muted">Event Type</p>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon mat-list-icon>event</mat-icon>
+                <h4 mat-line>{{ event.event_date }}</h4>
+                <p mat-line class="text-muted">Event Date</p>
+            </mat-list-item>
+        </mat-list>
 
-        <div class="ck-content" [innerHTML]="event.description"></div>
+        <br><br>
+
+        <h3>
+            Description
+        </h3>
+
+        <div class="ck-content p-2" [innerHTML]="event.description"></div>
     </mat-card-content>
     <mat-card-actions align="end">
 
-        <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Events</button>
+        <!-- <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Events</button> -->
         <button mat-raised-button color="accent" routerLink="monitor-attendance"><mat-icon>group</mat-icon> Attendance</button>
 
         <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon> Option</button>

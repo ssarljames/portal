@@ -3,7 +3,7 @@
         <button mat-icon-button>
           <mat-icon (click)="toggle()">menu</mat-icon>
         </button>
-        <img src="/assets/icons/icon-72x72.png" alt="" class="cs-logo">
+        <img src="/assets/images/cs3-logo.png" alt="" class="cs-logo">
         <span class="menu-spacer"></span>
 
 
@@ -18,24 +18,60 @@
           </button>
       </mat-form-field> -->
 
-        <app-theme-picker title="Change Theme"></app-theme-picker>
+        <!-- <app-theme-picker title="Change Theme"></app-theme-picker> -->
 
-        <button mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <!-- <mat-icon>more_vert</mat-icon> -->
-        <mat-icon>account_circle</mat-icon>
-        {{ user.firstname }}
-      </button>
-        <mat-menu #menu="matMenu">
-            <a routerLink="/management/account" mat-menu-item>
+
+        <!-- <button mat-button *ngIf="devMode" (click)="reload()">
+          <mat-icon>refresh</mat-icon>
+        </button> -->
+        <button mat-button [matMenuTriggerFor]="matMessageMenu">
+          <mat-icon>email</mat-icon>
+        </button>
+        <mat-menu #matMessageMenu="matMenu">
+            <div mat-menu-item>
+              <mat-icon>chat</mat-icon>
+              Hi there, developers thank you for using this app.
+            </div>
+        </mat-menu>
+
+        <button mat-button [matMenuTriggerFor]="matNotificationMenu">
+          <mat-icon>notifications</mat-icon>
+        </button>
+        <mat-menu #matNotificationMenu="matMenu">
+            <div mat-menu-item>
+              <mat-icon>info</mat-icon>
+              This app is now available for offline mode.
+            </div>
+        </mat-menu>
+
+
+        <button *showOnMobile mat-button [matMenuTriggerFor]="matThemeMenu">
+          <mat-icon>format_color_fill</mat-icon>
+        </button>
+        <mat-menu #matThemeMenu="matMenu">
+          <button mat-menu-item (click)="toggleDarkMode()">
+              <mat-icon>{{ is_dark_mode ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+              <span>Dark Mode</span>
+          </button>
+        </mat-menu>
+
+        <button *hideOnMobile mat-button [matMenuTriggerFor]="matAccountMenu">
+          <mat-icon>account_circle</mat-icon>
+          {{ user.firstname }}
+        </button>
+        <mat-menu #matAccountMenu="matMenu">
+            <a routerLink="/account" mat-menu-item>
                 <mat-icon>settings</mat-icon>
                 <span>Account Settings</span>
             </a>
-
-
+            <button mat-menu-item (click)="toggleDarkMode()">
+                <mat-icon>{{ is_dark_mode ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+                <span>Dark Mode</span>
+            </button>
             <button mat-menu-item (click)="doLogout()">
-            <mat-icon>exit_to_app</mat-icon>
-            <span>Sign Out</span>
-          </button>
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Sign Out</span>
+            </button>
         </mat-menu>
     </mat-toolbar-row>
 

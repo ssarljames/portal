@@ -39,6 +39,6 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   saved(student: Student): void{
-    this.router.navigate(['/management','students', student.id]);
+    this.router.navigate(['/','students', student.id]);
   }
 }

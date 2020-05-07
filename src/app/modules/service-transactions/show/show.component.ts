@@ -95,11 +95,11 @@ export class ShowComponent implements OnInit {
           this.fetchTransactions();
         }
         else
-          this.router.navigate(['management/service-transactions']);
+          this.router.navigate(['service-transactions']);
       },
       e => {
         this.modalService.toast('Error reading station');
-        this.router.navigate(['management/service-transactions']);
+        this.router.navigate(['service-transactions']);
       })
     }
     else{
@@ -148,7 +148,7 @@ export class ShowComponent implements OnInit {
         this.stationService.leave(this.station, password).subscribe((station: Station) => {
           this.stateService.set('active_station', null);
           this.modalService.toast('You leaved the session','Session leaved');
-          this.router.navigate([`management/service-transactions`]);
+          this.router.navigate([`service-transactions`]);
           this.isLeaving = false;
         },
 

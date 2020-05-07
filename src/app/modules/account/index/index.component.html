@@ -18,7 +18,33 @@
 <h1>Account Settings</h1>
 
 <mat-tab-group>
+
+
+    <mat-tab label="Profile Information">
+        <ng-template matTabContent>
+            <div class="container-fluid mt-3">
+            
+                <div class="row">
+                    <div class="col-md-4">
+                        <img [src]="imageUrl" class="profile-picture">
+                        <input
+                            class="d-none"
+                            type="file"
+                            name="file"
+                            #fileInput
+                            (change)="onChange(fileInput.files[0])"
+                        />
+                        <br><br>
+                        <button style="width: 200px;margin-bottom: 10px;" (click)="fileInput.click()" mat-raised-button color="basic">Choose Photo (.png, .jpg)</button> <br>
+                        <button  style="width: 200px;" *ngIf="file" [disabled]="done" (click)="doUpload()" mat-raised-button color="primary"><mat-icon>cloud_upload</mat-icon> Upload Photo</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </mat-tab>
+
     <mat-tab label="Security">
+        
 
         <ng-template matTabContent>
             <div class="container-fluid mt-3">
@@ -62,8 +88,4 @@
 
     </mat-tab>
 
-    <mat-tab label="Personal Information">
-        <br>
-        <span class="text-muted">This feature is not implemented yet.</span>
-    </mat-tab>
 </mat-tab-group>

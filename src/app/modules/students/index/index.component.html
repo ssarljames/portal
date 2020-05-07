@@ -30,11 +30,11 @@
                 </mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-            <mat-row *matRowDef="let student; columns: columns" mat-ripple (click)="selectStudent(student)"></mat-row>
+            <mat-header-row *matHeaderRowDef="visibleColumns"></mat-header-row>
+            <mat-row *matRowDef="let student; columns: visibleColumns" mat-ripple (click)="selectStudent(student)"></mat-row>
 
         </table>
-
+        
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>
 
     </mat-card-content>

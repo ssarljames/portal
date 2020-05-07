@@ -21,7 +21,7 @@ export class AuthenticatedGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (this.authService.isLoggedIn !== true) {
-      this.router.navigate(['']);
+      this.router.navigate(['/']);
 
       if(state.url != '/')
         this.modalService.toast('Not logged in!');

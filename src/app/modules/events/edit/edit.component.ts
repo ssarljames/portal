@@ -41,6 +41,6 @@ export class EditComponent implements OnInit {
   }
 
   onUpdated(event: Event): void{
-    this.router.navigate(['/management/events/'+ event.id]);
+    this.router.navigate(['/events/'+ event.id]);
   }
 }

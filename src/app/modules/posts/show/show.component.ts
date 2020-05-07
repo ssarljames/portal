@@ -47,7 +47,7 @@ export class ShowComponent implements OnInit {
       if(v){
         this.postService.delete(this.post).subscribe(() => {
           this.modalService.toast('Post was successfully deleted.', 'Success', 'Success');
-          this.router.navigate(['/management/posts']);
+          this.router.navigate(['/posts']);
         });
       }
     })

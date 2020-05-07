@@ -24,7 +24,7 @@ export class CreateComponent implements OnInit {
   }
 
   saved(post: Post): void{
-    this.router.navigate(['/management/posts/' + post.id]);
+    this.router.navigate(['/posts/' + post.id]);
   }
 
 }

@@ -1,7 +1,7 @@
 import { NavService } from './nav.service';
 import { Router } from '@angular/router';
 import { NavItem } from './nav-item';
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, AfterViewInit } from '@angular/core';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -22,7 +22,7 @@ import { User } from 'src/app/models/user/user';
     ])
   ]
 })
-export class SideMenuItemComponent implements OnInit {
+export class SideMenuItemComponent implements OnInit, AfterViewInit {
   expanded: boolean;
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
   @Input() item: NavItem;
@@ -33,6 +33,8 @@ export class SideMenuItemComponent implements OnInit {
 
   hasActive: boolean;
   isHandset: boolean;
+
+  currentUrl: string = '';
 
   user: User = null;
 
@@ -56,11 +58,21 @@ export class SideMenuItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.navService.currentUrl.subscribe((url: string) => {
-      this.checkIfHasActiveChild(url);
-    });
-
     this.checkIfHasActiveChild(this.router.url);
+  }
+
+  ngAfterViewInit(): void{
+    setTimeout(() => {
+      this.navService.currentUrl.subscribe((url: string) => {
+        this.checkIfHasActiveChild(url);
+        console.log('url', url);
+        
+        if(this.isHandset && this.sidenav.opened && url && this.currentUrl != url)
+          this.sidenav.toggle()
+
+        this.currentUrl = url ? url : this.currentUrl;
+      });
+    }, 100);
   }
 
   checkIfHasActiveChild(url: string = ''): void{
@@ -69,8 +81,7 @@ export class SideMenuItemComponent implements OnInit {
 
     if(this.item.children && this.item.children.length > 0)
       this.item.children.forEach( (child: NavItem) => {
-        // console.log(url, child.route, url.indexOf(child.route));
-
+      
 
         child.isActive = false;
 
@@ -89,15 +100,13 @@ export class SideMenuItemComponent implements OnInit {
 
   onItemSelected(item: NavItem) {
 
+    // this.router.navigate([item.route]);
 
-    if (!item.children || !item.children.length) {
-      this.router.navigate([item.route]);
-      if(this.isHandset)
-        this.sidenav.close();
-    }
-    if (item.children && item.children.length) {
+    if(item.children && item.children.length > 0)
       this.expanded = !this.expanded;
-    }
+    else
+      this.sidenav.close();
+    
   }
 
 }

@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(user).subscribe((user) => {
         this.loading = false;
         this.matDialog.closeAll();
-        this.router.navigate(['management']);
+        this.router.navigate(['/dashboard']);
       },(e: any) => {
         if(e.hasOwnProperty('statusText'))
           this.error = e.statusText;

@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-index',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class IndexComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'username', 'firstname', 'lastname', 'created_at' ];
+  displayedColumns: string[];
 
   users: User[] = [];
 
@@ -31,10 +32,17 @@ export class IndexComponent implements OnInit {
   user: User;
 
   constructor(private userService: UserService,
-              private store: Store<{users: User[]}>) {
+              private store: Store<{users: User[]}>,
+              breakpointObserver: BreakpointObserver) {
 
     this.store.select('users').subscribe(users => {
       this.users = users;
+    });
+
+    breakpointObserver.observe(Breakpoints.Handset).subscribe( state => {
+      this.displayedColumns = state.matches
+                                ? [ 'firstname', 'lastname' ]
+                                : [ 'username', 'firstname', 'lastname', 'created_at' ]
     })
 
   }

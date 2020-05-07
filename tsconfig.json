@@ -24,15 +24,16 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   },
-  "exclude": [
-      "**/node_modules/*",
-      "**/webroots/*",
-      "**/vendor/*",
-      "**/Wpe/*",
-      "**/dist/*",
-      "**/hooks/*",
-      "**/platforms/*",
-      "**/plugins/*",
-      "**/www/*"
-  ]
+  // "exclude": [
+  //     "**/node_modules/*",
+  //     "**/webroots/*",
+  //     "**/vendor/*",
+  //     "**/Wpe/*",
+  //     "**/dist/*",
+  //     "**/hooks/*",
+  //     "**/platforms/*",
+  //     "**/plugins/*",
+  //     "**/www/*"
+  // ],
+  "include": ["src/**/*"]
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from './core/services/theme/theme.service';
 // import { ConnectionService } from 'ng-connection-service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ModalService } from './modules/shared/services/modal/modal.service';
 import { from } from 'rxjs';
+import { ApplicationService } from './core/services/application/application.service';
 
 declare var device;
 
@@ -19,8 +20,10 @@ export class AppComponent implements OnInit {
 
   constructor(private themeService: ThemeService,
               // private connectionService: ConnectionService,
+              activatedRoute: ActivatedRoute,
               private router: Router,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              applicationService: ApplicationService) {
 
     // this.connectionService.monitor().subscribe(isConnected => {
     //   this.isOffline = isConnected == false;
@@ -34,7 +37,10 @@ export class AppComponent implements OnInit {
 
     themeService.theme.subscribe((s) => {
       this.showContent = true;
-    })
+    });
+
+    
+    
   }
   ngOnInit(): void{
     const self = this;

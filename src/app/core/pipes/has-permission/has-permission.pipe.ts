@@ -8,8 +8,6 @@ export class HasPermissionPipe implements PipeTransform {
 
   transform(user: User, code: string): unknown {
 
-    console.log(code);
-    
 
     return !code || user.canAccess(code);
   }

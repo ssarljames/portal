@@ -76,7 +76,7 @@ export class CreateComponent implements OnInit {
         });
 
 
-        this.router.navigate(['management/users']);
+        this.router.navigate(['users']);
       },
 
       response => {

@@ -6,6 +6,7 @@ import { StudentService } from 'src/app/services/student/student.service';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { GeoService } from 'src/app/core/services/geo/geo.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-index',
@@ -16,7 +17,9 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<Student> = new MatTableDataSource();
 
-  columns: string[] = [ 'fullname', 'id_number', 'created_at' ];
+  columnDefinitions: string[] = [ 'fullname', 'id_number', 'created_at' ];
+
+  visibleColumns: string[];
 
   subject: BehaviorSubject<Student[]>;
   susbcription: Subscription;
@@ -25,13 +28,20 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   constructor(private studentService: StudentService,
               private store: Store<{students: Student[]}>,
-              private router: Router) {
+              private router: Router,
+              private breakpointObserver: BreakpointObserver) {
 
     this.subject = this.dataSource.connect();
 
     this.susbcription = this.store.select('students').subscribe(students => {
       this.subject.next(students.map(s => (new Student).fill(s)));
     });
+
+    breakpointObserver.observe(Breakpoints.Handset).subscribe(result => {
+      this.visibleColumns = result.matches
+                              ? [ 'fullname', 'id_number' ]
+                              : this.columnDefinitions;
+    })
   }
 
   ngOnInit(): void {
@@ -52,7 +62,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   selectStudent(student: Student): void{
     setTimeout( () => {
-      this.router.navigate(['management', 'students', student.id]);
+      this.router.navigate(['/', 'students', student.id]);
     }, 100);
   }
 

@@ -78,7 +78,7 @@ export class EditComponent implements OnInit {
           'icon': 'success'
         });
 
-        this.router.navigate(['management/users']);
+        this.router.navigate(['users']);
       },
 
       response => {

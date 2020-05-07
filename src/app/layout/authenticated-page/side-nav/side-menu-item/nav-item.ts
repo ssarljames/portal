@@ -8,4 +8,6 @@ export interface NavItem {
   permission: string;
 
   isActive?: boolean;
+
+  routerLinkOption?: any
 }

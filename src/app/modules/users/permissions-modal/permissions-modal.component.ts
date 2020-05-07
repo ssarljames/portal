@@ -26,6 +26,9 @@ export class PermissionsModalComponent implements OnInit {
     to_remove: []
   }
 
+
+  saving: boolean = false;
+
   constructor(private userPermissionsService: UserPermissionsService,
               private dialogRef: MatDialogRef<PermissionsModalComponent>) { }
 
@@ -75,11 +78,13 @@ export class PermissionsModalComponent implements OnInit {
     const permission: any = this.changes;
     permission.id = this.permission_group.permission
 
+    this.saving = true;
     this.userPermissionsService
           .update(permission, `users/${this.permission_group.user_id}/`)
           .subscribe( permission => {
 
           
+            this.saving = true;
             this.dialogRef.close(permission);
 
     });
