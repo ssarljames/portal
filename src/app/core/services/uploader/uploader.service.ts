@@ -29,13 +29,14 @@ export class UploaderService {
 
     return this.http.request(req)
         .pipe(
-          tap((envelope: HttpEvent<any>) => this.processProgress(envelope)),
-          last()
+          tap((envelope: HttpEvent<any>) => this.processProgress(envelope))
         );
   }
 
   processProgress(event: HttpEvent<any>): void {
     if (event.type == HttpEventType.UploadProgress)
-      this.onProgress.next(Math.round(event.loaded / event.total * 100));    
+      this.onProgress.next(Math.round(event.loaded / event.total * 100) - 1); 
+      
+      
   }
 }

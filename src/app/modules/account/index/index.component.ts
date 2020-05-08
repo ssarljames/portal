@@ -6,7 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { UploaderService } from 'src/app/core/services/uploader/uploader.service';
 import { FormGroup } from 'src/app/core/utils/form-group/form-group';
 import { environment } from 'src/environments/environment';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-index',
@@ -50,7 +50,7 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploader.onProgress.subscribe(progress => {
-      this.progress = progress;
+      this.progress = progress;         
     });
   }
 
@@ -112,18 +112,21 @@ export class IndexComponent implements OnInit {
 
 
     
-    this.uploader.upload(form, `${environment.endpoint}/upload-profile-picture`).subscribe( (response: HttpResponse<any>) => {
-      this.isUploading = false;
+    this.uploader.upload(form, `${environment.endpoint}/upload-profile-picture`).subscribe( (event: HttpEvent<any>) => {
+        if(event.type == HttpEventType.Response){
+          this.isUploading = false;
       
-      this.modalService.toast('Profile photo changed!');
-      
-      const user: User = this.authService.user;
-      
-      user.profile_image = response.body.data;
+          this.modalService.toast('Profile photo changed!');
 
-      this.authService.setUser(user);
-      
-      this.done = true;
+          const user: User = this.authService.user;
+          
+          user.profile_image = event.body.data;
+
+          this.authService.setUser(user);
+          
+          this.done = true;
+
+        }
     },
     e => {
 

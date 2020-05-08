@@ -8,7 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule, HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
@@ -44,6 +44,7 @@ import { environment } from '../environments/environment';
 import { AppReducers } from './store/app.reducers';
 import { ProfileBoxComponent } from './layout/authenticated-page/profile-box/profile-box.component';
 
+@Injectable()
 export class HammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement): HammerManager {
      return new Hammer.Manager(element, {

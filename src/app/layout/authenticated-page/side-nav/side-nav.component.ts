@@ -17,19 +17,11 @@ export class SideNavComponent implements OnInit {
 
   navItems: NavItem[] = MENU;
 
-  user: User;
-
-
   constructor(private authService: AuthenticationService) {
     this.navItems = this.navItems.filter((item) => {
       return this.filterItem(item);
     });
 
-    authService.user$.subscribe( user => {
-      this.user = user;
-      console.log('new user');
-      
-    })
 
     
   }
