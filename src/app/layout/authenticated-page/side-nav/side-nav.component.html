@@ -1,20 +1,10 @@
 
-<div *showOnMobile class="profile-box text-center">
-    <!-- <img [src]="user.profile_image ? user.profile_image : '/assets/images/profile.png'"> -->
-    <img src="/assets/images/profile.png">
-    <span>{{ user.fullname }}</span>
-    <br>
-    <span class="text-muted">SY 2018-2020</span>
-</div>
-<a *showOnMobile mat-list-item routerLink="/account" (click)="sidenav.close()">
-    <mat-icon class="routeIcon">settings</mat-icon>
-    <span>Account Setting</span>
-</a>
-<a *showOnMobile mat-list-item (click)="doLogout()" (click)="sidenav.close()">
-    <mat-icon class="routeIcon">exit_to_app</mat-icon>
-    <span>Sign Out</span>
-</a>
-<mat-divider *showOnMobile class="mt-4 mb-4"></mat-divider>
+    
+<ng-container *showOnMobile>
+    <app-profile-box></app-profile-box>
+    <mat-divider class="mb-3 mt-3"></mat-divider>
+</ng-container>
+
 
 
 <app-side-menu-item [sidenav]="sidenav" *ngFor="let item of navItems" [item]="item"></app-side-menu-item>

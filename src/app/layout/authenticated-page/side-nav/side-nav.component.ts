@@ -2,11 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NavItem } from './side-menu-item/nav-item';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { MatSidenav } from '@angular/material/sidenav';
-import { environment } from 'src/environments/environment';
 
 import { MENU } from './menu';
 import { User } from 'src/app/models/user/user';
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -22,7 +20,7 @@ export class SideNavComponent implements OnInit {
   user: User;
 
 
-  constructor(private authService: AuthenticationService, private modalService: ModalService) {
+  constructor(private authService: AuthenticationService) {
     this.navItems = this.navItems.filter((item) => {
       return this.filterItem(item);
     });
@@ -50,14 +48,5 @@ export class SideNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  doLogout(): void{
-    this.modalService.confirm({
-      message: 'Are you sure to logout?'
-    }).then(c => {
-      if(c)
-        this.authService.logout();
-    })
   }
 }

@@ -35,13 +35,14 @@ import { UpdatePasswordComponent } from './layout/authenticated-page/update-pass
 import { UnknownErrorComponent } from './layout/errors/unknown-error/unknown-error.component';
 
 import * as Hammer from 'hammerjs';
-import { HammerManager, HammerInstance } from '@angular/material/core';
+import { HammerManager } from '@angular/material/core';
 
 import { FooterComponent } from './layout/footer/footer.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { AppReducers } from './store/app.reducers';
+import { ProfileBoxComponent } from './layout/authenticated-page/profile-box/profile-box.component';
 
 export class HammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement): HammerManager {
@@ -49,9 +50,11 @@ export class HammerConfig extends HammerGestureConfig  {
       touchAction: 'auto',
       inputClass: Hammer.TouchInput,
       recognizers: [
-        [Hammer.Swipe, {
-          direction: Hammer.DIRECTION_HORIZONTAL
-        }]
+        [
+          Hammer.Swipe, {
+            direction: Hammer.DIRECTION_HORIZONTAL
+          }
+        ]
       ],
       cssProps: {
         userSelect: true
@@ -75,7 +78,8 @@ export class HammerConfig extends HammerGestureConfig  {
     UnderConstructionComponent,
     UpdatePasswordComponent,
     UnknownErrorComponent,
-    FooterComponent
+    FooterComponent,
+    ProfileBoxComponent
   ],
   imports: [
 

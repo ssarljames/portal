@@ -6,6 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { UploaderService } from 'src/app/core/services/uploader/uploader.service';
 import { FormGroup } from 'src/app/core/utils/form-group/form-group';
 import { environment } from 'src/environments/environment';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-index',
@@ -23,7 +24,7 @@ export class IndexComponent implements OnInit {
   isUploading: boolean = false;
   file: File = null;
 
-  done: boolean = true;
+  done: boolean = false;
 
 
   @ViewChild('fileInput') fileInput: HTMLInputElement;
@@ -48,7 +49,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.uploader.progressSource.subscribe(progress => {
+    this.uploader.onProgress.subscribe(progress => {
       this.progress = progress;
     });
   }
@@ -111,14 +112,23 @@ export class IndexComponent implements OnInit {
 
 
     
-    this.uploader.upload(form, `${environment.endpoint}/upload-profile-picture`).subscribe( response => {
+    this.uploader.upload(form, `${environment.endpoint}/upload-profile-picture`).subscribe( (response: HttpResponse<any>) => {
       this.isUploading = false;
+      
       this.modalService.toast('Profile photo changed!');
-      const user = this.authService.user;
-      user.profile_image = response.data;
+      
+      const user: User = this.authService.user;
+      
+      user.profile_image = response.body.data;
+
       this.authService.setUser(user);
+      
       this.done = true;
-      this.file = null;
+    },
+    e => {
+
+      this.progress = 0;
+      this.isUploading = false;
     });
   }
 }

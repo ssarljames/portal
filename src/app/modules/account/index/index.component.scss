@@ -1,5 +1,13 @@
 .profile-picture{
-    margin: 0 auto;
     height: 200px;
     width: 200px;
+    display: block;
+}
+
+.buttons{
+    button{
+        width: 200px;
+        display: block;
+        margin-top: 5px;
+    }
 }

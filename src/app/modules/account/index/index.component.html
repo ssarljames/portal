@@ -25,8 +25,31 @@
             <div class="container-fluid mt-3">
             
                 <div class="row">
-                    <div class="col-md-4">
-                        <img [src]="imageUrl" class="profile-picture">
+                    <div class="col-md-4">                        
+                        <div>
+                            <img [src]="imageUrl" class="profile-picture">
+                            <div *ngIf="done && file" style="margin-top: -26px;margin-left: 3px;">
+                                <mat-icon class="text-success">check_circle</mat-icon>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button [disabled]="isUploading" 
+                                    (click)="fileInput.click()" 
+                                    mat-raised-button 
+                                    color="basic">
+                                    
+                                    Choose Photo
+                            </button>
+                            <button [disabled]="done || !file || isUploading" 
+                                    (click)="doUpload()" 
+                                    mat-raised-button 
+                                    color="primary">
+                                    
+                                    <mat-icon>cloud_upload</mat-icon> 
+                                    {{ isUploading ? 'Uploading... '+progress+'%' : 'Upload Photo' }}
+                                    
+                            </button>
+                        </div>
                         <input
                             class="d-none"
                             type="file"
@@ -34,9 +57,6 @@
                             #fileInput
                             (change)="onChange(fileInput.files[0])"
                         />
-                        <br><br>
-                        <button style="width: 200px;margin-bottom: 10px;" (click)="fileInput.click()" mat-raised-button color="basic">Choose Photo (.png, .jpg)</button> <br>
-                        <button  style="width: 200px;" *ngIf="file" [disabled]="done" (click)="doUpload()" mat-raised-button color="primary"><mat-icon>cloud_upload</mat-icon> Upload Photo</button>
                     </div>
                 </div>
             </div>

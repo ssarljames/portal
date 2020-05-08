@@ -8,7 +8,7 @@ import { User } from 'src/app/models/user/user';
 export class HasPermissionDirective {
 
   user: User;
-  code: string;
+  code: string[];
 
   constructor(private templateRef: TemplateRef<any>,
               private viewContainer: ViewContainerRef,
@@ -23,15 +23,25 @@ export class HasPermissionDirective {
   }
 
   @Input()
-  set hasPermission(code: string){
-    this.code = code;
+  set hasPermission(code: string | string[]){
+
+    this.code = typeof code == "string" 
+                    ? [code]
+                    : code
+    
     this.toggle();
   }
 
 
   toggle(): void{
 
-    if(this.user.canAccess(this.code)) 
+    let canAccess: boolean = true;
+
+    this.code.forEach(code => {
+      canAccess = canAccess && this.user.canAccess(code);
+    });
+
+    if(canAccess)
       this.viewContainer.createEmbeddedView(this.templateRef);
     else
       this.viewContainer.clear();

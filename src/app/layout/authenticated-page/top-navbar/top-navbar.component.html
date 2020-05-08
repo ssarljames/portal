@@ -24,7 +24,7 @@
         <!-- <button mat-button *ngIf="devMode" (click)="reload()">
           <mat-icon>refresh</mat-icon>
         </button> -->
-        <button mat-button [matMenuTriggerFor]="matMessageMenu">
+        <button mat-icon-button [matMenuTriggerFor]="matMessageMenu">
           <mat-icon>email</mat-icon>
         </button>
         <mat-menu #matMessageMenu="matMenu">
@@ -34,7 +34,7 @@
             </div>
         </mat-menu>
 
-        <button mat-button [matMenuTriggerFor]="matNotificationMenu">
+        <button mat-icon-button [matMenuTriggerFor]="matNotificationMenu">
           <mat-icon>notifications</mat-icon>
         </button>
         <mat-menu #matNotificationMenu="matMenu">
@@ -45,7 +45,7 @@
         </mat-menu>
 
 
-        <button *showOnMobile mat-button [matMenuTriggerFor]="matThemeMenu">
+        <button mat-icon-button [matMenuTriggerFor]="matThemeMenu">
           <mat-icon>format_color_fill</mat-icon>
         </button>
         <mat-menu #matThemeMenu="matMenu">
@@ -60,18 +60,9 @@
           {{ user.firstname }}
         </button>
         <mat-menu #matAccountMenu="matMenu">
-            <a routerLink="/account" mat-menu-item>
-                <mat-icon>settings</mat-icon>
-                <span>Account Settings</span>
-            </a>
-            <button mat-menu-item (click)="toggleDarkMode()">
-                <mat-icon>{{ is_dark_mode ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
-                <span>Dark Mode</span>
-            </button>
-            <button mat-menu-item (click)="doLogout()">
-                <mat-icon>exit_to_app</mat-icon>
-                <span>Sign Out</span>
-            </button>
+
+            <br>
+            <app-profile-box class="mt-2"></app-profile-box>
         </mat-menu>
     </mat-toolbar-row>
 

@@ -24,6 +24,10 @@ export class User extends Model {
 
   profile_image: string;
 
+  get profile_image_url(): string{
+    return this.profile_image ?? '/assests/images/profile.png';
+  }
+
   canAccess(code: string): boolean{
     return this.permissions.findIndex( p => p.permission_code == code) > -1
   }

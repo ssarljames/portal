@@ -12,7 +12,7 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root"
 })
 export class UploaderService {
-  public progressSource = new BehaviorSubject<number>(0);
+  public onProgress = new BehaviorSubject<number>(0);
 
   constructor(private http: HttpClient) {}
 
@@ -27,28 +27,15 @@ export class UploaderService {
       }
     );
 
-    return this.http.request(req).pipe(
-      tap((envelope: any) => this.processProgress(envelope)),
-      last()
-    );
+    return this.http.request(req)
+        .pipe(
+          tap((envelope: HttpEvent<any>) => this.processProgress(envelope)),
+          last()
+        );
   }
 
-  processProgress(envelope: any): void {
-    if (typeof envelope === "number") {
-      this.progressSource.next(envelope);
-    }
+  processProgress(event: HttpEvent<any>): void {
+    if (event.type == HttpEventType.UploadProgress)
+      this.onProgress.next(Math.round(event.loaded / event.total * 100));    
   }
-
-  // private getEventMessage(event: HttpEvent<any>, file: File) {
-  //   switch (event.type) {
-  //     case HttpEventType.Sent:
-  //       return `Uploading file "${file.name}" of size ${file.size}.`;
-  //     case HttpEventType.UploadProgress:
-  //       return Math.round((100 * event.loaded) / event.total);
-  //     case HttpEventType.Response:
-  //       return `File "${file.name}" was completely uploaded!`;
-  //     default:
-  //       return `File "${file.name}" surprising upload event: ${event.type}.`;
-  //   }
-  // }
 }

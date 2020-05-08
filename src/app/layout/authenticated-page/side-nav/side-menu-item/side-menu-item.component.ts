@@ -40,7 +40,7 @@ export class SideMenuItemComponent implements OnInit, AfterViewInit {
 
   constructor(public navService: NavService,
               public router: Router,
-              private breakpointObserver: BreakpointObserver,
+              breakpointObserver: BreakpointObserver,
               private authService: AuthenticationService) {
 
 
@@ -65,7 +65,6 @@ export class SideMenuItemComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.navService.currentUrl.subscribe((url: string) => {
         this.checkIfHasActiveChild(url);
-        console.log('url', url);
         
         if(this.isHandset && this.sidenav.opened && url && this.currentUrl != url)
           this.sidenav.toggle()
