@@ -22,13 +22,13 @@ export interface HttpResponseLinks{
 
 export interface HttpResponseMeta {
 
-  path: string;
-  total: number;
+  path?: string;
+  total?: number;
   per_page: number;
-  from: number;
-  to: number;
+  from?: number;
+  to?: number;
   current_page: number;
-  last_page: number;
+  last_page?: number;
 
 }
 
@@ -141,6 +141,19 @@ export class ResourceService<T extends Model> {
 
         return item;
       }));
+  }
+
+
+  public queryWithMeta(queryOptions: {} = {}, parent: string = ''): Observable<HttpCollectionResponse> {
+    return this.httpClient
+      .get(`${this.host}/${parent}${this.resource}`, queryOptions)
+      .pipe(map((response: HttpCollectionResponse) => {
+
+        if(this.action)
+          this.action.list(response.data);
+
+        return response;
+      })) as any;
   }
 
   public delete(item: T, parent: string = '') {

@@ -85,7 +85,7 @@ export class HammerConfig extends HammerGestureConfig  {
   imports: [
 
     RouterModule.forRoot([], {
-      preloadingStrategy: PreloadAllModules
+      // preloadingStrategy: PreloadAllModules
     }),
 
     SharedModule,

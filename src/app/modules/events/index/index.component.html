@@ -9,7 +9,7 @@
 
 <mat-card>
     <mat-card-content>
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="dataSource" [@fetch]="loading ? 'fetching' : 'done'">
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                 <mat-cell *matCellDef="let event">

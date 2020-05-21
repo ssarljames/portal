@@ -5,13 +5,23 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { StudentService } from 'src/app/services/student/student.service';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { GeoService } from 'src/app/core/services/geo/geo.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { HttpCollectionResponse, HttpResponseMeta } from 'src/app/core/services/resource/resource.service';
+import { PageEvent } from '@angular/material/paginator';
+import { StateService } from 'src/app/core/services/state/state.service';
+import { FormControl } from '@angular/forms';
+import { startWith, debounceTime } from 'rxjs/operators';
+import { fetchAnimation } from 'src/app/animations/animations';
+
+interface StudentIndexFilter{
+  q: FormControl;
+}
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styleUrls: ['./index.component.scss'],
+  animations: [fetchAnimation]
 })
 export class IndexComponent implements OnInit, OnDestroy {
 
@@ -26,10 +36,21 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
 
+  meta: HttpResponseMeta = {
+    current_page: 1,
+    per_page: 15
+  };
+
+  filter: StudentIndexFilter = {
+    q: new FormControl('')
+  }
+
+
   constructor(private studentService: StudentService,
               private store: Store<{students: Student[]}>,
               private router: Router,
-              private breakpointObserver: BreakpointObserver) {
+              private breakpointObserver: BreakpointObserver,
+              private stateService: StateService) {
 
     this.subject = this.dataSource.connect();
 
@@ -45,18 +66,43 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.fetchStudents();
+    this.meta = this.stateService.get('students.meta') ?? this.meta;
+   
+    this.fetchStudents({
+      pageIndex: this.meta.current_page - 1,
+      length: this.meta.total,
+      pageSize: this.meta.per_page
+    });
+
+
+    this.filter.q.valueChanges.pipe(
+      debounceTime(300)
+    ).subscribe( q => {
+      this.fetchStudents();
+    });
+
+
+
   }
 
   ngOnDestroy(): void{
     this.susbcription.unsubscribe();
     this.subject.unsubscribe();
+    this.stateService.set('students.meta', this.meta); 
   }
 
-  fetchStudents(): void{
+  fetchStudents(page: PageEvent = null): void{
+
     this.loading = true;
-    this.studentService.query().subscribe( () => {
+    this.studentService.queryWithMeta({
+      params: {
+        page: page ? page.pageIndex + 1 : 1,
+        per_page: page ? page.pageSize : 15,
+        q: this.filter.q.value
+      }
+    }).subscribe( (response: HttpCollectionResponse) => {
       this.loading = false;
+      this.meta = response.meta;      
     });
   }
 

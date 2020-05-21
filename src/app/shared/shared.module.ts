@@ -20,6 +20,7 @@ import { MaterialAutocompleteComponent } from './utils/material-autocomplete/mat
 import { MaterialSelectComponent } from './utils/material-select/material-select.component';
 import { MaterialDatepickerComponent } from './utils/material-datepicker/material-datepicker.component';
 import { CardComponent } from './utils/card/card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const phConfig = new DateFnsConfigurationService();
 phConfig.setLocale(en)

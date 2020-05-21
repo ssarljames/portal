@@ -9,7 +9,21 @@
 
 <mat-card>
     <mat-card-content>
-        <table mat-table [dataSource]="dataSource">
+        <div class="row m-0">
+            <div class="col-md-6">
+                <app-material-input icon="search" [control]="filter.q" label="Search" class="full-width" placeholder="Type name, id etc..." ></app-material-input>
+            </div>
+            <div class="col-md-6">
+                <mat-paginator [length]="meta.total"
+                        [pageSize]="meta.per_page"
+                        [pageIndex]="meta.current_page - 1"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        (page)="fetchStudents($event)">
+                </mat-paginator>
+            </div>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" [@fetch]="loading ? 'fetching':'done'">
 
             <ng-container matColumnDef="id_number">
                 <mat-header-cell *matHeaderCellDef>ID Number</mat-header-cell>
@@ -34,6 +48,8 @@
             <mat-row *matRowDef="let student; columns: visibleColumns" mat-ripple (click)="selectStudent(student)"></mat-row>
 
         </table>
+
+
         
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>
 
