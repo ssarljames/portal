@@ -5,7 +5,7 @@ import { Router, UrlSegment } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { StateService } from '../state/state.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { HttpShowResponse } from '../resource/resource.service';

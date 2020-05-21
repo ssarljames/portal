@@ -3,7 +3,7 @@ import { FormGroup } from 'src/app/core/utils/form-group/form-group';
 import { Student } from 'src/app/models/student/student';
 import { FormControl, Validators } from '@angular/forms';
 import { StudentService } from '../../../services/student/student.service';
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 import { Observable } from 'rxjs';
 
 @Component({

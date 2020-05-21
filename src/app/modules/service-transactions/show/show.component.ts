@@ -1,5 +1,5 @@
 import { PrintQualityService } from './../../../services/print-quality/print-quality.service';
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { StationService } from 'src/app/services/station/station.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';

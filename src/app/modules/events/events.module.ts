@@ -6,7 +6,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { EventsRoutingModule } from './events-routing.module';
 import { IndexComponent } from './index/index.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { CreateComponent } from './create/create.component';
 import { FormComponent } from './form/form.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';

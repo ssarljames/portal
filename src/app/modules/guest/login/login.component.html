@@ -30,11 +30,15 @@
             <br><br>
         </div>
 
-    </mat-dialog-content>
-    <mat-dialog-actions class="pb-4">
+        <br>
+        <br>
+        
         <button [disabled]="loading" mat-raised-button color="primary" type="submit" class="full-width">{{ loading ? 'Logging In...' : 'Login' }}</button>
+        
         <br>
         <br>
-    </mat-dialog-actions>
+        <p class="text-muted">No account yet?</p>
+
+    </mat-dialog-content>
 
 </form>

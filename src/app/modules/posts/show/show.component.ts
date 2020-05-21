@@ -3,7 +3,7 @@ import { PostService } from 'src/app/services/post/post.service';
 import { Store } from '@ngrx/store';
 import { Post } from 'src/app/models/post/post';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 
 @Component({
   selector: 'app-show',

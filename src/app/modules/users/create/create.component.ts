@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';

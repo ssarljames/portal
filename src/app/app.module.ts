@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './layout/errors/page-not-found/page-not-found.component';
 import { AccessDeniedComponent } from './layout/errors/access-denied/access-denied.component';
 import { AuthenticatedPageComponent } from './layout/authenticated-page/authenticated-page.component';
-import { SharedModule } from './modules/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { AuthenticationInterceptor } from './core/interceptors/authentication/authentication.interceptor';
 import { SideMenuItemComponent } from './layout/authenticated-page/side-nav/side-menu-item/side-menu-item.component';
 import { ThemePickerComponent } from './layout/theme-picker/theme-picker.component';

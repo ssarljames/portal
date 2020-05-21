@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User, PermissionGroup } from 'src/app/models/user/user';
 import { Store } from '@ngrx/store';

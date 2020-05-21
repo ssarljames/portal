@@ -1,4 +1,4 @@
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';

@@ -7,7 +7,7 @@ import { PrintQuality } from 'src/app/models/print-quality/print-quality';
 import { ServiceRateService } from 'src/app/services/service-rate/service-rate.service';
 import { ServiceRate } from 'src/app/models/service-rate/service-rate';
 import { MatTableDataSource } from '@angular/material/table';
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 import { map } from 'rxjs/operators';
 
 @Component({

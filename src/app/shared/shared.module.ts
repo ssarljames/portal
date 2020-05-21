@@ -1,5 +1,5 @@
-import { PipesModule } from './../../core/pipes/pipes.module';
-import { DirectivesModule } from './../../core/directives/directives.module';
+import { PipesModule } from './../core/pipes/pipes.module';
+import { DirectivesModule } from './../core/directives/directives.module';
 import { ConfirmationComponent } from './modals/confirmation/confirmation.component';
 import { AlertComponent } from './modals/alert/alert.component';
 import { ModalService } from './services/modal/modal.service';

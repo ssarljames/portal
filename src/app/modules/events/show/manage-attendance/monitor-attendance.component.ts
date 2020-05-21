@@ -3,7 +3,7 @@ import { EventService } from 'src/app/services/event/event.service';
 import { EventTimeLogService } from 'src/app/services/event-time-log/event-time-log.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { Event } from 'src/app/models/event/event';
 
 import * as difference_in_days from 'date-fns/difference_in_days';
@@ -17,7 +17,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { EventTimeLog } from 'src/app/models/event-time-log/event-time-log';
 import { BehaviorSubject } from 'rxjs';
-import { MaterialSelectOption } from 'src/app/modules/shared/utils/material-select/material-select.component';
+import { MaterialSelectOption } from 'src/app/shared/utils/material-select/material-select.component';
 import { FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 

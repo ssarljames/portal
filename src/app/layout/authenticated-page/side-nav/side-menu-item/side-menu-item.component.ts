@@ -103,7 +103,7 @@ export class SideMenuItemComponent implements OnInit, AfterViewInit {
 
     if(item.children && item.children.length > 0)
       this.expanded = !this.expanded;
-    else
+    else if(this.isHandset)
       this.sidenav.close();
     
   }

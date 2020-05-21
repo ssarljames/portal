@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ModalService } from '../../../modules/shared/services/modal/modal.service';
+import { ModalService } from '../../../shared//services/modal/modal.service';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 

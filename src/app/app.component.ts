@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from './core/services/theme/theme.service';
 // import { ConnectionService } from 'ng-connection-service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModalService } from './modules/shared/services/modal/modal.service';
+import { ModalService } from './shared/services/modal/modal.service';
 import { from } from 'rxjs';
 import { ApplicationService } from './core/services/application/application.service';
 

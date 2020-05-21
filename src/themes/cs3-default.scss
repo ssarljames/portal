@@ -11,3 +11,31 @@ $cs3-default-app-theme: mat-light-theme($cs3-default-app-primary, $cs3-default-a
 .mat-ripple:hover{
     background-color: rgba(0,0,0,.05);
 }
+
+
+
+.between-lines {
+    overflow: hidden;
+    text-align: center;
+}
+
+.between-lines:before,
+.between-lines:after {
+    background-color: #000;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.between-lines:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+
+.between-lines:after {
+    left: 0.5em;
+    margin-right: -50%;
+}

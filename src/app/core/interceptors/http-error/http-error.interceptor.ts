@@ -1,4 +1,4 @@
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { AuthenticationService } from './../../services/authentication/authentication.service';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';

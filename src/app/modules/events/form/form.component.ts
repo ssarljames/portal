@@ -4,7 +4,7 @@ import { EventService } from 'src/app/services/event/event.service';
 import { FormGroup } from 'src/app/core/utils/form-group/form-group';
 import { FormControl, Validators } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { MaterialSelectOption } from '../../shared/utils/material-select/material-select.component';
+import { MaterialSelectOption } from '../../../shared/utils/material-select/material-select.component';
 import { Observable } from 'rxjs';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -16,7 +16,7 @@ import * as is_saturday from 'date-fns/is_saturday';
 import * as is_sunday from 'date-fns/is_sunday';
 import * as is_friday from 'date-fns/is_friday';
 
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 
 @Component({
   selector: 'app-event-form',

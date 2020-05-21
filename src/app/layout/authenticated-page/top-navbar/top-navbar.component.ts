@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/cor
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { User } from 'src/app/models/user/user';
 import { MatSidenav } from '@angular/material/sidenav';
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ThemeService } from 'src/app/core/services/theme/theme.service';

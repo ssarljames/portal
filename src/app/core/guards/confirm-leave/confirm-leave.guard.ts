@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MonitorAttendanceComponent } from 'src/app/modules/events/show/manage-attendance/monitor-attendance.component';
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 
 @Injectable({
   providedIn: 'root'

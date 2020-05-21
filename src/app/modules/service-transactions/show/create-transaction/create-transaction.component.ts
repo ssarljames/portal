@@ -8,7 +8,7 @@ import { MatButton } from '@angular/material/button';
 import * as format from 'date-fns/format';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { ModalService } from 'src/app/modules/shared/services/modal/modal.service';
+import { ModalService } from 'src/app/shared/services/modal/modal.service';
 import { ServiceRate } from 'src/app/models/service-rate/service-rate';
 import { ServiceTransaction } from 'src/app/models/service-transaction/service-transaction';
 import { ServiceTransactionItem } from 'src/app/models/service-transaction-item/service-transaction-item';

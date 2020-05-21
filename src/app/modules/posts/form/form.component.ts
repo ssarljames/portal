@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { PostService } from 'src/app/services/post/post.service';
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 import { FormGroup } from 'src/app/core/utils/form-group/form-group';
 import { FormControl } from '@angular/forms';
 import { Post } from 'src/app/models/post/post';

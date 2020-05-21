@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { PrintingServiceComponent } from './printing-service/printing-service.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { DateFnsModule } from 'ngx-date-fns';
 
 

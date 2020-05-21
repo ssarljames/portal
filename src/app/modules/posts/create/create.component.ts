@@ -7,7 +7,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { PostService } from 'src/app/services/post/post.service';
 import { Post } from 'src/app/models/post/post';
 import { Router } from '@angular/router';
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 
 @Component({
   selector: 'app-create',

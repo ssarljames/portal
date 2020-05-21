@@ -3,7 +3,7 @@ import { Event } from 'src/app/models/event/event';
 import { EventService } from 'src/app/services/event/event.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalService } from '../../shared/services/modal/modal.service';
+import { ModalService } from '../../../shared/services/modal/modal.service';
 
 @Component({
   selector: 'app-show',
