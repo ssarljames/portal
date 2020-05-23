@@ -7,6 +7,24 @@
         <app-material-input class="full-width" [control]="form.controls.lastname" label="Lastname"></app-material-input>
         <app-material-input class="full-width" [control]="form.controls.firstname" label="Firstname"></app-material-input>
         <app-material-input class="full-width" [control]="form.controls.middlename" label="Middlename"></app-material-input>
+
+
+        <app-material-autocomplete class="full-width"
+            [control]="form.controls.program_id"
+            label="Program"
+            [defaultValue]="defaultProgram"
+            placeholder="Search program"
+            [fetch]="fetchProgram">
+        </app-material-autocomplete>
+
+
+        <app-material-select required="true" class="full-width"
+            [control]="form.controls.year_level"
+            label="Year Level"
+            placeholder="Select year level"
+            [options]="yearLevels">
+        </app-material-select>
+
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary" [disabled]="saving || form.invalid" (click)="save()">
@@ -18,6 +36,6 @@
                                 ? 'Update' 
                                 : 'Save')      }}
         </button>
-        <a routerLink="../" mat-raised-button>Cancel</a>
+        <a routerLink="../" mat-raised-button><mat-icon>cancel</mat-icon> Cancel</a>
     </mat-card-actions>
 </mat-card>

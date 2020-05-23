@@ -34,7 +34,16 @@
             <ng-container matColumnDef="fullname">
                 <mat-header-cell *matHeaderCellDef>Fullname</mat-header-cell>
                 <mat-cell *matCellDef="let student">
-                    {{ student.fullname | titlecase }}
+                    <a [routerLink]="student.id">{{ student.fullname | titlecase }}</a>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="program">
+                <mat-header-cell *matHeaderCellDef>Program</mat-header-cell>
+                <mat-cell *matCellDef="let student">
+                    <span *ngIf="student.program; else noProgram">{{ student.program.code }}-{{ student.year_level }}</span>
+                    <ng-template #noProgram >
+                        <span class="text-muted">N/A</span>
+                    </ng-template>
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="created_at">
@@ -45,7 +54,7 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="visibleColumns"></mat-header-row>
-            <mat-row *matRowDef="let student; columns: visibleColumns" mat-ripple (click)="selectStudent(student)"></mat-row>
+            <mat-row *matRowDef="let student; columns: visibleColumns" mat-ripple (dblclick)="selectStudent(student)"></mat-row>
 
         </table>
 

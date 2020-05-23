@@ -1,0 +1,35 @@
+<ng-container *ngIf="program">
+
+    <h1>Program Info</h1>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <mat-card>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>
+                            <span class="text-muted">Name</span>
+                            <span class="flex-spacer"></span>
+                            {{ program.name }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            <span class="text-muted">Code</span>
+                            <span class="flex-spacer"></span>
+                            {{ program.code }}
+                        </mat-list-item>
+                        <mat-list-item>
+                            <span class="text-muted">Enrolled Students</span>
+                            <span class="flex-spacer"></span>
+                            {{ program.student_count }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Programs</button>                   
+                    <button routerLink="edit" mat-raised-button color="basic"><mat-icon>edit</mat-icon> Edit</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+
+</ng-container>

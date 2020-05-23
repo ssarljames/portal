@@ -1,5 +1,6 @@
 import { Model } from '../model/model';
 import { User } from '../user/user';
+import { Program } from '../program/program';
 
 export class Student extends Model{
     id_number: string;
@@ -13,6 +14,13 @@ export class Student extends Model{
 
     user: User;
     created_by_user: User;
+
+    program_id: string;
+    year_level: number;
+    current_address: string;
+    home_address: string;
+
+    program: Program;
 
 
     get fullname(): string{

@@ -25,7 +25,7 @@ export class User extends Model {
   profile_image: string;
 
   get profile_image_url(): string{
-    return this.profile_image ?? '/assests/images/profile.png';
+    return this.profile_image ?? '/assets/images/profile.png';
   }
 
   canAccess(code: string): boolean{

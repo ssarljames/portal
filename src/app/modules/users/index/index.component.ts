@@ -36,7 +36,7 @@ export class IndexComponent implements OnInit {
               breakpointObserver: BreakpointObserver) {
 
     this.store.select('users').subscribe(users => {
-      this.users = users;
+      this.users = users.map(user => (new User()).fill(user));
     });
 
     breakpointObserver.observe(Breakpoints.Handset).subscribe( state => {

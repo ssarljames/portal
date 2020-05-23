@@ -12,6 +12,7 @@ interface DashboardState{
   events: number;
   posts: number;
   semester: string;
+  programs: number;
 }
 
 @Component({
@@ -25,12 +26,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   randomNumber: number = 0;
   $intervalRef: any;
 
-  dashboardState: DashboardState = {
-    students: 0,
-    events: 0,
-    posts: 0,
-    semester: ''
-  };
+  dashboardState: DashboardState;
 
   loaded: boolean = false;
 
@@ -52,7 +48,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.dashboardState = this.stateService.get('dashboard_counts') || {
       students: -1,
       events: -1,
-      posts: -1
+      posts: -1,
+      programs: -1
     };
 
     this.loaded = this.stateService.get('dashboard_counts')  ? true : false;

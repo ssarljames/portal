@@ -15,6 +15,12 @@ export const MENU: NavItem[] = [
       permission: 'MANAGE_STUDENTS_VIEW_ANY'
     },
     {
+      displayName: 'Programs',
+      iconName: 'business',
+      route: '/programs',
+      permission: null
+    },
+    {
       displayName: 'Posting',
       iconName: 'developer_board',
       route: '/posts',

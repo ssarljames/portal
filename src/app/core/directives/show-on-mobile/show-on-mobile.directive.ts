@@ -6,14 +6,19 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class ShowOnMobileDirective {
 
+  shown: boolean = false;
+
   constructor(breakpointObserver: BreakpointObserver,
               templateRef: TemplateRef<any>,
               viewContainer: ViewContainerRef) {
 
     breakpointObserver.observe(Breakpoints.Handset).subscribe( state => {
-        state.matches 
-          ? viewContainer.createEmbeddedView(templateRef)
-          : viewContainer.clear();
+        if(state.matches && this.shown == false)
+          viewContainer.createEmbeddedView(templateRef)
+        else if(state.matches == false && this.shown)
+          viewContainer.clear();
+
+        this.shown = state.matches;
     });
 
   }

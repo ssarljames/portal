@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { startWith, debounceTime, switchMap } from 'rxjs/operators';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 
 export interface MaterialAutoCompleteOption {
@@ -22,7 +22,7 @@ export interface MaterialAutocompleteFetchOption {
   templateUrl: './material-autocomplete.component.html',
   styleUrls: ['./material-autocomplete.component.scss']
 })
-export class MaterialAutocompleteComponent implements OnInit {
+export class MaterialAutocompleteComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() control: FormControl;
   @Input() label: string;
@@ -32,10 +32,13 @@ export class MaterialAutocompleteComponent implements OnInit {
   @Input() source: MaterialAutoCompleteOption[];
   @Input() fetch: MaterialAutocompleteFetchOption;
   @Input() autoActiveFirst: boolean;
+  @Input() defaultValue: MaterialAutoCompleteOption;
 
   @Output() onSelect: EventEmitter<any> =  new EventEmitter();
 
-  selected; string;
+  // @ViewChild('searchInput') searchInput: HTMLInputElement;
+
+  selected: string = '';
 
   options: MaterialAutoCompleteOption[] = [];
 
@@ -43,7 +46,10 @@ export class MaterialAutocompleteComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  subscription: Subscription;
+
   constructor(private http: HttpClient) {
+
     this.search = new FormControl('');
 
   }
@@ -56,10 +62,10 @@ export class MaterialAutocompleteComponent implements OnInit {
     this.placeholder = this.placeholder ? this.placeholder : this.label ;
     this.label = this.label ? this.label : this.placeholder ;
 
+
     if(this.fetch){
 
-      this.search.valueChanges.pipe(
-        startWith(''),
+      this.subscription = this.search.valueChanges.pipe(
         debounceTime(300),
         switchMap(value => {
           if (value !== '' && typeof value === typeof '')
@@ -67,7 +73,6 @@ export class MaterialAutocompleteComponent implements OnInit {
 
           else
             return of(null);
-
         }
       )).subscribe( response => {
         if(response)
@@ -78,12 +83,32 @@ export class MaterialAutocompleteComponent implements OnInit {
       });
     }
     else{
-      this.search.valueChanges.subscribe( (value: string) => {
+      this.subscription = this.search.valueChanges.subscribe( (value: string) => {
         if(this.source)
           this.options = this.source.filter( o => o.label.toLowerCase().indexOf(value.toLowerCase()) > -1);
       })
     }
 
+    this.control.statusChanges.subscribe( a => {
+      if(a == 'INVALID'){
+        this.search.setErrors(this.control.errors);
+        this.search.markAsTouched({ onlySelf: true });
+      }
+    });
+
+
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.defaultValue && changes.defaultValue.currentValue){
+      this.control.setValue(changes.defaultValue.currentValue.value);
+      this.selected = changes.defaultValue.currentValue.label;
+    }
   }
 
   /** Http fetch */
@@ -116,6 +141,10 @@ export class MaterialAutocompleteComponent implements OnInit {
     this.search.setValue('');
     if(this.control)
       this.control.setValue(null);
+
+    // setTimeout( () => {
+    //   this.searchInput.focus();
+    // }, 300);
   }
 
 

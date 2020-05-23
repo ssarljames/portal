@@ -13,7 +13,7 @@
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                 <mat-cell *matCellDef="let event">
-                    {{ event.name }}
+                    <a [routerLink]="event.id">{{ event.name }}</a>
                 </mat-cell>
             </ng-container>
         
@@ -26,7 +26,7 @@
             </ng-container>
         
             <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-            <mat-row *matRowDef="let event; columns: columns" matRipple (click)="select(event)"></mat-row>
+            <mat-row *matRowDef="let event; columns: columns" matRipple (dblclick)="select(event)"></mat-row>
         </table>
 
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>

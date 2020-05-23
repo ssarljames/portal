@@ -5,6 +5,10 @@ import { FormControl, Validators } from '@angular/forms';
 import { StudentService } from '../../../services/student/student.service';
 import { ModalService } from '../../../shared/services/modal/modal.service';
 import { Observable } from 'rxjs';
+import { MaterialAutocompleteFetchOption, MaterialAutoCompleteOption } from 'src/app/shared/utils/material-autocomplete/material-autocomplete.component';
+import { environment } from 'src/environments/environment';
+import { Program } from 'src/app/models/program/program';
+import { ProgramService } from 'src/app/services/program/program.service';
 
 @Component({
   selector: 'app-student-form',
@@ -19,16 +23,71 @@ export class FormComponent implements OnInit, OnChanges {
   form: FormGroup;
   saving: boolean = false;
 
+  fetchProgram: MaterialAutocompleteFetchOption;
+  yearLevels: MaterialAutoCompleteOption[];
+  defaultProgram: MaterialAutoCompleteOption;
+  
+
   constructor(private studentService: StudentService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private programService: ProgramService) {
   
     this.form = new FormGroup({
       id: new FormControl(''),
       id_number: new FormControl('', Validators.required),
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
-      middlename: new FormControl('')
+      middlename: new FormControl(''),
+
+      program_id: new FormControl(null),
+      year_level: new FormControl(''),
+      current_address: new FormControl(''),
+      home_address: new FormControl(''),
     });
+
+
+    this.fetchProgram = {
+      url: this.programService.getResourceURI(),
+      mapResult: (result) => {
+        let r: MaterialAutoCompleteOption[] = [];
+
+        result.data.forEach( (program: Program) => {
+          r.push({
+            label: `${program.code}: ${program.name}`,
+            value: program.id
+          });
+        });
+
+        return r;
+      }
+    }
+
+    this.yearLevels = [
+      {
+        label: '1st Year',
+        value: 1
+      },
+      {
+        label: '2nd Year',
+        value: 2
+      },
+      {
+        label: '3rd Year',
+        value: 3
+      },
+      {
+        label: '4th Year',
+        value: 4
+      },
+      {
+        label: '5th Year',
+        value: 5
+      },
+      {
+        label: '6th Year',
+        value: 6
+      }
+    ]
 
   }
 
@@ -41,8 +100,25 @@ export class FormComponent implements OnInit, OnChanges {
   }
 
   updateForm(): void{
-    if(this.student)
-      this.form.setValue(this.student);
+    if(this.student){
+      this.form.setValue({
+        id: this.student.id,
+        id_number: this.student.id_number,
+        firstname: this.student.firstname,
+        lastname: this.student.lastname,
+        middlename: this.student.middlename,
+        program_id: this.student.program_id,
+        year_level: this.student.year_level,
+        current_address: this.student.current_address,
+        home_address: this.student.home_address,
+      });
+
+      if(this.student.program)
+        this.defaultProgram = {
+          label: this.student.program.name,
+          value: this.student.program.id
+        }
+    }
   }
 
   save(): void{
@@ -61,7 +137,7 @@ export class FormComponent implements OnInit, OnChanges {
         this.onSave.emit(student)
 
       },
-      e => {
+      e => {        
         this.form.fillErrors(e);
       });                                   
 

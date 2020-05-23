@@ -16,7 +16,7 @@ export class FormGroup extends FG {
         if (this.controls.hasOwnProperty(key)) {
 
           this.controls[key].setErrors(e.error.errors[key]);
-          this.controls[key].markAsTouched();
+          this.controls[key].markAsTouched({ onlySelf: true });
         }
       }
   }

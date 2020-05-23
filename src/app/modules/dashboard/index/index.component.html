@@ -12,8 +12,8 @@
                 <mat-icon>school</mat-icon>
             </div>
 
-            <h1 [innerHTML]="!loaded ? 'Loading...' : dashboardState.semester"></h1>
-            <span class="card-category">Current Academic Year</span>
+            <h1 [innerHTML]="!loaded ? randomNumber : dashboardState.programs"></h1>
+            <span class="card-category">Programs</span>
         </mat-card>
     </div>
     <div class="col-sm-6 col-lg-3 col-md-4">

@@ -14,16 +14,16 @@
     <mat-card-content>
         <table mat-table [dataSource]="dataSource" [@fetch]="loading ? 'fetching':'done'">
         
+            <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                    <a [routerLink]="post.id">{{ post.title }}</a>
+                </mat-cell>
+            </ng-container>
             <ng-container matColumnDef="created_at">
                 <mat-header-cell *matHeaderCellDef>Date Posted</mat-header-cell>
                 <mat-cell *matCellDef="let post">
                     {{ post.created_at | parseDate | dfnsFormat: 'MMM d, YYYY' }}
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="title">
-                <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-                <mat-cell *matCellDef="let post">
-                    {{ post.title }}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="user">
@@ -34,7 +34,7 @@
             </ng-container>
         
             <mat-header-row *matHeaderRowDef="visibleColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: visibleColumns" matRipple (click)="show(row.id)"></mat-row>
+            <mat-row *matRowDef="let row; columns: visibleColumns" matRipple (dblclick)="show(row.id)"></mat-row>
         </table>
 
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>

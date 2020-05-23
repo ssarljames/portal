@@ -25,7 +25,10 @@
               <ng-container matColumnDef="username">
                   <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
                   <mat-cell *matCellDef="let user">
-                      <i class="fa fa-user-circle"></i> {{ user.username }}
+                      
+                    <img class="user-profile-image" [src]="user.profile_image_url" alt="">
+
+                    {{ user.username }}
                   </mat-cell>
               </ng-container>
 
