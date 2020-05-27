@@ -7,13 +7,24 @@ import { ModalService } from 'src/app/shared/services/modal/modal.service';
 })
 export class ApplicationService {
 
+  seconds: number = 0;
+
   constructor(updates: SwUpdate, modalService: ModalService) {   
     updates.available.subscribe(event => {
       
       modalService.toast('Update available. Reloading in 5 seconds');
-      setTimeout(() => {
-        updates.activateUpdate().then(() => document.location.reload());
-      }, 3000);
+
+      this.seconds = 5;
+
+      setInterval( () => {
+
+        modalService.toast(`Updates available. Reloading in ${this.seconds} seconds`, 'Message', 'info');
+        this.seconds--;
+
+        if(this.seconds == 0)
+          document.location.reload();
+
+      }, 1000);
       
     });
   }
