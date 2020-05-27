@@ -16,8 +16,14 @@ export const MENU: NavItem[] = [
     },
     {
       displayName: 'Programs',
-      iconName: 'business',
+      iconName: 'school',
       route: '/programs',
+      permission: null
+    },
+    {
+      displayName: 'Colleges',
+      iconName: 'business',
+      route: '/colleges',
       permission: null
     },
     {

@@ -2,7 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const host = '192.168.254.104';
+// const host = '192.168.254.104';
+const host = 'localhost'
 
 export const environment = {
   production: false,

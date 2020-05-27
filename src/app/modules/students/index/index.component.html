@@ -46,12 +46,6 @@
                     </ng-template>
                 </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="created_at">
-                <mat-header-cell *matHeaderCellDef>Created At</mat-header-cell>
-                <mat-cell *matCellDef="let student">
-                    {{ student.created_at | parseDate | dfnsDistanceInWordsToNow }} ago
-                </mat-cell>
-            </ng-container>
             <ng-container matColumnDef="view">
                 <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                 <mat-cell *matCellDef="let student">

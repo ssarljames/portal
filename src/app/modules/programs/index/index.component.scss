@@ -1,8 +1,15 @@
-.mat-column-code, .mat-column-student_count, .mat-column-view{
+.mat-column-code,
+.mat-column-no_of_years,
+.mat-column-student_count, 
+.mat-column-view{
     width: 10% !important;
     flex: 0 0 10% !important;
 }
-.mat-column-student_count, .mat-column-view{
+
+
+.mat-column-student_count, 
+.mat-column-no_of_years,
+.mat-column-view{
     text-align: center !important;
     justify-content: center;
 }

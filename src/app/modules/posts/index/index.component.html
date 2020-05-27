@@ -17,7 +17,7 @@
             <ng-container matColumnDef="title">
                 <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
                 <mat-cell *matCellDef="let post">
-                    <a [routerLink]="post.id">{{ post.title }}</a>
+                    {{ post.title }}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="created_at">
@@ -30,6 +30,16 @@
                 <mat-header-cell *matHeaderCellDef>Posted By</mat-header-cell>
                 <mat-cell *matCellDef="let post">
                     {{ post.user.fullname }}
+                </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="view">
+                <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                    <button mat-icon-button [routerLink]="post.id">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
                 </mat-cell>
             </ng-container>
         

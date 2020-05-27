@@ -1,0 +1,22 @@
+<mat-card *ngIf="init">
+    <mat-card-content>
+        <app-material-input 
+            [control]="form.controls.name" 
+            label="Name"
+            placeholder="Type name"
+            class="full-width">
+        </app-material-input>
+        <app-material-input 
+            [control]="form.controls.code" 
+            label="Code"
+            placeholder="Type code"
+            class="full-width">
+        </app-material-input>
+        
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" [disabled]="loading || form.invalid" (click)="save()"><mat-icon>save</mat-icon> {{ loading ? 'Saving...' : 'Save' }}</button>
+        <button mat-raised-button color="basic" [disabled]="loading" routerLink="../"><mat-icon>cancel</mat-icon> Cancel</button>
+    </mat-card-actions>
+</mat-card>

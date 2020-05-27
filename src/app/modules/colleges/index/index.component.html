@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-sm-6">
         <h1>
-            <mat-icon>school</mat-icon>
-            Programs
+            <mat-icon>business</mat-icon>
+            Colleges
         </h1>
     </div>
     <div class="col-sm-6 text-right">
-        <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon> New Program</button>
+        <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon> New College</button>
     </div>
 </div>
 
@@ -21,7 +21,7 @@
                         [pageSize]="meta.per_page"
                         [pageIndex]="meta.current_page - 1"
                         [pageSizeOptions]="[5, 10, 25, 100]"
-                        (page)="fetchPrograms($event)">
+                        (page)="fetchColleges($event)">
                 </mat-paginator>
             </div>
         </div>
@@ -31,45 +31,29 @@
 
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                <mat-cell *matCellDef="let program">
-                    {{ program.name }}
+                <mat-cell *matCellDef="let college">
+                    {{ college.name }}
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="code">
                 <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
-                <mat-cell *matCellDef="let program">
-                    {{ program.code }}
-                </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="no_of_years">
-                <mat-header-cell *matHeaderCellDef>Years to Complete</mat-header-cell>
-                <mat-cell *matCellDef="let program">
-                    {{ program.no_of_years }}
-                </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="student_count">
-                <mat-header-cell *matHeaderCellDef>Enrolled Students</mat-header-cell>
-                <mat-cell *matCellDef="let program" class="text-center">
-                    {{ program.student_count > 0 ? program.student_count : 'None' }}
+                <mat-cell *matCellDef="let college">
+                    {{ college.code }}
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="view">
                 <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-                <mat-cell *matCellDef="let program">
-                    <button mat-icon-button [routerLink]="program.id">
+                <mat-cell *matCellDef="let college">
+                    <button mat-icon-button [routerLink]="college.id">
                         <mat-icon>keyboard_arrow_right</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row matRipple *matRowDef="let program; columns: displayedColumns"></mat-row>
+            <mat-row matRipple *matRowDef="let college; columns: displayedColumns"></mat-row>
         </table>
 
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>

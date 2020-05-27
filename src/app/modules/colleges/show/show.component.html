@@ -1,0 +1,29 @@
+<h1>
+    <mat-icon>business</mat-icon>
+    College Info
+</h1>
+
+<div class="row" *ngIf="college">
+    <div class="col-sm-6">
+        <mat-card>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>
+                        <span class="text-muted">College Name</span>
+                        <span class="flex-spacer"></span>
+                        {{ college.name }}
+                    </mat-list-item>
+                    <mat-list-item>
+                        <span class="text-muted">Code</span>
+                        <span class="flex-spacer"></span>
+                        {{ college.code }}
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button mat-button routerLink="../"><mat-icon>keyboard_backspace</mat-icon> Back to Colleges</button>                   
+                <button routerLink="edit" mat-raised-button color="basic"><mat-icon>edit</mat-icon> Edit</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

@@ -115,11 +115,14 @@ export class FormComponent implements OnInit, OnChanges {
         home_address: this.student.home_address,
       });
 
-      if(this.student.program)
+      if(this.student.program){
         this.defaultProgram = {
           label: this.student.program.name,
           value: this.student.program.id
         }
+      
+        this.yearLevelsFiltered = this.yearLevels.filter( o => o.value <= this.student.program.no_of_years);  
+      }
     }
   }
 

@@ -27,7 +27,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<Student> = new MatTableDataSource();
 
-  columnDefinitions: string[] = [ 'fullname', 'id_number', 'program', 'created_at', 'view' ];
+  columnDefinitions: string[] = [ 'fullname', 'id_number', 'program', 'view' ];
 
   visibleColumns: string[];
 
@@ -67,6 +67,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.meta = this.stateService.get('students.meta') ?? this.meta;
+    this.filter.q.setValue( this.stateService.get('students.filter.q') ?? '');
    
     this.fetchStudents({
       pageIndex: this.meta.current_page - 1,
@@ -89,6 +90,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.susbcription.unsubscribe();
     this.subject.unsubscribe();
     this.stateService.set('students.meta', this.meta); 
+    this.stateService.set('students.filter.q', this.filter.q.value);
   }
 
   fetchStudents(page: PageEvent = null): void{

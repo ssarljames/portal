@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { debounceTime } from 'rxjs/operators';
 
 interface ProgramFilter{
   q: FormControl;
@@ -53,20 +54,28 @@ export class IndexComponent implements OnInit, OnDestroy {
     breakpoint.observe(Breakpoints.Handset).subscribe( state => {
       this.displayedColumns = state.matches
                                 ? [ 'name', 'view']
-                                : [ 'name', 'code', 'student_count', 'view' ]
+                                : [ 'name', 'code', 'no_of_years', 'student_count', 'view' ]
     });
   }
 
   ngOnInit(): void {
 
     this.meta = this.stateService.get('programs.meta') ?? this.meta;
+    this.filter.q.setValue( this.stateService.get('programs.filter.q') ?? '');
     
     this.fetchPrograms();
+
+    this.filter.q.valueChanges.pipe(
+      debounceTime(300)
+    ).subscribe( q => {
+      this.fetchPrograms();
+    });
   }
 
   ngOnDestroy(): void {
     this.subject.unsubscribe();
     this.stateService.set('programs.meta', this.meta);
+    this.stateService.set('programs.filter.q', this.filter.q.value); 
   }
 
   fetchPrograms(page: PageEvent = null): void {

@@ -49,6 +49,12 @@ const routes: Routes = [
     loadChildren: () => import(`./modules/programs/programs.module`).then(m => m.ProgramsModule)
   },
   {
+    path: 'colleges',
+    component: AuthenticatedPageComponent,
+    canActivate: [ AuthenticatedGuard ],
+    loadChildren: () => import(`./modules/colleges/colleges.module`).then(m => m.CollegesModule)
+  },
+  {
     path: 'service-transactions',
     component: AuthenticatedPageComponent,
     canActivate: [ AuthenticatedGuard ],

@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { fetchAnimation } from 'src/app/animations/animations';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-index',
@@ -17,21 +18,30 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<Event> = new MatTableDataSource();
 
-  columns: string[] = [ 'name', 'date' ];
+  columns: string[] = [ 'name', 'date', 'view' ];
 
   loading: boolean = false;
 
   subscription: Subscription;
 
+  isMobile: boolean = false;
+
   constructor(private eventService: EventService,
               private store: Store<{events: Event[]}>,
-              private router: Router) {
+              private router: Router,
+              breakpointObserver: BreakpointObserver) {
 
 
     this.subscription = store.select('events').subscribe( events => {      
                           this.dataSource.connect().next(events.map( e => new Event().fill(e)));
                         });
 
+    breakpointObserver.observe(Breakpoints.Handset).subscribe( state => {
+      this.isMobile = state.matches;
+      this.columns = this.isMobile 
+                          ? [ 'name', 'date' ] 
+                          : [ 'name', 'date', 'view' ];
+    });
   }
 
   ngOnInit(): void {
@@ -50,6 +60,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   select(event: Event): void{
+
+    if(this.isMobile == false)
+      return;
+
     setTimeout( () => {
       this.router.navigate(['/events/' + event.id]);
     }, 100);

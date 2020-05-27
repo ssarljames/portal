@@ -12,7 +12,7 @@
                 <mat-icon>school</mat-icon>
             </div>
 
-            <h1 class="card-title" [innerHTML]="!loaded ? randomNumber : dashboardState.programs"></h1>
+            <h1 class="card-title" [innerHTML]="(!loaded ? randomNumber : dashboardState.programs) | number"></h1>
             <span class="card-category">Programs</span>
         </mat-card>
     </div>
@@ -23,7 +23,7 @@
                 <mat-icon>supervised_user_circle</mat-icon>
             </div>
 
-            <h1 class="card-title">{{ !loaded ? randomNumber : dashboardState.students }}</h1>
+            <h1 class="card-title">{{ (!loaded ? randomNumber : dashboardState.students) | number }}</h1>
             <span class="card-category">Student Accounts</span>
         </mat-card>
     </div>
@@ -34,7 +34,7 @@
                 <mat-icon>event</mat-icon>
             </div>
 
-            <h1 class="card-title">{{ !loaded ? randomNumber : dashboardState.events }}</h1>
+            <h1 class="card-title">{{ (!loaded ? randomNumber : dashboardState.events) | number }}</h1>
             <span class="card-category">Events</span>
         </mat-card>
     </div>
@@ -44,7 +44,7 @@
             <div class="card-header">
                 <mat-icon>developer_board</mat-icon>
             </div>
-            <h1 class="card-title">{{ !loaded ? randomNumber : dashboardState.posts }}</h1>
+            <h1 class="card-title">{{ (!loaded ? randomNumber : dashboardState.posts) | number }}</h1>
             <span class="card-category">Posts</span>
         </mat-card>
     </div>

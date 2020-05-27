@@ -24,9 +24,18 @@
                     {{ event.event_date }}
                 </mat-cell>
             </ng-container>
+
+            <ng-container matColumnDef="view">
+                <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                <mat-cell *matCellDef="let event">
+                    <button mat-icon-button [routerLink]="event.id">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
         
             <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-            <mat-row *matRowDef="let event; columns: columns" matRipple (dblclick)="select(event)"></mat-row>
+            <mat-row *matRowDef="let event; columns: columns" matRipple (click)="select(event)"></mat-row>
         </table>
 
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>
