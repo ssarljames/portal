@@ -13,9 +13,9 @@ export class HideOnMobileDirective {
               viewContainer: ViewContainerRef) {
 
     breakpointObserver.observe(Breakpoints.Handset).subscribe( state => {
-      if(state.matches && this.hidden == false)
+      if(state.matches)
         viewContainer.clear();
-      else if(state.matches == false && this.hidden)
+      else
         viewContainer.createEmbeddedView(templateRef)
 
       this.hidden = state.matches;

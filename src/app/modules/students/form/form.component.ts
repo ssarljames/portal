@@ -25,6 +25,7 @@ export class FormComponent implements OnInit, OnChanges {
 
   fetchProgram: MaterialAutocompleteFetchOption;
   yearLevels: MaterialAutoCompleteOption[];
+  yearLevelsFiltered: MaterialAutoCompleteOption[];
   defaultProgram: MaterialAutoCompleteOption;
   
 
@@ -54,7 +55,8 @@ export class FormComponent implements OnInit, OnChanges {
         result.data.forEach( (program: Program) => {
           r.push({
             label: `${program.code}: ${program.name}`,
-            value: program.id
+            value: program.id,
+            object: program
           });
         });
 
@@ -142,6 +144,10 @@ export class FormComponent implements OnInit, OnChanges {
       });                                   
 
     }
+  }
+
+  selectProgram(program: MaterialAutoCompleteOption): void {
+    this.yearLevelsFiltered = this.yearLevels.filter( o => o.value <= program.object.no_of_years);  
   }
 
 }

@@ -12,6 +12,14 @@
             placeholder="Type code"
             class="full-width">
         </app-material-input>
+        
+        <app-material-input 
+            [control]="form.controls.no_of_years" 
+            label="Number of Years"
+            placeholder="Type number of years required by this program"
+            class="full-width">
+        </app-material-input>
+
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary" [disabled]="loading || form.invalid" (click)="save()"><mat-icon>save</mat-icon> {{ loading ? 'Saving...' : 'Save' }}</button>

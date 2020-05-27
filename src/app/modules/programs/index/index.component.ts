@@ -52,8 +52,8 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     breakpoint.observe(Breakpoints.Handset).subscribe( state => {
       this.displayedColumns = state.matches
-                                ? [ 'name' ]
-                                : [ 'name', 'code', 'student_count' ]
+                                ? [ 'name', 'view']
+                                : [ 'name', 'code', 'student_count', 'view' ]
     });
   }
 

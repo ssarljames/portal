@@ -27,7 +27,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<Student> = new MatTableDataSource();
 
-  columnDefinitions: string[] = [ 'fullname', 'id_number', 'program', 'created_at' ];
+  columnDefinitions: string[] = [ 'fullname', 'id_number', 'program', 'created_at', 'view' ];
 
   visibleColumns: string[];
 
@@ -60,7 +60,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
     breakpointObserver.observe(Breakpoints.Handset).subscribe(result => {
       this.visibleColumns = result.matches
-                              ? [ 'fullname', 'program']
+                              ? [ 'fullname', 'view']
                               : this.columnDefinitions;
     })
   }

@@ -32,7 +32,7 @@
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                 <mat-cell *matCellDef="let program">
-                    <a [routerLink]="program.id">{{ program.name }}</a>
+                    {{ program.name }}
                 </mat-cell>
             </ng-container>
 
@@ -51,8 +51,17 @@
                 </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="view">
+                <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                <mat-cell *matCellDef="let program">
+                    <button mat-icon-button [routerLink]="program.id">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row matRipple *matRowDef="let program; columns: displayedColumns" (dblclick)="view(program)"></mat-row>
+            <mat-row matRipple *matRowDef="let program; columns: displayedColumns"></mat-row>
         </table>
 
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>

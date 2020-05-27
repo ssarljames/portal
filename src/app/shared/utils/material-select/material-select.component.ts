@@ -20,6 +20,7 @@ export class MaterialSelectComponent implements OnInit {
   @Input() placeholder: string;
   @Input() icon: string;
   @Input() required: boolean = false;
+  @Input() disabled: boolean = false;
 
   @Input() selected: any;
 
@@ -29,7 +30,7 @@ export class MaterialSelectComponent implements OnInit {
   ngOnInit(): void {
     this.placeholder = this.placeholder ? this.placeholder : this.label ;
     this.label = this.label ? this.label : this.placeholder ;
-    this.appearance = this.appearance ? this.appearance : 'standard';
+    this.appearance = this.appearance ? this.appearance : 'standard';    
   }
 
 }

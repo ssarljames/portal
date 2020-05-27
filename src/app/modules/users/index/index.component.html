@@ -1,7 +1,16 @@
-<h1>
-    <i class="fa fa-users"></i> Users
-    <a mat-raised-button color="primary" routerLink="/users/create" rou>New</a>
-</h1>
+<div class="row">
+    <div class="col-sm-6">
+        <h1>
+            <mat-icon>user</mat-icon>
+            Users
+        </h1>
+    </div>
+    <div class="col-sm-6 text-right">
+        <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon> Create</button>
+    </div>
+</div>
+
+
 <mat-card>
     <mat-card-header>
         <mat-form-field *ngIf="isLoading == false">

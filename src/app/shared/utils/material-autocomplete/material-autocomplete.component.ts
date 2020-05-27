@@ -9,6 +9,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 export interface MaterialAutoCompleteOption {
   value: any;
   label: string;
+  object?: any;
 }
 
 export interface MaterialAutocompleteFetchOption {
@@ -35,6 +36,7 @@ export class MaterialAutocompleteComponent implements OnInit, OnDestroy, OnChang
   @Input() defaultValue: MaterialAutoCompleteOption;
 
   @Output() onSelect: EventEmitter<any> =  new EventEmitter();
+  @Output() onSelectOption: EventEmitter<MaterialAutoCompleteOption> =  new EventEmitter();
 
   // @ViewChild('searchInput') searchInput: HTMLInputElement;
 
@@ -132,6 +134,7 @@ export class MaterialAutocompleteComponent implements OnInit, OnDestroy, OnChang
       this.search.setValue('');
     }
     this.onSelect.emit(e.option.value);
+    this.onSelectOption.emit( this.options.find( o => o.value == e.option.value));
     this.options = [];
   }
 

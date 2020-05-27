@@ -24,7 +24,8 @@ export class FormComponent implements OnInit {
   constructor(private programService: ProgramService) {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
-      code: new FormControl('', Validators.required)
+      code: new FormControl('', Validators.required),
+      no_of_years: new FormControl('', Validators.required)
     });
 
     this.onSaved = new EventEmitter();
@@ -34,7 +35,8 @@ export class FormComponent implements OnInit {
     if(this.program)
       this.form.setValue({
         name: this.program.name,
-        code: this.program.code
+        code: this.program.code,
+        no_of_years: this.program.no_of_years
       });
 
     this.init = true;
@@ -47,6 +49,7 @@ export class FormComponent implements OnInit {
         id: this.program ? this.program.id : null,
         name: this.form.controls.name.value,
         code: this.form.controls.code.value,
+        no_of_years: this.form.controls.no_of_years.value
       }
 
       const request: Observable<Program> = this.program 

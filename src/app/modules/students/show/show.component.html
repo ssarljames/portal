@@ -16,6 +16,14 @@
                         <span class="flex-spacer"></span>
                         {{ student.fullname }}
                     </mat-list-item>
+                    <mat-list-item>
+                        <span class="text-muted">Program</span>
+                        <span class="flex-spacer"></span>
+                        <a *ngIf="student.program" [routerLink]="['/programs', student.program.id]">
+                            {{ student.program.code }}
+                        </a>
+                        <span class="text-muted" *ngIf="student.program == null">N/A</span>
+                    </mat-list-item>
                 </mat-list>
             </mat-card-content>
             <mat-card-actions align="end">

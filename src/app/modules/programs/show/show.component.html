@@ -18,9 +18,14 @@
                             {{ program.code }}
                         </mat-list-item>
                         <mat-list-item>
+                            <span class="text-muted">Years to Complete</span>
+                            <span class="flex-spacer"></span>
+                            {{ program.no_of_years }} {{ program.no_of_years > 1 ? 'years' : 'year' }}
+                        </mat-list-item>
+                        <mat-list-item>
                             <span class="text-muted">Enrolled Students</span>
                             <span class="flex-spacer"></span>
-                            {{ program.student_count }}
+                            {{ program.student_count }} students
                         </mat-list-item>
                     </mat-list>
                 </mat-card-content>

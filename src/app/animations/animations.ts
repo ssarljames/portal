@@ -3,7 +3,7 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
 
 export const fetchAnimation = trigger('fetch', [
                           state('fetching', style({
-                            opacity: 0.1,
+                            opacity: 0.3,
                           })),
                           state('done', style({
                             opacity: 1,

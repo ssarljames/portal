@@ -34,7 +34,7 @@
             <ng-container matColumnDef="fullname">
                 <mat-header-cell *matHeaderCellDef>Fullname</mat-header-cell>
                 <mat-cell *matCellDef="let student">
-                    <a [routerLink]="student.id">{{ student.fullname | titlecase }}</a>
+                    {{ student.fullname | titlecase }}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="program">
@@ -52,9 +52,17 @@
                     {{ student.created_at | parseDate | dfnsDistanceInWordsToNow }} ago
                 </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="view">
+                <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                <mat-cell *matCellDef="let student">
+                    <button mat-icon-button [routerLink]="student.id">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
 
             <mat-header-row *matHeaderRowDef="visibleColumns"></mat-header-row>
-            <mat-row *matRowDef="let student; columns: visibleColumns" mat-ripple (dblclick)="selectStudent(student)"></mat-row>
+            <mat-row *matRowDef="let student; columns: visibleColumns" mat-ripple></mat-row>
 
         </table>
 

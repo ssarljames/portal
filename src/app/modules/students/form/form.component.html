@@ -4,9 +4,9 @@
     </mat-card-header>
     <mat-card-content>
         <app-material-input class="full-width" [control]="form.controls.id_number" label="ID Number"></app-material-input>
-        <app-material-input class="full-width" [control]="form.controls.lastname" label="Lastname"></app-material-input>
-        <app-material-input class="full-width" [control]="form.controls.firstname" label="Firstname"></app-material-input>
-        <app-material-input class="full-width" [control]="form.controls.middlename" label="Middlename"></app-material-input>
+        <app-material-input class="full-width" [control]="form.controls.lastname" label="Last Name"></app-material-input>
+        <app-material-input class="full-width" [control]="form.controls.firstname" label="First Name"></app-material-input>
+        <app-material-input class="full-width" [control]="form.controls.middlename" label="Middle Name"></app-material-input>
 
 
         <app-material-autocomplete class="full-width"
@@ -14,15 +14,18 @@
             label="Program"
             [defaultValue]="defaultProgram"
             placeholder="Search program"
-            [fetch]="fetchProgram">
+            [fetch]="fetchProgram"
+            (onSelectOption)="selectProgram($event)"
+            >
         </app-material-autocomplete>
 
 
         <app-material-select required="true" class="full-width"
+            [disabled]="!form.controls.program_id.value"
             [control]="form.controls.year_level"
             label="Year Level"
             placeholder="Select year level"
-            [options]="yearLevels">
+            [options]="yearLevelsFiltered">
         </app-material-select>
 
     </mat-card-content>
