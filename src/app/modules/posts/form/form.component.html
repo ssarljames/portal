@@ -6,7 +6,11 @@
         <app-material-input [control]="form.controls.title" label="Title" class="full-width"></app-material-input>
 
 
-        <ckeditor class="text-dark" [editor]="editor" [config]="editorConfig"  [formControl]="form.controls.content"></ckeditor>
+        <ckeditor class="text-dark" 
+            [editor]="editor" 
+            [config]="editorConfig"  
+            [formControl]="form.controls.content">
+        </ckeditor>
         <mat-error *ngIf="form.controls.content.errors">{{ form.controls.content.errors }}</mat-error>
     
     </mat-card-content>

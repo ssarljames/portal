@@ -8,6 +8,12 @@ import { FormGroup } from 'src/app/core/utils/form-group/form-group';
 import { FormControl } from '@angular/forms';
 import { Post } from 'src/app/models/post/post';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpShowResponse } from 'src/app/core/services/resource/resource.service';
+import { map } from 'rxjs/operators';
+
+let http: HttpClient = null;
 
 @Component({
   selector: 'app-post-form',
@@ -27,12 +33,22 @@ export class FormComponent implements OnInit {
   saving: boolean = false;
 
   editorConfig = {
-    placeholder: 'Content here...'
+    placeholder: 'Content here...',
+    extraPlugins: [ this.TheUploadAdapterPlugin ]
   };
 
   constructor(private postService: PostService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private _http: HttpClient) {
 
+                http = _http;
+
+  }
+
+  TheUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return new UploadAdapter(loader, http, `${environment.endpoint}/upload`);
+    };
   }
 
   ngOnInit(): void {
@@ -43,6 +59,14 @@ export class FormComponent implements OnInit {
       valid_until: new FormControl(this.post ? this.post.valid_until : ''),
       type: new FormControl(this.post ? this.post.type : '')
     });
+
+    console.log(ClassicEditor);
+    
+
+    // this.editor.plugins.get( 'FileRepository' ).createUploadAdapter = loader => {
+    //   return new MyUploadAdapter( loader );
+    // };
+
   }
 
   save(): void{
@@ -67,4 +91,42 @@ export class FormComponent implements OnInit {
       );
     }
   }
+}
+
+class UploadAdapter {
+
+  constructor(private loader: any, 
+              private http: HttpClient, 
+              private url: string) {
+  }
+
+  upload() {
+
+    
+    return this.loader.file
+
+    
+        .then( file => new Promise( ( resolve, reject ) => {
+
+
+          const form = new FormData();
+          form.append('image', file);
+          form.append('type', 'post');
+
+          this.http.post<HttpShowResponse>(this.url, form).subscribe( response => {
+            
+
+            resolve({ 
+              default: response.data.image_url
+            });
+
+          });
+
+        } ) );
+  }
+
+  abort() {
+    console.log('UploadAdapter abort');
+  }
+
 }

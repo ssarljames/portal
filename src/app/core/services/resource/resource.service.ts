@@ -65,7 +65,6 @@ export class ResourceService<T extends Model> {
       }
   }
 
-
   public getResourceURI(){
     return `${this.host}/${this.resource}`;
   }
