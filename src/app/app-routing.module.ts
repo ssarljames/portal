@@ -4,9 +4,7 @@ import { PageNotFoundComponent } from './layout/errors/page-not-found/page-not-f
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticatedPageComponent } from './layout/authenticated-page/authenticated-page.component';
-import { IndexComponent } from './layout/index/index.component';
 import { GuestPageComponent } from './layout/guest-page/guest-page.component';
-import { environment } from 'src/environments/environment';
 
 
 const routes: Routes = [
@@ -53,6 +51,12 @@ const routes: Routes = [
     component: AuthenticatedPageComponent,
     canActivate: [ AuthenticatedGuard ],
     loadChildren: () => import(`./modules/colleges/colleges.module`).then(m => m.CollegesModule)
+  },
+  {
+    path: 'departments',
+    component: AuthenticatedPageComponent,
+    canActivate: [ AuthenticatedGuard ],
+    loadChildren: () => import(`./modules/departments/departments.module`).then(m => m.DepartmentsModule)
   },
   {
     path: 'service-transactions',

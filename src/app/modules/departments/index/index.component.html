@@ -2,11 +2,11 @@
     <div class="col-sm-6">
         <h1>
             <mat-icon>business</mat-icon>
-            Colleges
+            Departments
         </h1>
     </div>
     <div class="col-sm-6 text-right">
-        <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon> New College</button>
+        <button mat-raised-button routerLink="create"><mat-icon>add</mat-icon> New Department</button>
     </div>
 </div>
 
@@ -21,7 +21,7 @@
                         [pageSize]="meta.per_page"
                         [pageIndex]="meta.current_page - 1"
                         [pageSizeOptions]="[5, 10, 25, 100]"
-                        (page)="fetchColleges($event)">
+                        (page)="fetchDepartments($event)">
                 </mat-paginator>
             </div>
         </div>
@@ -31,36 +31,29 @@
 
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                <mat-cell *matCellDef="let college">
-                    {{ college.name }}
+                <mat-cell *matCellDef="let department">
+                    {{ department.name }}
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="code">
                 <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
-                <mat-cell *matCellDef="let college">
-                    {{ college.code }}
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="departments">
-                <mat-header-cell *matHeaderCellDef>Departments</mat-header-cell>
-                <mat-cell *matCellDef="let college">
-                    <a *ngFor="let department of college.departments" class="mr-1" [routerLink]="['/departments', department.id]">{{ department.code }}</a>
+                <mat-cell *matCellDef="let department">
+                    {{ department.code }}
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="view">
                 <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-                <mat-cell *matCellDef="let college">
-                    <button mat-icon-button [routerLink]="college.id">
+                <mat-cell *matCellDef="let department">
+                    <button mat-icon-button [routerLink]="department.id">
                         <mat-icon>keyboard_arrow_right</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row matRipple *matRowDef="let college; columns: displayedColumns"></mat-row>
+            <mat-row matRipple *matRowDef="let department; columns: displayedColumns"></mat-row>
         </table>
 
         <app-ellipis-loading *ngIf="loading"></app-ellipis-loading>

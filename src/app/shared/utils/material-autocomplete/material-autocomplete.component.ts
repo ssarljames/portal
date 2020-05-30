@@ -81,6 +81,7 @@ export class MaterialAutocompleteComponent implements OnInit, OnDestroy, OnChang
           this.options = this.fetch.mapResult(response);
         else
           this.options = [];
+          
         this.isLoading = false;
       });
     }

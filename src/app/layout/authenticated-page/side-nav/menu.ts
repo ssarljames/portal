@@ -27,6 +27,12 @@ export const MENU: NavItem[] = [
       permission: null
     },
     {
+      displayName: 'Departments',
+      iconName: 'business',
+      route: '/departments',
+      permission: null
+    },
+    {
       displayName: 'Posting',
       iconName: 'developer_board',
       route: '/posts',

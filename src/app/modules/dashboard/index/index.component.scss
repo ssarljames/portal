@@ -1,27 +1,24 @@
-.card-header{
-    
-    margin-top: -30px !important;
-    margin-bottom: 20px !important;
-    min-height: 30px;
-
-    background: yellow;
-    color: #111;
-
-    border: none !important;
-
-    display: block;
-    width: fit-content;
-
-    border-radius: 5px !important;
-
-}
-
 
 .card-category{
     color: #8c8c8c !important;
 }
 
-.card-title{
-    font-size: 30px;
-    font-weight: bolder;
+.data-count{
+    mat-icon, .detail{
+        display: inline-block !important;
+    }
+
+    mat-icon{
+        font-size: 50px;
+        width: 50px;
+        margin-right: 10px;
+        -webkit-text-stroke-width: 0.02em;
+        -webkit-text-stroke-color: black;
+        color: yellow;
+    }
+}
+
+mat-card{
+    border-radius: 5px !important;
+    margin: 5px;
 }

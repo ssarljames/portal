@@ -1,17 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponseMeta, HttpCollectionResponse } from 'src/app/core/services/resource/resource.service';
 import { PageEvent } from '@angular/material/paginator';
-import { CollegeService } from 'src/app/services/college/college.service';
+import { DepartmentService } from 'src/app/services/department/department.service';
 import { StateService } from 'src/app/core/services/state/state.service';
 import { BehaviorSubject } from 'rxjs';
-import { College } from 'src/app/models/college/college';
+import { Department } from 'src/app/models/department/department';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { fetchAnimation } from 'src/app/animations/animations';
 import { debounceTime } from 'rxjs/operators';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
-interface CollegeFilter {
+interface DepartmentFilter {
   q: FormControl;
 }
 
@@ -28,60 +27,53 @@ export class IndexComponent implements OnInit, OnDestroy {
     per_page: 15
   };
 
-  filter: CollegeFilter = {
+  filter: DepartmentFilter = {
     q: new FormControl('')
   }
 
   loading: boolean = false;
 
-  source: MatTableDataSource<College>;
+  source: MatTableDataSource<Department>;
 
-  subject: BehaviorSubject<College[]>;
+  subject: BehaviorSubject<Department[]>;
 
-  displayedColumns: string[] = ['name', 'code', 'departments', 'view'];
+  displayedColumns: string[] = ['name', 'code', 'view'];
 
-  constructor(private collegeService: CollegeService,
-              private stateService: StateService,
-              private breakpointObserver: BreakpointObserver) {
+  constructor(private departmentService: DepartmentService,
+              private stateService: StateService) {
 
 
-    this.source = new MatTableDataSource(this.stateService.get('colleges') ?? []);
+    this.source = new MatTableDataSource(this.stateService.get('departments') ?? []);
     this.subject = this.source.connect();
-
-    this.breakpointObserver.observe(Breakpoints.Handset).subscribe( state => {
-      this.displayedColumns = state.matches
-                                ? ['code', 'view']
-                                : ['name', 'code', 'departments', 'view']
-    })
 
 
   }
 
   ngOnInit(): void {
 
-    this.meta = this.stateService.get('colleges.meta') ?? this.meta;
-    this.filter.q.setValue( this.stateService.get('college.filter') ?? '');
+    this.meta = this.stateService.get('departments.meta') ?? this.meta;
+    this.filter.q.setValue( this.stateService.get('department.filter') ?? '');
 
-    this.fetchColleges();
+    this.fetchDepartments();
 
 
     this.filter.q.valueChanges.pipe(
       debounceTime(300)
     ).subscribe( q => {
-      this.fetchColleges();
+      this.fetchDepartments();
     });
   }
 
   ngOnDestroy(): void {
     this.subject.unsubscribe();
-    this.stateService.set('colleges', this.source.data);
-    this.stateService.set('colleges.meta', this.meta);
-    this.stateService.set('college.filter', this.filter.q.value);
+    this.stateService.set('departments', this.source.data);
+    this.stateService.set('departments.meta', this.meta);
+    this.stateService.set('department.filter', this.filter.q.value);
   }
   
-  fetchColleges(page: PageEvent = null): void {
+  fetchDepartments(page: PageEvent = null): void {
     this.loading = true;
-    this.collegeService.queryWithMeta({
+    this.departmentService.queryWithMeta({
       params: {
         page: page ? page.pageIndex + 1 : 1,
         per_page: page ? page.pageSize : 15,

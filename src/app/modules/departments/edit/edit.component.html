@@ -1,0 +1,7 @@
+<h1>Edit Department</h1>
+
+<div class="row" *ngIf="department">
+    <div class="col-sm-4">
+        <app-department-form [department]="department" (onSaved)="saved($event)"></app-department-form>
+    </div>
+</div>

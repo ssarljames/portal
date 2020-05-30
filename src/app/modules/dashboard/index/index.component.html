@@ -2,50 +2,43 @@
 <h1>Dashboard</h1>
 
 <mat-divider></mat-divider>
-<br><br>
+<br>
 
 <div class="row">
     <div class="col-sm-6 col-lg-3 col-md-4">
-        <mat-card class="text-center">
-
-            <div class="card-header">
-                <mat-icon>school</mat-icon>
+        <mat-card matRipple class="data-count">
+            <mat-icon>supervisor_account</mat-icon>
+            <div class="detail">
+                <h1 class="m-0">{{ (!loaded ? randomNumber : dashboardState.students) | number }}</h1>
+                <span class="card-category">Students</span>
             </div>
-
-            <h1 class="card-title" [innerHTML]="(!loaded ? randomNumber : dashboardState.programs) | number"></h1>
-            <span class="card-category">Programs</span>
         </mat-card>
     </div>
     <div class="col-sm-6 col-lg-3 col-md-4">
-        <mat-card class="text-center">
-
-            <div class="card-header">
-                <mat-icon>supervised_user_circle</mat-icon>
+        <mat-card matRipple class="data-count">
+            <mat-icon>school</mat-icon>
+            <div class="detail">
+                <h1 class="m-0">{{ (!loaded ? randomNumber : dashboardState.programs) | number }}</h1>
+                <span class="card-category">Programs</span>
             </div>
-
-            <h1 class="card-title">{{ (!loaded ? randomNumber : dashboardState.students) | number }}</h1>
-            <span class="card-category">Student Accounts</span>
         </mat-card>
     </div>
     <div class="col-sm-6 col-lg-3 col-md-4">
-        <mat-card class="text-center">
-
-            <div class="card-header">
-                <mat-icon>event</mat-icon>
+        <mat-card matRipple class="data-count">
+            <mat-icon>event</mat-icon>
+            <div class="detail">
+                <h1 class="m-0">{{ (!loaded ? randomNumber : dashboardState.events) | number }}</h1>
+                <span class="card-category">Events</span>
             </div>
-
-            <h1 class="card-title">{{ (!loaded ? randomNumber : dashboardState.events) | number }}</h1>
-            <span class="card-category">Events</span>
         </mat-card>
     </div>
     <div class="col-sm-6 col-lg-3 col-md-4">
-        <mat-card class="text-center">
-
-            <div class="card-header">
-                <mat-icon>developer_board</mat-icon>
+        <mat-card matRipple class="data-count">
+            <mat-icon>developer_board</mat-icon>
+            <div class="detail">
+                <h1 class="m-0">{{ (!loaded ? randomNumber : dashboardState.posts) | number }}</h1>
+                <span class="card-category">Posts</span>
             </div>
-            <h1 class="card-title">{{ (!loaded ? randomNumber : dashboardState.posts) | number }}</h1>
-            <span class="card-category">Posts</span>
         </mat-card>
     </div>
 </div>
