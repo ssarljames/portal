@@ -13,6 +13,8 @@ interface DashboardState{
   posts: number;
   semester: string;
   programs: number;
+  colleges: number;
+  departments: number;
 }
 
 @Component({
@@ -49,7 +51,9 @@ export class IndexComponent implements OnInit, OnDestroy {
       students: -1,
       events: -1,
       posts: -1,
-      programs: -1
+      programs: -1,
+      colleges: -1,
+      departments: -1
     };
 
     this.loaded = this.stateService.get('dashboard_counts')  ? true : false;

@@ -4,6 +4,12 @@
 .mat-column-view{
     width: 10% !important;
     flex: 0 0 10% !important;
+
+    @media screen and (max-width: 400px){
+        width: 30% !important;
+        flex: 0 0 30% !important;
+    }
+
 }
 
 

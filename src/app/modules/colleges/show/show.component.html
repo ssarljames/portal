@@ -9,14 +9,19 @@
             <mat-card-content>
                 <mat-list>
                     <mat-list-item>
-                        <span class="text-muted">College Name</span>
-                        <span class="flex-spacer"></span>
-                        {{ college.name }}
+                        <mat-icon mat-list-icon>info</mat-icon>
+                        <h4 mat-line>{{ college.name }}</h4>
+                        <span mat-line class="text-muted">College Name</span>
                     </mat-list-item>
                     <mat-list-item>
-                        <span class="text-muted">Code</span>
-                        <span class="flex-spacer"></span>
-                        {{ college.code }}
+                        <mat-icon mat-list-icon>info</mat-icon>
+                        <h4 mat-line>{{ college.name }}</h4>
+                        <span mat-line class="text-muted">College Code</span>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon mat-list-icon>info</mat-icon>
+                        <h4 mat-line>{{ college.departments.length | formatNumber }}</h4>
+                        <span mat-line class="text-muted">No. of Departments</span>
                     </mat-list-item>
                 </mat-list>
             </mat-card-content>

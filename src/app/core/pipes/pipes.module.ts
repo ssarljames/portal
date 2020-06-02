@@ -8,6 +8,7 @@ import { IsFuturePipe } from './is-future/is-future.pipe';
 import { IsTodayPipe } from './is-today/is-today.pipe';
 import { FindPipe } from './find/find.pipe';
 import { HasPermissionPipe } from './has-permission/has-permission.pipe';
+import { FormatNumberPipe } from './format-number/format-number.pipe';
 
 
 
@@ -19,7 +20,8 @@ import { HasPermissionPipe } from './has-permission/has-permission.pipe';
     IsFuturePipe,
     IsTodayPipe,
     FindPipe,
-    HasPermissionPipe
+    HasPermissionPipe,
+    FormatNumberPipe
   ],
   imports: [
     CommonModule
@@ -31,7 +33,8 @@ import { HasPermissionPipe } from './has-permission/has-permission.pipe';
     IsFuturePipe,
     IsTodayPipe,
     FindPipe,
-    HasPermissionPipe
+    HasPermissionPipe,
+    FormatNumberPipe
   ]
 })
 export class PipesModule { }

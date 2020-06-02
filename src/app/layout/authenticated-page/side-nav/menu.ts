@@ -21,15 +21,15 @@ export const MENU: NavItem[] = [
       permission: null
     },
     {
-      displayName: 'Colleges',
-      iconName: 'business',
-      route: '/colleges',
-      permission: null
-    },
-    {
       displayName: 'Departments',
       iconName: 'business',
       route: '/departments',
+      permission: null
+    },
+    {
+      displayName: 'Colleges',
+      iconName: 'business',
+      route: '/colleges',
       permission: null
     },
     {

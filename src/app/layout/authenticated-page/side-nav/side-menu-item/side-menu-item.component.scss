@@ -16,6 +16,7 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
     width: 100%;
     .mat-list-item.active {
       background: rgba(0, 0, 0, 0.10) !important;
+      border-left: 5px solid yellow;
     }
     &:hover,
     &:focus {

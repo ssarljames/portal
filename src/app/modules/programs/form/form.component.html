@@ -20,6 +20,16 @@
             class="full-width">
         </app-material-input>
 
+        <app-material-autocomplete class="full-width"
+            [control]="form.controls.department_id"
+            label="Department"
+            [defaultValue]="defaultDepartment"
+            placeholder="Search department"
+            [fetch]="fetchDepartment"
+            (onSelectOption)="selectDepartment($event)"
+            >
+        </app-material-autocomplete>
+
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-raised-button color="primary" [disabled]="loading || form.invalid" (click)="save()"><mat-icon>save</mat-icon> {{ loading ? 'Saving...' : 'Save' }}</button>

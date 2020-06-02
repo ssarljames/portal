@@ -1,7 +1,7 @@
 <h1>Edit Program</h1>
 
 <div class="row" *ngIf="program">
-    <div class="col-lg-4">
+    <div class="col-lg-6 col-md-8">
         <app-program-form [program]="program" (onSaved)="onSaved($event)"></app-program-form>
     </div>
 </div>

@@ -30,7 +30,7 @@
         <table mat-table [dataSource]="source" [@fetch]="loading ? 'fetching':'done'">
 
             <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Program</mat-header-cell>
                 <mat-cell *matCellDef="let program">
                     {{ program.name }}
                 </mat-cell>
@@ -43,6 +43,13 @@
                 </mat-cell>
             </ng-container>
 
+
+            <ng-container matColumnDef="department">
+                <mat-header-cell *matHeaderCellDef>Department</mat-header-cell>
+                <mat-cell *matCellDef="let program">
+                    {{ program.department?.code }}
+                </mat-cell>
+            </ng-container>
 
             <ng-container matColumnDef="no_of_years">
                 <mat-header-cell *matHeaderCellDef>Years to Complete</mat-header-cell>

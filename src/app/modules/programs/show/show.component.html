@@ -8,24 +8,24 @@
                 <mat-card-content>
                     <mat-list>
                         <mat-list-item>
-                            <span class="text-muted">Name</span>
-                            <span class="flex-spacer"></span>
-                            {{ program.name }}
+                            <h4 mat-line>{{ program.name }}</h4>
+                            <span mat-line class="text-muted">Program Name</span>
                         </mat-list-item>
                         <mat-list-item>
-                            <span class="text-muted">Code</span>
-                            <span class="flex-spacer"></span>
-                            {{ program.code }}
+                            <h4 mat-line>{{ program.code }}</h4>
+                            <span mat-line class="text-muted">Program Code</span>
                         </mat-list-item>
                         <mat-list-item>
-                            <span class="text-muted">Years to Complete</span>
-                            <span class="flex-spacer"></span>
-                            {{ program.no_of_years }} {{ program.no_of_years > 1 ? 'years' : 'year' }}
+                            <h4 mat-line>{{ program.department?.name }}</h4>
+                            <span mat-line class="text-muted">Department</span>
                         </mat-list-item>
                         <mat-list-item>
-                            <span class="text-muted">Enrolled Students</span>
-                            <span class="flex-spacer"></span>
-                            {{ program.student_count }} students
+                            <h4 mat-line>{{ program.no_of_years }}</h4>
+                            <span mat-line class="text-muted">No. Years</span>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h4 mat-line>{{ program.student_count | formatNumber }}</h4>
+                            <span mat-line class="text-muted">Enrolled Students</span>
                         </mat-list-item>
                     </mat-list>
                 </mat-card-content>

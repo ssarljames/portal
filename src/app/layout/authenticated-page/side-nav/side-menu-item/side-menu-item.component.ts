@@ -66,8 +66,11 @@ export class SideMenuItemComponent implements OnInit, AfterViewInit {
       this.navService.currentUrl.subscribe((url: string) => {
         this.checkIfHasActiveChild(url);
         
-        if(this.isHandset && this.sidenav.opened && url && this.currentUrl != url)
+        if(url && this.isHandset && this.sidenav.opened && url && this.currentUrl != url){
           this.sidenav.toggle()
+          console.log('closed',url);
+          
+        }
 
         this.currentUrl = url ? url : this.currentUrl;
       });
