@@ -6,11 +6,12 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpCollectionResponse, HttpResponseMeta } from 'src/app/core/services/resource/resource.service';
 import { StateService } from 'src/app/core/services/state/state.service';
 import { fetchAnimation } from 'src/app/animations/animations';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { debounceTime } from 'rxjs/operators';
+import { ComponentDataFiltering } from 'src/app/core/components/data-filtering-component';
 
 interface ProgramFilter{
   q: FormControl;
@@ -22,7 +23,7 @@ interface ProgramFilter{
   styleUrls: ['./index.component.scss'],
   animations: [ fetchAnimation ]
 })
-export class IndexComponent implements OnInit, OnDestroy {
+export class IndexComponent extends ComponentDataFiltering {
 
 
   source: MatTableDataSource<Program>;
@@ -30,21 +31,13 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[];
 
-  meta: HttpResponseMeta = {
-    current_page: 1,
-    per_page: 15
-  };
-  
-  filter: ProgramFilter = {
-    q: new FormControl('')
-  }
-
-  loading: boolean = false;
-
   constructor(private programService: ProgramService,
               private stateService: StateService,
               private router: Router,
+              private activatedRoute: ActivatedRoute,
               breakpoint: BreakpointObserver) {
+
+    super('programs.index', stateService, activatedRoute, router);
 
     this.source = new MatTableDataSource([]);
     this.subject = this.source.connect();
@@ -58,37 +51,28 @@ export class IndexComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-
-    this.meta = this.stateService.get('programs.meta') ?? this.meta;
-    this.filter.q.setValue( this.stateService.get('programs.filter.q') ?? '');
-    
+  init(): void {
+    const programs: Program[] = this.getState('data', []) as Program[];
+    this.subject.next(programs);
     this.fetchPrograms();
-
-    this.filter.q.valueChanges.pipe(
-      debounceTime(300)
-    ).subscribe( q => {
-      this.fetchPrograms();
-    });
   }
 
-  ngOnDestroy(): void {
+  destroy(): void {
+    this.setState('data', this.subject.value);
     this.subject.unsubscribe();
-    this.stateService.set('programs.meta', this.meta);
-    this.stateService.set('programs.filter.q', this.filter.q.value); 
   }
 
-  fetchPrograms(page: PageEvent = null): void {
+  onResourceFetch(): void {
+    this.fetchPrograms();
+  }
+
+  fetchPrograms(): void {
     this.loading = true;
     this.programService.queryWithMeta({
-      params: {
-        page: page ? page.pageIndex + 1 : 1,
-        per_page: page ? page.pageSize : 15,
-        q: this.filter.q.value
-      }
+      params: this.queryParams
     }).subscribe( (response: HttpCollectionResponse) => {
       this.subject.next(response.data);
-      this.meta = response.meta;
+      this.setMeta(response.meta);
       this.loading = false;
     });
   }

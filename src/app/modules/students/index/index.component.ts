@@ -4,18 +4,15 @@ import { Student } from 'src/app/models/student/student';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { StudentService } from 'src/app/services/student/student.service';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { HttpCollectionResponse, HttpResponseMeta } from 'src/app/core/services/resource/resource.service';
+import { HttpCollectionResponse, HttpResponseMeta, UrlQueryParams } from 'src/app/core/services/resource/resource.service';
 import { PageEvent } from '@angular/material/paginator';
 import { StateService } from 'src/app/core/services/state/state.service';
 import { FormControl } from '@angular/forms';
-import { startWith, debounceTime } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { fetchAnimation } from 'src/app/animations/animations';
-
-interface StudentIndexFilter{
-  q: FormControl;
-}
+import { ComponentDataFiltering } from 'src/app/core/components/data-filtering-component';
 
 @Component({
   selector: 'app-index',
@@ -23,34 +20,25 @@ interface StudentIndexFilter{
   styleUrls: ['./index.component.scss'],
   animations: [fetchAnimation]
 })
-export class IndexComponent implements OnInit, OnDestroy {
+export class IndexComponent extends ComponentDataFiltering {
 
   dataSource: MatTableDataSource<Student> = new MatTableDataSource();
 
-  columnDefinitions: string[] = [ 'fullname', 'id_number', 'program', 'view' ];
+  columnDefinitions: string[] = [ 'fullname', 'id_number', 'program', 'year_level', 'view' ];
 
   visibleColumns: string[];
 
   subject: BehaviorSubject<Student[]>;
   susbcription: Subscription;
 
-  loading: boolean = false;
-
-  meta: HttpResponseMeta = {
-    current_page: 1,
-    per_page: 15
-  };
-
-  filter: StudentIndexFilter = {
-    q: new FormControl('')
-  }
-
-
   constructor(private studentService: StudentService,
               private store: Store<{students: Student[]}>,
               private router: Router,
               private breakpointObserver: BreakpointObserver,
-              private stateService: StateService) {
+              private stateService: StateService,
+              private activatedRoute: ActivatedRoute) {
+
+    super('students.index', stateService, activatedRoute, router);
 
     this.subject = this.dataSource.connect();
 
@@ -65,50 +53,30 @@ export class IndexComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnInit(): void {
-    this.meta = this.stateService.get('students.meta') ?? this.meta;
-    this.filter.q.setValue( this.stateService.get('students.filter.q') ?? '');
-   
-    this.fetchStudents({
-      pageIndex: this.meta.current_page - 1,
-      length: this.meta.total,
-      pageSize: this.meta.per_page
-    });
-
-
-    this.filter.q.valueChanges.pipe(
-      debounceTime(300)
-    ).subscribe( q => {
-      this.fetchStudents();
-    });
-
-
-
+  init(): void {
+    this.fetchStudents();    
   }
 
-  ngOnDestroy(): void{
+  destroy(): void {
     this.susbcription.unsubscribe();
     this.subject.unsubscribe();
-    this.stateService.set('students.meta', this.meta); 
-    this.stateService.set('students.filter.q', this.filter.q.value);
   }
 
-  fetchStudents(page: PageEvent = null): void{
+  onResourceFetch(): void {
+    this.fetchStudents();
+  }
 
+  fetchStudents(): void {
     this.loading = true;
     this.studentService.queryWithMeta({
-      params: {
-        page: page ? page.pageIndex + 1 : 1,
-        per_page: page ? page.pageSize : 15,
-        q: this.filter.q.value
-      }
+      params: this.queryParams
     }).subscribe( (response: HttpCollectionResponse) => {
       this.loading = false;
-      this.meta = response.meta;      
+      this.setMeta(response.meta)      
     });
   }
 
-  selectStudent(student: Student): void{
+  selectStudent(student: Student): void {
     setTimeout( () => {
       this.router.navigate(['/', 'students', student.id]);
     }, 100);

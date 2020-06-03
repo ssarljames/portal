@@ -14,14 +14,14 @@
     <mat-card-content>
         <div class="row m-0">
             <div class="col-md-6">
-                <app-material-input icon="search" [control]="filter.q" label="Search" class="full-width" placeholder="Type name, id etc..." ></app-material-input>
+                <app-material-input icon="search" [control]="search" label="Search" class="full-width" placeholder="Type name, id etc..." ></app-material-input>
             </div>
             <div class="col-md-6">
                 <mat-paginator [length]="meta.total"
                         [pageSize]="meta.per_page"
                         [pageIndex]="meta.current_page - 1"
                         [pageSizeOptions]="[5, 10, 25, 100]"
-                        (page)="fetchDepartments($event)">
+                        (page)="onPageChange($event)">
                 </mat-paginator>
             </div>
         </div>

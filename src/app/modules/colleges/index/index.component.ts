@@ -10,10 +10,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { fetchAnimation } from 'src/app/animations/animations';
 import { debounceTime } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ComponentDataFiltering } from 'src/app/core/components/data-filtering-component';
+import { Router, ActivatedRoute } from '@angular/router';
 
-interface CollegeFilter {
-  q: FormControl;
-}
 
 @Component({
   selector: 'app-index',
@@ -21,18 +20,7 @@ interface CollegeFilter {
   styleUrls: ['./index.component.scss'],
   animations: [ fetchAnimation ]
 })
-export class IndexComponent implements OnInit, OnDestroy {
-
-  meta: HttpResponseMeta = {
-    current_page: 1,
-    per_page: 15
-  };
-
-  filter: CollegeFilter = {
-    q: new FormControl('')
-  }
-
-  loading: boolean = false;
+export class IndexComponent extends ComponentDataFiltering {
 
   source: MatTableDataSource<College>;
 
@@ -42,8 +30,11 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   constructor(private collegeService: CollegeService,
               private stateService: StateService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
               private breakpointObserver: BreakpointObserver) {
 
+    super('colleges.index', stateService, activatedRoute, router);
 
     this.source = new MatTableDataSource(this.stateService.get('colleges') ?? []);
     this.subject = this.source.connect();
@@ -57,39 +48,28 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit(): void {
-
-    this.meta = this.stateService.get('colleges.meta') ?? this.meta;
-    this.filter.q.setValue( this.stateService.get('college.filter') ?? '');
-
+  init(): void {
+    const colleges: College[] = this.getState('data', []);
+    this.subject.next(colleges);
     this.fetchColleges();
-
-
-    this.filter.q.valueChanges.pipe(
-      debounceTime(300)
-    ).subscribe( q => {
-      this.fetchColleges();
-    });
   }
 
-  ngOnDestroy(): void {
+  destroy(): void {
+    this.setState('data', this.source.data);
     this.subject.unsubscribe();
-    this.stateService.set('colleges', this.source.data);
-    this.stateService.set('colleges.meta', this.meta);
-    this.stateService.set('college.filter', this.filter.q.value);
+  }
+
+  onResourceFetch(): void {
+    this.fetchColleges();
   }
   
-  fetchColleges(page: PageEvent = null): void {
+  fetchColleges(): void {
     this.loading = true;
     this.collegeService.queryWithMeta({
-      params: {
-        page: page ? page.pageIndex + 1 : 1,
-        per_page: page ? page.pageSize : 15,
-        q: this.filter.q.value
-      }
+      params: this.queryParams
     }).subscribe( (response: HttpCollectionResponse) => {
       this.subject.next(response.data);
-      this.meta = response.meta;
+      this.setMeta(response.meta);
       this.loading = false;
     });
   }

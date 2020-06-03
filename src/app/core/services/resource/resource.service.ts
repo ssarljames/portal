@@ -20,14 +20,22 @@ export interface HttpResponseLinks{
   prev: string;
 }
 
+export interface UrlQueryParams {
+  page: number
+  per_page: number;
+  q: string;
+  sort_by?: string;
+  sort_dir?: string;
+}
+
 export interface HttpResponseMeta {
 
   path?: string;
   total?: number;
-  per_page: number;
+  per_page?: number;
   from?: number;
   to?: number;
-  current_page: number;
+  current_page?: number;
   last_page?: number;
 
 }

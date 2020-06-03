@@ -11,36 +11,51 @@
     <mat-card-content>
         <div class="row m-0">
             <div class="col-md-6">
-                <app-material-input icon="search" [control]="filter.q" label="Search" class="full-width" placeholder="Type name, id etc..." ></app-material-input>
+                <app-material-input icon="search" [control]="search" label="Search" class="full-width" placeholder="Type name, id etc..." ></app-material-input>
             </div>
             <div class="col-md-6">
                 <mat-paginator [length]="meta.total"
                         [pageSize]="meta.per_page"
                         [pageIndex]="meta.current_page - 1"
                         [pageSizeOptions]="[5, 10, 25, 100]"
-                        (page)="fetchStudents($event)">
+                        (page)="onPageChange($event)">
                 </mat-paginator>
             </div>
         </div>
 
-        <table mat-table [dataSource]="dataSource" [@fetch]="loading ? 'fetching':'done'">
+        <table matSort 
+            [matSortActive]="queryParams.sort_by" 
+            [matSortDirection]="queryParams.sort_dir" 
+            (matSortChange)="onSort($event)" 
+            mat-table 
+            [dataSource]="dataSource" 
+            [@fetch]="loading ? 'fetching':'done'">
 
             <ng-container matColumnDef="id_number">
-                <mat-header-cell *matHeaderCellDef>ID Number</mat-header-cell>
+                <mat-header-cell mat-sort-header *matHeaderCellDef>ID Number</mat-header-cell>
                 <mat-cell *matCellDef="let student">
                     {{ student.id_number | titlecase }}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="fullname">
-                <mat-header-cell *matHeaderCellDef>Fullname</mat-header-cell>
+                <mat-header-cell mat-sort-header *matHeaderCellDef>Fullname</mat-header-cell>
                 <mat-cell *matCellDef="let student">
                     {{ student.fullname | titlecase }}
                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="program">
-                <mat-header-cell *matHeaderCellDef>Program</mat-header-cell>
+                <mat-header-cell mat-sort-header *matHeaderCellDef>Program</mat-header-cell>
                 <mat-cell *matCellDef="let student">
-                    <span *ngIf="student.program; else noProgram">{{ student.program.code }}-{{ student.year_level }}</span>
+                    <span *ngIf="student.program; else noProgram">{{ student.program.code }}</span>
+                    <ng-template #noProgram >
+                        <span class="text-muted">N/A</span>
+                    </ng-template>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="year_level">
+                <mat-header-cell mat-sort-header *matHeaderCellDef>Year Level</mat-header-cell>
+                <mat-cell *matCellDef="let student">
+                    <span *ngIf="student.program; else noProgram">{{ student.year_level }}</span>
                     <ng-template #noProgram >
                         <span class="text-muted">N/A</span>
                     </ng-template>

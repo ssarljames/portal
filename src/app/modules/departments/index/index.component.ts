@@ -9,10 +9,8 @@ import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { fetchAnimation } from 'src/app/animations/animations';
 import { debounceTime } from 'rxjs/operators';
-
-interface DepartmentFilter {
-  q: FormControl;
-}
+import { ComponentDataFiltering } from 'src/app/core/components/data-filtering-component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -20,18 +18,7 @@ interface DepartmentFilter {
   styleUrls: ['./index.component.scss'],
   animations: [ fetchAnimation ]
 })
-export class IndexComponent implements OnInit, OnDestroy {
-
-  meta: HttpResponseMeta = {
-    current_page: 1,
-    per_page: 15
-  };
-
-  filter: DepartmentFilter = {
-    q: new FormControl('')
-  }
-
-  loading: boolean = false;
+export class IndexComponent extends ComponentDataFiltering {
 
   source: MatTableDataSource<Department>;
 
@@ -40,48 +27,38 @@ export class IndexComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'code', 'view'];
 
   constructor(private departmentService: DepartmentService,
-              private stateService: StateService) {
+              private stateService: StateService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
 
+    super('departments.index', stateService, activatedRoute, router);
 
     this.source = new MatTableDataSource(this.stateService.get('departments') ?? []);
     this.subject = this.source.connect();
-
-
   }
 
-  ngOnInit(): void {
-
-    this.meta = this.stateService.get('departments.meta') ?? this.meta;
-    this.filter.q.setValue( this.stateService.get('department.filter') ?? '');
-
+  init(): void {
+    const departments: Department[] = this.getState('data', []);
+    this.subject.next( departments );
     this.fetchDepartments();
-
-
-    this.filter.q.valueChanges.pipe(
-      debounceTime(300)
-    ).subscribe( q => {
-      this.fetchDepartments();
-    });
   }
 
-  ngOnDestroy(): void {
+  destroy(): void {
+    this.setState('data', this.subject.value);
     this.subject.unsubscribe();
-    this.stateService.set('departments', this.source.data);
-    this.stateService.set('departments.meta', this.meta);
-    this.stateService.set('department.filter', this.filter.q.value);
+  }
+
+  onResourceFetch(): void {
+    this.fetchDepartments();
   }
   
-  fetchDepartments(page: PageEvent = null): void {
+  fetchDepartments(): void {
     this.loading = true;
     this.departmentService.queryWithMeta({
-      params: {
-        page: page ? page.pageIndex + 1 : 1,
-        per_page: page ? page.pageSize : 15,
-        q: this.filter.q.value
-      }
+      params: this.queryParams
     }).subscribe( (response: HttpCollectionResponse) => {
       this.subject.next(response.data);
-      this.meta = response.meta;
+      this.setMeta(response.meta);
       this.loading = false;
     });
   }
